@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/amaxilat/ehr_client.svg?branch=master)](https://travis-ci.org/amaxilat/ehr_client)
+
 # ehr_client
 
 A Java Client for the FI-STAR [Electronic Health Record](http://fistarcatalogue.fiware.eng.it/enablers/ehr) (EHR) specific enabler.
