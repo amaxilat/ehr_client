@@ -6,4 +6,4 @@ jdk:
 script: mvn clean install -Dmaven.javadoc.skip=false
 
 after_success:
-- .utility/push-javadoc-to-gh-pages.sh
+  - .utility/push-javadoc-to-gh-page.sh
