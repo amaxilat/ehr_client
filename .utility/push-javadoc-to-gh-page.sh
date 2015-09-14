@@ -1,10 +1,10 @@
 #!/bin/bash
 
 if [ "$TRAVIS_BRANCH" == "master" ]; then
-
+  HOME=/home/travis/build/amaxilat/ehr_client
   echo -e "Publishing javadoc...\n"
 
-  cp -R target/site/apidocs/ $HOME/javadoc-latest
+  cp -R $HOME/target/site/apidocs/ $HOME/javadoc-latest
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
