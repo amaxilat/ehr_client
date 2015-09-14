@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ "$TRAVIS_REPO_SLUG" == "amaxilat/ehr_client" ] && [ "$TRAVIS_JDK_VERSION" == "oraclejdk7" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo -e "Publishing javadoc...\n"
 
-  cp -R build/docs/javadoc $HOME/javadoc-latest
+  cp -R target/site/apidocs/ $HOME/javadoc-latest
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
