@@ -1,11 +1,13 @@
 package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * @author Dimitrios Amaxilatis.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AdmissionType {
     private String admissionTypeId;
     private String type;
