@@ -326,6 +326,71 @@ public class EhrClient {
     }
 
     /**
+     * <p>Saves a new {@link PregnancyHistory} to EHR.</p>
+     *
+     * @param pregnancyHistory The {@link PregnancyHistory} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPregnancyHistory(final PregnancyHistory pregnancyHistory) {
+        try {
+            return postPath("InsertPregnancyHistory", pregnancyHistory);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new PregnancyHistory: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link PregnancyHistory} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
+     */
+    public List<PregnancyHistory> getAllPregnancyHistory() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all PregnancyHistory: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link PregnancyHistory} for a given patient Id.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PregnancyHistory} to get.
+     * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
+     */
+    public List<PregnancyHistory> getPregnancyHistoryByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
+        } catch (Exception error) {
+            LOGGER.error("Error while gettint PregnancyHistory for patient: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link PregnancyHistory} by its id.</p>
+     *
+     * @param pregnancyId The id of the {@link PregnancyHistory} to get.
+     * @return A {@link PregnancyHistory} or null in case of an error.
+     */
+    public PregnancyHistory getPregnancyHistoryByPregnancyId(final int pregnancyId) {
+        String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting PregnancyHistory by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
