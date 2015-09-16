@@ -1,6 +1,8 @@
 package com.amaxilatis.ehr.model.list;
 
 import com.amaxilatis.ehr.model.PregnancyHistory;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -9,22 +11,24 @@ import java.util.List;
  *
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PregnancyHistoryList {
 
-    private List<PregnancyHistory> patientData;
+    @JsonProperty("patientData")
+    private List<PregnancyHistory> pregnancyHistory;
 
-    public List<PregnancyHistory> getPatientData() {
-        return patientData;
+    public List<PregnancyHistory> getPregnancyHistory() {
+        return pregnancyHistory;
     }
 
-    public void setPatientData(List<PregnancyHistory> patientData) {
-        this.patientData = patientData;
+    public void setPregnancyHistory(List<PregnancyHistory> pregnancyHistory) {
+        this.pregnancyHistory = pregnancyHistory;
     }
 
     @Override
     public String toString() {
         return "PregnancyHistoryList{" +
-                "patientData=" + patientData +
+                "pregnancyHistory=" + pregnancyHistory +
                 '}';
     }
 }
