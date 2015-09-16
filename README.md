@@ -11,6 +11,9 @@ A Java Client for the FI-STAR [Electronic Health Record](http://fistarcatalogue.
 3. add Allergies
 2. update PatientData
 
+## Javadoc
+
+The latest Javadoc is available [here](https://amaxilat.github.io/ehr_client/javadoc/).
 
 ## Maven Config
 
