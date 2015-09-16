@@ -1,14 +1,8 @@
 package com.amaxilatis.ehr;
 
 import com.amaxilatis.ehr.exception.PatientIdExistsException;
-import com.amaxilatis.ehr.model.AdmissionData;
-import com.amaxilatis.ehr.model.AdmissionType;
-import com.amaxilatis.ehr.model.Allergies;
-import com.amaxilatis.ehr.model.Patient;
-import com.amaxilatis.ehr.model.list.AdmissionDataList;
-import com.amaxilatis.ehr.model.list.AdmissionTypeList;
-import com.amaxilatis.ehr.model.list.AllergiesDataList;
-import com.amaxilatis.ehr.model.list.PatientDataList;
+import com.amaxilatis.ehr.model.*;
+import com.amaxilatis.ehr.model.list.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -196,6 +190,38 @@ public class EhrClient {
         } catch (IOException e) {
             e.printStackTrace();
             LOGGER.error(resp);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Adds a new {@link MedicalDevices} to EHR.</p>
+     *
+     * @param medicalDevices The {@link MedicalDevices} to add.
+     * @return A JSON string in case of success, null otherwise.
+     */
+    public String addMedicalDevices(final MedicalDevices medicalDevices) {
+        try {
+            return postPath("InsertMedicalDevices", medicalDevices);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new MedicalDevices: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link MedicalDevices} saved in EHR.</p>
+     *
+     * @return A {@link MedicalDevicesList} or null in case of an error.
+     */
+    public MedicalDevicesList getAllMedicalDevices() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectMedicalDevices", query);
+            return new ObjectMapper().readValue(response, MedicalDevicesList.class);
+
+        } catch (Exception error) {
+            LOGGER.error("Error while querying MedicalDevices: " + error.getMessage(), error);
             return null;
         }
     }
