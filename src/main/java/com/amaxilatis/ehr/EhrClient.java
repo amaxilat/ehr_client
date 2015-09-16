@@ -214,13 +214,13 @@ public class EhrClient {
     /**
      * <p>Gets all the {@link MedicalDevices} saved in EHR.</p>
      *
-     * @return A {@link MedicalDevicesList} or null in case of an error.
+     * @return A {@link List} of {@link MedicalDevices} or null in case of an error.
      */
-    public MedicalDevicesList getAllMedicalDevices() {
+    public List<MedicalDevices> getAllMedicalDevices() {
         String query = "{}";
         try {
             String response = postPath("SelectMedicalDevices", query);
-            return objectMapper.readValue(response, MedicalDevicesList.class);
+            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices();
 
         } catch (Exception error) {
             LOGGER.error("Error while querying MedicalDevices: " + error.getMessage(), error);
