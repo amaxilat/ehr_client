@@ -77,4 +77,16 @@ public class MedicalDevices {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "MedicalDevices{" +
+                "medicalDevicesId=" + medicalDevicesId +
+                ", codingId='" + codingId + '\'' +
+                ", brandName='" + brandName + '\'' +
+                ", code='" + code + '\'' +
+                ", codeSystem='" + codeSystem + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
