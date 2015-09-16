@@ -391,6 +391,54 @@ public class EhrClient {
     }
 
     /**
+     * <p>Inserts a new {@link Medication} to EHR.</p>
+     *
+     * @param medication The {@link Medication} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addMedication(final Medication medication) {
+        try {
+            return postPath("InsertMedication", medication);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting Medication: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Medication} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Medication} or null in case of an error.
+     */
+    public List<Medication> getAllMedication() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectMedication", query);
+            return objectMapper.readValue(response, MedicationList.class).getMedication();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all Medication: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Medication} by its id.</p>
+     *
+     * @param medicationId The id of the {@link Medication} to get.
+     * @return A {@link Medication} or null in case of an error.
+     */
+    public Medication getMedicationByMedicationId(final int medicationId) {
+        String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
+        try {
+            String response = postPath("SelectMedication", query);
+            return objectMapper.readValue(response, MedicationList.class).getMedication().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Medication by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
