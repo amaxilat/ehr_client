@@ -1,17 +1,33 @@
 package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * @author Dimitrios Amaxilatis.
+ * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PregnancyHistory {
+    private Integer pregnancyId;
     private String patientId;
-    private java.util.Date expectedDateOfDelivery;
-    private int codingId;
+    private String expectedDateOfDelivery;
+    private String pregnancyInformation;
+
+    public PregnancyHistory() {
+        pregnancyId = null;
+        patientId = "no_value";
+        expectedDateOfDelivery = "no_value";
+        pregnancyInformation = "no_value";
+    }
+
+    public Integer getPregnancyId() {
+        return pregnancyId;
+    }
+
+    public void setPregnancyId(Integer pregnancyId) {
+        this.pregnancyId = pregnancyId;
+    }
 
     public String getPatientId() {
         return patientId;
@@ -21,19 +37,29 @@ public class PregnancyHistory {
         this.patientId = patientId;
     }
 
-    public Date getExpectedDateOfDelivery() {
+    public String getExpectedDateOfDelivery() {
         return expectedDateOfDelivery;
     }
 
-    public void setExpectedDateOfDelivery(Date expectedDateOfDelivery) {
+    public void setExpectedDateOfDelivery(String expectedDateOfDelivery) {
         this.expectedDateOfDelivery = expectedDateOfDelivery;
     }
 
-    public int getCodingId() {
-        return codingId;
+    public String getPregnancyInformation() {
+        return pregnancyInformation;
     }
 
-    public void setCodingId(int codingId) {
-        this.codingId = codingId;
+    public void setPregnancyInformation(String pregnancyInformation) {
+        this.pregnancyInformation = pregnancyInformation;
+    }
+
+    @Override
+    public String toString() {
+        return "PregnancyHistory{" +
+                "pregnancyId=" + pregnancyId +
+                ", patientId='" + patientId + '\'' +
+                ", expectedDateOfDelivery='" + expectedDateOfDelivery + '\'' +
+                ", pregnancyInformation='" + pregnancyInformation + '\'' +
+                '}';
     }
 }
