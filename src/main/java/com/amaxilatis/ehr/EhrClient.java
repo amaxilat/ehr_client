@@ -1,14 +1,8 @@
 package com.amaxilatis.ehr;
 
 import com.amaxilatis.ehr.exception.PatientIdExistsException;
-import com.amaxilatis.ehr.model.AdmissionData;
-import com.amaxilatis.ehr.model.AdmissionType;
-import com.amaxilatis.ehr.model.Allergies;
-import com.amaxilatis.ehr.model.Patient;
-import com.amaxilatis.ehr.model.list.AdmissionDataList;
-import com.amaxilatis.ehr.model.list.AdmissionTypeList;
-import com.amaxilatis.ehr.model.list.AllergiesDataList;
-import com.amaxilatis.ehr.model.list.PatientDataList;
+import com.amaxilatis.ehr.model.*;
+import com.amaxilatis.ehr.model.list.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
@@ -34,6 +28,7 @@ public class EhrClient {
     protected static final Logger LOGGER = Logger.getLogger(EhrClient.class);
     private final ArrayList<Integer> successCodes;
     private final String connectionUrl;
+    private final ObjectMapper objectMapper;
 
     /**
      * Creates a new EhrClient.
@@ -47,6 +42,7 @@ public class EhrClient {
         successCodes.add(202);
         successCodes.add(204);
         this.connectionUrl = connectionUrl;
+        objectMapper = new ObjectMapper();
     }
 
     /**
@@ -105,7 +101,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectPatientData", query);
             LOGGER.info(resp);
-            PatientDataList list = new ObjectMapper().readValue(resp, PatientDataList.class);
+            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData().get(0);
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +123,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectAllergies", query);
             LOGGER.info(resp);
-            AllergiesDataList list = new ObjectMapper().readValue(resp, AllergiesDataList.class);
+            AllergiesDataList list = objectMapper.readValue(resp, AllergiesDataList.class);
             return list.getAllergy();
         } catch (IOException e) {
             e.printStackTrace();
@@ -149,11 +145,43 @@ public class EhrClient {
         try {
             resp = postPath("SelectAdmissionData", query);
             LOGGER.info(resp);
-            AdmissionDataList list = new ObjectMapper().readValue(resp, AdmissionDataList.class);
+            AdmissionDataList list = objectMapper.readValue(resp, AdmissionDataList.class);
             return list.getAdmissionData();
         } catch (IOException e) {
             e.printStackTrace();
             LOGGER.error(resp);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Adds a new {@link AdmissionType} to EHR.</p>
+     *
+     * @param admissionType The {@link AdmissionType} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String insertAdmissionType(final AdmissionType admissionType) {
+        try {
+            return postPath("InsertAdmissionType", admissionType);
+        } catch (Exception error) {
+            LOGGER.error("Error while adding new AdmissionType: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets an {@link AdmissionType} by its id.</p>
+     *
+     * @param admissionTypeId The id of the {@link AdmissionType} to select.
+     * @return An {@link AdmissionType} or null in case of an error.
+     */
+    public AdmissionType getAdmissionTypeByAdmissionTypeId(final int admissionTypeId) {
+        String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
+        try {
+            String response = postPath("SelectAdmissionType", query);
+            return objectMapper.readValue(response, AdmissionTypeList.class).getAdmissionType().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while selecting AdmissionType: " + error.getMessage(), error);
             return null;
         }
     }
@@ -170,7 +198,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectAdmissionType", query);
             LOGGER.info(resp);
-            AdmissionTypeList list = new ObjectMapper().readValue(resp, AdmissionTypeList.class);
+            AdmissionTypeList list = objectMapper.readValue(resp, AdmissionTypeList.class);
             return list.getAdmissionType();
         } catch (IOException e) {
             e.printStackTrace();
@@ -191,11 +219,221 @@ public class EhrClient {
         try {
             resp = postPath("SelectPatientData", query);
             LOGGER.info(resp);
-            PatientDataList list = new ObjectMapper().readValue(resp, PatientDataList.class);
+            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData();
         } catch (IOException e) {
             e.printStackTrace();
             LOGGER.error(resp);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Adds a new {@link MedicalDevices} to EHR.</p>
+     *
+     * @param medicalDevices The {@link MedicalDevices} to add.
+     * @return A JSON string in case of success, null otherwise.
+     */
+    public String addMedicalDevices(final MedicalDevices medicalDevices) {
+        try {
+            return postPath("InsertMedicalDevices", medicalDevices);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new MedicalDevices: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link MedicalDevices} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link MedicalDevices} or null in case of an error.
+     */
+    public List<MedicalDevices> getAllMedicalDevices() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectMedicalDevices", query);
+            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices();
+
+        } catch (Exception error) {
+            LOGGER.error("Error while querying MedicalDevices: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link MedicalDevices} by its id.</p>
+     *
+     * @param medicalDevicesId The id of the {@link MedicalDevices} to select.
+     * @return A {@link MedicalDevices} or null in case of an error.
+     */
+    public MedicalDevices getMedicalDevicesByMedicalDevicesId(final int medicalDevicesId) {
+        String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
+        try {
+            String response = postPath("SelectMedicalDevices", query);
+            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while selecting MedicalDevices by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Inserts a new {@link Scheduling} to EHR.</p>
+     *
+     * @param scheduling The {@link Scheduling} to insert.
+     * @return A JSON String in case of success, null otherwise.
+     */
+    public String addScheduling(final Scheduling scheduling) {
+        try {
+            return postPath("InsertScheduling", scheduling);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new Scheduling: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Scheduling} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Scheduling} or null in case of an error.
+     */
+    public List<Scheduling> getAllScheduling() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectScheduling", query);
+            return objectMapper.readValue(response, SchedulingList.class).getScheduling();
+        } catch (Exception error) {
+            LOGGER.error("Error getting all Scheduling: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Scheduling} by its schedulingId.</p>
+     *
+     * @param schedulingId The id of the {@link Scheduling} to get.
+     * @return A {@link Scheduling} or null in case of an error.
+     */
+    public Scheduling getSchedulingBySchedulingId(final int schedulingId) {
+        String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId +"\"}}";
+        try {
+            String response = postPath("SelectScheduling", query);
+            return objectMapper.readValue(response, SchedulingList.class).getScheduling().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Scheduling by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Saves a new {@link PregnancyHistory} to EHR.</p>
+     *
+     * @param pregnancyHistory The {@link PregnancyHistory} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPregnancyHistory(final PregnancyHistory pregnancyHistory) {
+        try {
+            return postPath("InsertPregnancyHistory", pregnancyHistory);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new PregnancyHistory: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link PregnancyHistory} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
+     */
+    public List<PregnancyHistory> getAllPregnancyHistory() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all PregnancyHistory: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link PregnancyHistory} for a given patient Id.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PregnancyHistory} to get.
+     * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
+     */
+    public List<PregnancyHistory> getPregnancyHistoryByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
+        } catch (Exception error) {
+            LOGGER.error("Error while gettint PregnancyHistory for patient: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link PregnancyHistory} by its id.</p>
+     *
+     * @param pregnancyId The id of the {@link PregnancyHistory} to get.
+     * @return A {@link PregnancyHistory} or null in case of an error.
+     */
+    public PregnancyHistory getPregnancyHistoryByPregnancyId(final int pregnancyId) {
+        String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
+        try {
+            String response = postPath("SelectPregnancyHistory", query);
+            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting PregnancyHistory by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Inserts a new {@link Medication} to EHR.</p>
+     *
+     * @param medication The {@link Medication} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addMedication(final Medication medication) {
+        try {
+            return postPath("InsertMedication", medication);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting Medication: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Medication} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Medication} or null in case of an error.
+     */
+    public List<Medication> getAllMedication() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectMedication", query);
+            return objectMapper.readValue(response, MedicationList.class).getMedication();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all Medication: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Medication} by its id.</p>
+     *
+     * @param medicationId The id of the {@link Medication} to get.
+     * @return A {@link Medication} or null in case of an error.
+     */
+    public Medication getMedicationByMedicationId(final int medicationId) {
+        String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
+        try {
+            String response = postPath("SelectMedication", query);
+            return objectMapper.readValue(response, MedicationList.class).getMedication().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Medication by id: " + error.getMessage(), error);
             return null;
         }
     }
@@ -210,7 +448,7 @@ public class EhrClient {
     private String postPath(final String path, final Object entity) throws PatientIdExistsException {
 
         try {
-            final Entity payload = Entity.json(new ObjectMapper().writeValueAsString(entity));
+            final Entity payload = Entity.json(objectMapper.writeValueAsString(entity));
             LOGGER.debug(payload);
             final Response response = getClientForPath(path).post(payload);
             LOGGER.debug("getStatus: " + response.getStatus());
