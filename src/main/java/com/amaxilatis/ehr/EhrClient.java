@@ -246,6 +246,54 @@ public class EhrClient {
     }
 
     /**
+     * <p>Inserts a new {@link Scheduling} to EHR.</p>
+     *
+     * @param scheduling The {@link Scheduling} to insert.
+     * @return A JSON String in case of success, null otherwise.
+     */
+    public String addScheduling(final Scheduling scheduling) {
+        try {
+            return postPath("InsertScheduling", scheduling);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting new Scheduling: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Scheduling} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Scheduling} or null in case of an error.
+     */
+    public List<Scheduling> getAllScheduling() {
+        String query = "{}";
+        try {
+            String response = postPath("SelectScheduling", query);
+            return objectMapper.readValue(response, SchedulingList.class).getScheduling();
+        } catch (Exception error) {
+            LOGGER.error("Error getting all Scheduling: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Scheduling} by its schedulingId.</p>
+     *
+     * @param schedulingId The id of the {@link Scheduling} to get.
+     * @return A {@link Scheduling} or null in case of an error.
+     */
+    public Scheduling getSchedulingBySchedulingId(final int schedulingId) {
+        String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId +"\"}}";
+        try {
+            String response = postPath("SelectScheduling", query);
+            return objectMapper.readValue(response, SchedulingList.class).getScheduling().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Scheduling by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
