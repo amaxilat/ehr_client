@@ -28,6 +28,7 @@ public class EhrClient {
     protected static final Logger LOGGER = Logger.getLogger(EhrClient.class);
     private final ArrayList<Integer> successCodes;
     private final String connectionUrl;
+    private final ObjectMapper objectMapper;
 
     /**
      * Creates a new EhrClient.
@@ -41,6 +42,7 @@ public class EhrClient {
         successCodes.add(202);
         successCodes.add(204);
         this.connectionUrl = connectionUrl;
+        objectMapper = new ObjectMapper();
     }
 
     /**
@@ -99,7 +101,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectPatientData", query);
             LOGGER.info(resp);
-            PatientDataList list = new ObjectMapper().readValue(resp, PatientDataList.class);
+            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData().get(0);
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,7 +123,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectAllergies", query);
             LOGGER.info(resp);
-            AllergiesDataList list = new ObjectMapper().readValue(resp, AllergiesDataList.class);
+            AllergiesDataList list = objectMapper.readValue(resp, AllergiesDataList.class);
             return list.getAllergy();
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,7 +145,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectAdmissionData", query);
             LOGGER.info(resp);
-            AdmissionDataList list = new ObjectMapper().readValue(resp, AdmissionDataList.class);
+            AdmissionDataList list = objectMapper.readValue(resp, AdmissionDataList.class);
             return list.getAdmissionData();
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,7 +166,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectAdmissionType", query);
             LOGGER.info(resp);
-            AdmissionTypeList list = new ObjectMapper().readValue(resp, AdmissionTypeList.class);
+            AdmissionTypeList list = objectMapper.readValue(resp, AdmissionTypeList.class);
             return list.getAdmissionType();
         } catch (IOException e) {
             e.printStackTrace();
@@ -185,7 +187,7 @@ public class EhrClient {
         try {
             resp = postPath("SelectPatientData", query);
             LOGGER.info(resp);
-            PatientDataList list = new ObjectMapper().readValue(resp, PatientDataList.class);
+            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData();
         } catch (IOException e) {
             e.printStackTrace();
@@ -218,7 +220,7 @@ public class EhrClient {
         String query = "{}";
         try {
             String response = postPath("SelectMedicalDevices", query);
-            return new ObjectMapper().readValue(response, MedicalDevicesList.class);
+            return objectMapper.readValue(response, MedicalDevicesList.class);
 
         } catch (Exception error) {
             LOGGER.error("Error while querying MedicalDevices: " + error.getMessage(), error);
@@ -236,7 +238,7 @@ public class EhrClient {
     private String postPath(final String path, final Object entity) throws PatientIdExistsException {
 
         try {
-            final Entity payload = Entity.json(new ObjectMapper().writeValueAsString(entity));
+            final Entity payload = Entity.json(objectMapper.writeValueAsString(entity));
             LOGGER.debug(payload);
             final Response response = getClientForPath(path).post(payload);
             LOGGER.debug("getStatus: " + response.getStatus());
