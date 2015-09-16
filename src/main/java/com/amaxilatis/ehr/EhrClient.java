@@ -155,6 +155,38 @@ public class EhrClient {
     }
 
     /**
+     * <p>Adds a new {@link AdmissionType} to EHR.</p>
+     *
+     * @param admissionType The {@link AdmissionType} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String insertAdmissionType(final AdmissionType admissionType) {
+        try {
+            return postPath("InsertAdmissionType", admissionType);
+        } catch (Exception error) {
+            LOGGER.error("Error while adding new AdmissionType: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets an {@link AdmissionType} by its id.</p>
+     *
+     * @param admissionTypeId The id of the {@link AdmissionType} to select.
+     * @return An {@link AdmissionType} or null in case of an error.
+     */
+    public AdmissionType getAdmissionTypeByAdmissionTypeId(final int admissionTypeId) {
+        String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
+        try {
+            String response = postPath("SelectAdmissionType", query);
+            return objectMapper.readValue(response, AdmissionTypeList.class).getAdmissionType().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while selecting AdmissionType: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * List all registered {@see AdmissionType}s.
      *
      * @return a list of all registered {@see AdmissionType}s.
