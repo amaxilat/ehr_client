@@ -229,6 +229,23 @@ public class EhrClient {
     }
 
     /**
+     * <p>Gets a {@link MedicalDevices} by its id.</p>
+     *
+     * @param medicalDevicesId The id of the {@link MedicalDevices} to select.
+     * @return A {@link MedicalDevices} or null in case of an error.
+     */
+    public MedicalDevices getMedicalDevicesByMedicalDevicesId(final int medicalDevicesId) {
+        String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
+        try {
+            String response = postPath("SelectMedicalDevices", query);
+            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while selecting MedicalDevices by id: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
