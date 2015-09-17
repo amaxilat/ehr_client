@@ -388,7 +388,7 @@ public class EhrClient {
      * @param patientId The id of the {@link Patient} whose {@link PregnancyHistory} to get.
      * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
      */
-    public List<PregnancyHistory> getPregnancyHistoryByPatientId(final int patientId) {
+    public List<PregnancyHistory> getPregnancyHistoryByPatientId(final String patientId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
         try {
             String response = postPath("SelectPregnancyHistory", query);
