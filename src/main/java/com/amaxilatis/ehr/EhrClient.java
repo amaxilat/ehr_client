@@ -31,6 +31,32 @@ public class EhrClient {
     private final ObjectMapper objectMapper;
 
     /**
+     * <p>Prints an error message to {@link #LOGGER}.</p>
+     *
+     * @param message The error message to print.
+     * @param error The {@link Throwable} that cause the error.
+     */
+    private static void error(final String message, final Throwable error) {
+        String msg;
+        if (error != null) {
+            msg = message + ": " + error.getMessage();
+        } else {
+            msg = message;
+        }
+
+        LOGGER.error(msg, error);
+    }
+
+    /**
+     * <p>Prints an error message to {@link #LOGGER}.</p>
+     *
+     * @param message The error message to print.
+     */
+    private static void error(final String message) {
+        error(message, null);
+    }
+
+    /**
      * Creates a new EhrClient.
      *
      * @param connectionUrl the url of the EHR Service.
