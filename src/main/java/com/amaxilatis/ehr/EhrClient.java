@@ -31,6 +31,32 @@ public class EhrClient {
     private final ObjectMapper objectMapper;
 
     /**
+     * <p>Prints an error message to {@link #LOGGER}.</p>
+     *
+     * @param message The error message to print.
+     * @param error The {@link Throwable} that cause the error.
+     */
+    private static void error(final String message, final Throwable error) {
+        String msg;
+        if (error != null) {
+            msg = message + ": " + error.getMessage();
+        } else {
+            msg = message;
+        }
+
+        LOGGER.error(msg, error);
+    }
+
+    /**
+     * <p>Prints an error message to {@link #LOGGER}.</p>
+     *
+     * @param message The error message to print.
+     */
+    private static void error(final String message) {
+        error(message, null);
+    }
+
+    /**
      * Creates a new EhrClient.
      *
      * @param connectionUrl the url of the EHR Service.
@@ -436,6 +462,268 @@ public class EhrClient {
             LOGGER.error("Error while getting Medication by id: " + error.getMessage(), error);
             return null;
         }
+    }
+
+    /**
+     * <p>Saves a new {@link LabAnalysis} to EHR.</p>
+     *
+     * @param labAnalysis The {@link LabAnalysis} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addLabAnalysis(final LabAnalysis labAnalysis) {
+        try {
+            return postPath("InsertLabAnalysis", labAnalysis);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting LabAnalysis: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link LabAnalysis} saved in EHR.</p>
+     * @return A {@link List} of {@link LabAnalysis} or null in case of an error.
+     */
+    public List<LabAnalysis> getAllLabAnalysis() {
+        try {
+            String response = postPath("SelectLabAnalysis", "{}");
+            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all LabAnalysis: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link LabAnalysis} by its id.</p>
+     *
+     * @param labAnalysisId The id of the {@link LabAnalysis} to fetch.
+     * @return A {@link LabAnalysis} or null in case of an error.
+     */
+    public LabAnalysis getLabAnalysisByLabAnalysisId(final int labAnalysisId) {
+        String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
+        try {
+            String response = postPath("SelectLabAnalysis", query);
+            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting LabAnalysis with id " + labAnalysisId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Insert a new {@link Coding} to EHR.</p>
+     *
+     * @param coding The {@link Coding} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addCoding(final Coding coding) {
+        try {
+            return postPath("InsertCoding", coding);
+        } catch (Exception error) {
+            LOGGER.error("Error while adding new coding: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Coding} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Coding} or null in case of an error.
+     */
+    public List<Coding> getAllCoding() {
+        try {
+            String response = postPath("SelectCoding", "{}");
+            return objectMapper.readValue(response, CodingList.class).getCoding();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all Coding: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Coding} with the given id.</p>
+     *
+     * @param codingId The id of the {@link Coding} to fetch.
+     * @return A {@link Coding} or null in case of an error.
+     */
+    public Coding getCodingByCodingId(final int codingId) {
+        String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        try {
+            String response = postPath("SelectCoding", query);
+            return objectMapper.readValue(response, CodingList.class).getCoding().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Coding with id " + codingId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Saves a new {@link InsuranceData} to EHR.</p>
+     *
+     * @param insuranceData The {@link InsuranceData} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addInsuranceData(final InsuranceData insuranceData) {
+        try {
+            return postPath("InsertInsuranceData", insuranceData);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting InsuranceData: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link InsuranceData} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
+     */
+    public List<InsuranceData> getAllInsuranceData() {
+        try {
+            String response = postPath("SelectInsuranceData", "{}");
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all InsuranceData: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets the {@link InsuranceData} with the given id.</p>
+     *
+     * @param insuranceId The id of the {@link InsuranceData} to fetch.
+     * @return An {@link InsuranceData} or null in case of an error.
+     */
+    public InsuranceData getInsuranceDataByInsuranceId(final int insuranceId) {
+        String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
+        try {
+            String response = postPath("SelectInsuranceData", query);
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting InsuranceData with id " + insuranceId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets the {@link InsuranceData} for a patient using his id.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
+     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
+     */
+    public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        try {
+            String response = postPath("SelectInsuranceData", query);
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting InsuranceData with patientId " + patientId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Add a new {@link PatientMedicalDevices} to EHR.</p>
+     *
+     * @param patientMedicalDevices The {@link PatientMedicalDevices} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPatientMedicalDevices(final PatientMedicalDevices patientMedicalDevices) {
+        return save("InsertPatientMedicalDevices", patientMedicalDevices);
+    }
+
+    /**
+     * <p>Gets all the {@link PatientMedicalDevices} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public List<PatientMedicalDevices> getAllPatientMedicalDevices() {
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            return patientMedicalDevicesList.getPatientMedicalDevices();
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Gets a {@link PatientMedicalDevices} by its S/N</p>
+     *
+     * @param patientMedicalDeviceSn The S/N of the {@link PatientMedicalDevices} to fetch.
+     * @return A {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public PatientMedicalDevices getPatientMedicalDevicesByPatientMedicalDeviceSn(final String patientMedicalDeviceSn) {
+        String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            List<PatientMedicalDevices> patientMedicalDevices = patientMedicalDevicesList.getPatientMedicalDevices();
+            if (patientMedicalDevices != null && patientMedicalDevices.size() > 0) {
+                return patientMedicalDevices.get(0);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Gets all the {@link PatientMedicalDevices} associated with a {@link Patient}.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            return patientMedicalDevicesList.getPatientMedicalDevices();
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Generic metehod for saving entities to EHR.</p>
+     *
+     * @param path The path where to save the entity.
+     * @param entity The entity to save.
+     * @param <A> The type of the entity to save.
+     * @return A JSON String or null in case of an error.
+     */
+    private <A> String save(final String path, final A entity) {
+        try {
+            return postPath(path, entity);
+        } catch (Exception error) {
+            error("Error while saving to " + path, error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Generic methods to get all the entities in the given path that match the given query.</p>
+     * @param path The path to query.
+     * @param query The query to run.
+     * @param theClass The class to convert the reponse to.
+     * @param <A> The type of the response.
+     * @return An instance of A or null in case of an error.
+     */
+    private <A> A getAll(final String path, final String query, final Class<A> theClass) {
+        try {
+            String response = postPath(path, query);
+            return objectMapper.readValue(response, theClass);
+        } catch (Exception error) {
+            error("Error while getting all entities from " + path, error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Generic methods to get all the entities in the given path.</p>
+     * @param path The path to query.
+     * @param theClass The class to convert the reponse to.
+     * @param <A> The type of the response.
+     * @return An instance of A or null in case of an error.
+     */
+    private <A> A getAll(final String path, final Class<A> theClass) {
+        return getAll(path, "{}", theClass);
     }
 
     /**
