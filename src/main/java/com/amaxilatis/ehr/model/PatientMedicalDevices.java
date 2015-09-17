@@ -14,6 +14,7 @@ public class PatientMedicalDevices {
     private String admissionId;
     private String patientId;
     private String deviceDescription;
+    private String deviceCodeSystem;
     private String medicalDevicesId;
     private String date;
 
@@ -22,6 +23,7 @@ public class PatientMedicalDevices {
         admissionId = "no_value";
         patientId = "no_value";
         deviceDescription = "no_value";
+        deviceCodeSystem = null;
         medicalDevicesId = "no_value";
         date = "no_value";
     }
@@ -58,6 +60,14 @@ public class PatientMedicalDevices {
         this.deviceDescription = deviceDescription;
     }
 
+    public String getDeviceCodeSystem() {
+        return deviceCodeSystem;
+    }
+
+    public void setDeviceCodeSystem(String deviceCodeSystem) {
+        this.deviceCodeSystem = deviceCodeSystem;
+    }
+
     public String getMedicalDevicesId() {
         return medicalDevicesId;
     }
@@ -81,6 +91,7 @@ public class PatientMedicalDevices {
                 ", admissionId='" + admissionId + '\'' +
                 ", patientId='" + patientId + '\'' +
                 ", deviceDescription='" + deviceDescription + '\'' +
+                ", deviceCodeSystem='" + deviceCodeSystem + '\'' +
                 ", medicalDevicesId='" + medicalDevicesId + '\'' +
                 ", date='" + date + '\'' +
                 '}';
