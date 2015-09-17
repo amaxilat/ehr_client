@@ -1,24 +1,44 @@
 package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * @author Dimitrios Amaxilatis.
+ * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientMedicalDevices {
-    private int admissionId;
+    private String patientMedicalDeviceSn;
+    private String admissionId;
     private String patientId;
-    private int medicalDeviceId;
-    private java.util.Date date;
+    private String deviceDescription;
+    private String medicalDevicesId;
+    private String date;
 
-    public int getAdmissionId() {
+    public PatientMedicalDevices() {
+        patientMedicalDeviceSn = "no_value";
+        admissionId = "no_value";
+        patientId = "no_value";
+        deviceDescription = "no_value";
+        medicalDevicesId = "no_value";
+        date = "no_value";
+    }
+
+    public String getPatientMedicalDeviceSn() {
+        return patientMedicalDeviceSn;
+    }
+
+    public void setPatientMedicalDeviceSn(String patientMedicalDeviceSn) {
+        this.patientMedicalDeviceSn = patientMedicalDeviceSn;
+    }
+
+    public String getAdmissionId() {
         return admissionId;
     }
 
-    public void setAdmissionId(int admissionId) {
+    public void setAdmissionId(String admissionId) {
         this.admissionId = admissionId;
     }
 
@@ -30,19 +50,39 @@ public class PatientMedicalDevices {
         this.patientId = patientId;
     }
 
-    public int getMedicalDeviceId() {
-        return medicalDeviceId;
+    public String getDeviceDescription() {
+        return deviceDescription;
     }
 
-    public void setMedicalDeviceId(int medicalDeviceId) {
-        this.medicalDeviceId = medicalDeviceId;
+    public void setDeviceDescription(String deviceDescription) {
+        this.deviceDescription = deviceDescription;
     }
 
-    public Date getDate() {
+    public String getMedicalDevicesId() {
+        return medicalDevicesId;
+    }
+
+    public void setMedicalDevicesId(String medicalDevicesId) {
+        this.medicalDevicesId = medicalDevicesId;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "PatientMedicalDevices{" +
+                "patientMedicalDeviceSn='" + patientMedicalDeviceSn + '\'' +
+                ", admissionId='" + admissionId + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", deviceDescription='" + deviceDescription + '\'' +
+                ", medicalDevicesId='" + medicalDevicesId + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }
