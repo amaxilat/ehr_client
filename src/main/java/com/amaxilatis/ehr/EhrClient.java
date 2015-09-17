@@ -622,6 +622,65 @@ public class EhrClient {
     }
 
     /**
+     * <p>Add a new {@link PatientMedicalDevices} to EHR.</p>
+     *
+     * @param patientMedicalDevices The {@link PatientMedicalDevices} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPatientMedicalDevices(final PatientMedicalDevices patientMedicalDevices) {
+        return save("InsertPatientMedicalDevices", patientMedicalDevices);
+    }
+
+    /**
+     * <p>Gets all the {@link PatientMedicalDevices} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public List<PatientMedicalDevices> getAllPatientMedicalDevices() {
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            return patientMedicalDevicesList.getPatientMedicalDevices();
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Gets a {@link PatientMedicalDevices} by its S/N</p>
+     *
+     * @param patientMedicalDeviceSn The S/N of the {@link PatientMedicalDevices} to fetch.
+     * @return A {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public PatientMedicalDevices getPatientMedicalDevicesByPatientMedicalDeviceSn(final String patientMedicalDeviceSn) {
+        String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            List<PatientMedicalDevices> patientMedicalDevices = patientMedicalDevicesList.getPatientMedicalDevices();
+            if (patientMedicalDevices != null && patientMedicalDevices.size() > 0) {
+                return patientMedicalDevices.get(0);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Gets all the {@link PatientMedicalDevices} associated with a {@link Patient}.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
+     */
+    public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+        if (patientMedicalDevicesList != null) {
+            return patientMedicalDevicesList.getPatientMedicalDevices();
+        }
+
+        return null;
+    }
+
+    /**
      * <p>Generic metehod for saving entities to EHR.</p>
      *
      * @param path The path where to save the entity.
@@ -636,6 +695,35 @@ public class EhrClient {
             error("Error while saving to " + path, error);
             return null;
         }
+    }
+
+    /**
+     * <p>Generic methods to get all the entities in the given path that match the given query.</p>
+     * @param path The path to query.
+     * @param query The query to run.
+     * @param theClass The class to convert the reponse to.
+     * @param <A> The type of the response.
+     * @return An instance of A or null in case of an error.
+     */
+    private <A> A getAll(final String path, final String query, final Class<A> theClass) {
+        try {
+            String response = postPath(path, query);
+            return objectMapper.readValue(response, theClass);
+        } catch (Exception error) {
+            error("Error while getting all entities from " + path, error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Generic methods to get all the entities in the given path.</p>
+     * @param path The path to query.
+     * @param theClass The class to convert the reponse to.
+     * @param <A> The type of the response.
+     * @return An instance of A or null in case of an error.
+     */
+    private <A> A getAll(final String path, final Class<A> theClass) {
+        return getAll(path, "{}", theClass);
     }
 
     /**
