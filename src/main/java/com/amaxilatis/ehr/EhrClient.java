@@ -439,6 +439,52 @@ public class EhrClient {
     }
 
     /**
+     * <p>Saves a new {@link LabAnalysis} to EHR.</p>
+     *
+     * @param labAnalysis The {@link LabAnalysis} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addLabAnalysis(final LabAnalysis labAnalysis) {
+        try {
+            return postPath("InsertLabAnalysis", labAnalysis);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting LabAnalysis: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link LabAnalysis} saved in EHR.</p>
+     * @return A {@link List} of {@link LabAnalysis} or null in case of an error.
+     */
+    public List<LabAnalysis> getAllLabAnalysis() {
+        try {
+            String response = postPath("SelectLabAnalysis", "{}");
+            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all LabAnalysis: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link LabAnalysis} by its id.</p>
+     *
+     * @param labAnalysisId The id of the {@link LabAnalysis} to fetch.
+     * @return A {@link LabAnalysis} or null in case of an error.
+     */
+    public LabAnalysis getLabAnalysisByLabAnalysisId(final int labAnalysisId) {
+        String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
+        try {
+            String response = postPath("SelectLabAnalysis", query);
+            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting LabAnalysis with id " + labAnalysisId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
