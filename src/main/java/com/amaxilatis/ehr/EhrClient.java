@@ -532,6 +532,70 @@ public class EhrClient {
     }
 
     /**
+     * <p>Saves a new {@link InsuranceData} to EHR.</p>
+     *
+     * @param insuranceData The {@link InsuranceData} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addInsuranceData(final InsuranceData insuranceData) {
+        try {
+            return postPath("InsertInsuranceData", insuranceData);
+        } catch (Exception error) {
+            LOGGER.error("Error while inserting InsuranceData: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link InsuranceData} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
+     */
+    public List<InsuranceData> getAllInsuranceData() {
+        try {
+            String response = postPath("SelectInsuranceData", "{}");
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all InsuranceData: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets the {@link InsuranceData} with the given id.</p>
+     *
+     * @param insuranceId The id of the {@link InsuranceData} to fetch.
+     * @return An {@link InsuranceData} or null in case of an error.
+     */
+    public InsuranceData getInsuranceDataByInsuranceId(final int insuranceId) {
+        String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
+        try {
+            String response = postPath("SelectInsuranceData", query);
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting InsuranceData with id " + insuranceId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets the {@link InsuranceData} for a patient using his id.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
+     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
+     */
+    public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        try {
+            String response = postPath("SelectInsuranceData", query);
+            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting InsuranceData with patientId " + patientId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
