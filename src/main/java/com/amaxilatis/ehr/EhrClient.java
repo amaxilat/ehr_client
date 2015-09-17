@@ -622,6 +622,23 @@ public class EhrClient {
     }
 
     /**
+     * <p>Generic metehod for saving entities to EHR.</p>
+     *
+     * @param path The path where to save the entity.
+     * @param entity The entity to save.
+     * @param <A> The type of the entity to save.
+     * @return A JSON String or null in case of an error.
+     */
+    private <A> String save(final String path, final A entity) {
+        try {
+            return postPath(path, entity);
+        } catch (Exception error) {
+            error("Error while saving to " + path, error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
