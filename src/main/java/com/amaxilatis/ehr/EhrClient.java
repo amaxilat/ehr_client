@@ -485,6 +485,53 @@ public class EhrClient {
     }
 
     /**
+     * <p>Insert a new {@link Coding} to EHR.</p>
+     *
+     * @param coding The {@link Coding} to insert.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addCoding(final Coding coding) {
+        try {
+            return postPath("InsertCoding", coding);
+        } catch (Exception error) {
+            LOGGER.error("Error while adding new coding: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets all the {@link Coding} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Coding} or null in case of an error.
+     */
+    public List<Coding> getAllCoding() {
+        try {
+            String response = postPath("SelectCoding", "{}");
+            return objectMapper.readValue(response, CodingList.class).getCoding();
+        } catch (Exception error) {
+            LOGGER.error("Error while getting all Coding: " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
+     * <p>Gets a {@link Coding} with the given id.</p>
+     *
+     * @param codingId The id of the {@link Coding} to fetch.
+     * @return A {@link Coding} or null in case of an error.
+     */
+    public Coding getCodingByCodingId(final int codingId) {
+        String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        try {
+            String response = postPath("SelectCoding", query);
+            return objectMapper.readValue(response, CodingList.class).getCoding().get(0);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting Coding with id " + codingId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
