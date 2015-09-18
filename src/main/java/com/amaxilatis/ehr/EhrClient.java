@@ -714,6 +714,77 @@ public class EhrClient {
     }
 
     /**
+     * <p>Saves a new {@link Diagnosis} to EHR.</p>
+     *
+     * @param diagnosis The {@link Diagnosis} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addDiagnosis(final Diagnosis diagnosis) {
+        return save("InsertDiagnosis", diagnosis);
+    }
+
+    /**
+     * <p>Gets all the {@link Diagnosis} saved in EHR.</p>
+     *
+     * @return A {@link List} of {@link Diagnosis} or null in case of an error.
+     */
+    public List<Diagnosis> getAllDiagnosis() {
+        DiagnosisList diagnosisList = getAll("SelectDiagnosis", DiagnosisList.class);
+        if (diagnosisList != null) {
+            return diagnosisList.getDiagnosis();
+        }
+        return null;
+    }
+
+    /**
+     * <p>Gets a {@link Diagnosis} by its id.</p>
+     *
+     * @param diagnosisId The id of the {@link Diagnosis} to fetch.
+     * @return A {@link Diagnosis} or null in case of an error.
+     */
+    public Diagnosis getDiagnosisByDiagnosisId(final long diagnosisId) {
+        String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
+        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
+        if (diagnosisList != null) {
+            List<Diagnosis> diagnoses = diagnosisList.getDiagnosis();
+            if (diagnoses != null && diagnoses.size() > 0) {
+                return diagnoses.get(0);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Gets the {@link Diagnosis} associated with an {@link AdmissionData}.</p>
+     *
+     * @param admissionId The id of the {@link AdmissionData} for which to fetch the {@link Diagnosis}.
+     * @return A {@link List} of {@link Diagnosis} or null.
+     */
+    public List<Diagnosis> getDiagnosisByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
+        if (diagnosisList != null) {
+            return diagnosisList.getDiagnosis();
+        }
+        return null;
+    }
+
+    /**
+     * <p>Gets all the {@link Diagnosis} associated with a {@link Patient}.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link Diagnosis} to fetch.
+     * @return A {@link List} of {@link Diagnosis} or null in case of an error.
+     */
+    public List<Diagnosis> getDiagnosisByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
+        if (diagnosisList != null) {
+            return diagnosisList.getDiagnosis();
+        }
+        return null;
+    }
+
+    /**
      * <p>Generic metehod for saving entities to EHR.</p>
      *
      * @param path The path where to save the entity.
