@@ -13,19 +13,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Diagnosis {
     private Long diagnosisId;
     private String admissionId;
+    private String admissionData;
     private String patientId;
+    private String patientData;
     private String description;
     private String codingId;
     private String onsetDate;
     private String illnessHistory;
     private String resolved;
-    @JsonProperty("treatmentRecommendation")
+    @JsonProperty("treatmentRecomendation")
     private String treatmentRecommendation;
 
     public Diagnosis() {
         diagnosisId = null;
         admissionId = "no_value";
+        admissionData = null;
         patientId = "no_value";
+        patientData = null;
         description = "no_value";
         codingId = "no_value";
         onsetDate = "no_value";
@@ -50,12 +54,34 @@ public class Diagnosis {
         this.admissionId = admissionId;
     }
 
+    public String getAdmissionData() {
+        return admissionData;
+    }
+
+    public void setAdmissionData(String admissionData) {
+        if (admissionData != null) {
+            this.admissionId = admissionData;
+        }
+        this.admissionData = admissionData;
+    }
+
     public String getPatientId() {
         return patientId;
     }
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public String getPatientData() {
+        return patientData;
+    }
+
+    public void setPatientData(String patientData) {
+        if (patientData != null) {
+            this.patientId = patientData;
+        }
+        this.patientData = patientData;
     }
 
     public String getDescription() {
@@ -111,7 +137,9 @@ public class Diagnosis {
         return "Diagnosis{" +
                 "diagnosisId=" + diagnosisId +
                 ", admissionId='" + admissionId + '\'' +
+                ", admissionData='" + admissionData + '\'' +
                 ", patientId='" + patientId + '\'' +
+                ", patientData='" + patientData + '\'' +
                 ", description='" + description + '\'' +
                 ", codingId='" + codingId + '\'' +
                 ", onsetDate='" + onsetDate + '\'' +
