@@ -5,15 +5,25 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * @author Dimitrios Amaxilatis.
+ * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AdmissionData {
+    private String admissionId;
     private String patientId;
     private String admissionTypeId;
     private String description;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String typeOfAdmissionDescription;
     private String createdTime;
+
+    public String getAdmissionId() {
+        return admissionId;
+    }
+
+    public void setAdmissionId(String admissionId) {
+        this.admissionId = admissionId;
+    }
 
     public String getPatientId() {
         return patientId;
@@ -58,8 +68,9 @@ public class AdmissionData {
     @Override
     public String toString() {
         return "AdmissionData{" +
-                "patientId='" + patientId + '\'' +
-                ", admissionTypeId=" + admissionTypeId +
+                "admissionId=" + admissionId +
+                ", patientId='" + patientId + '\'' +
+                ", admissionTypeId='" + admissionTypeId + '\'' +
                 ", description='" + description + '\'' +
                 ", typeOfAdmissionDescription='" + typeOfAdmissionDescription + '\'' +
                 ", createdTime='" + createdTime + '\'' +
