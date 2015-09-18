@@ -181,6 +181,24 @@ public class EhrClient {
     }
 
     /**
+     * <p>Gets an {@link AdmissionData} by its admissionId.</p>
+     *
+     * @param admissionId The id of the {@link AdmissionData} to fetch.
+     * @return An {@link AdmissionData} or null in case of an error.
+     */
+    public AdmissionData getAdmissionByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        AdmissionDataList admissionDataList = getAll("SelectAdmissionData", query, AdmissionDataList.class);
+        if (admissionDataList != null) {
+            List<AdmissionData> admissionList = admissionDataList.getAdmissionData();
+            if (admissionList != null && admissionList.size() > 0) {
+                return admissionList.get(0);
+            }
+        }
+        return null;
+    }
+
+    /**
      * <p>Adds a new {@link AdmissionType} to EHR.</p>
      *
      * @param admissionType The {@link AdmissionType} to insert.
