@@ -352,6 +352,21 @@ public class EhrClient {
     }
 
     /**
+     * <p>Gets a {@link Scheduling} by its patientId.</p>
+     *
+     * @param patientId The id of the {@link Patient} whose {@link Scheduling} to get.
+     * @return A {@link Scheduling} or null in case of an error.
+     */
+    public List<Scheduling> getSchedulingByPatientId(final String patientId) {
+        String query = "{ \"=\":{\"patientId\":\"" + patientId +"\"}}";
+        SchedulingList schedulingList = getAll("SelectScheduling", query, SchedulingList.class);
+        if (schedulingList != null) {
+            return schedulingList.getScheduling();
+        }
+        return null;
+    }
+
+    /**
      * <p>Saves a new {@link PregnancyHistory} to EHR.</p>
      *
      * @param pregnancyHistory The {@link PregnancyHistory} to save.
