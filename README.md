@@ -13,7 +13,7 @@ A Java Client for the FI-STAR [Electronic Health Record](http://fistarcatalogue.
 
 ## Javadoc
 
-The latest Javadoc is available [here](https://amaxilat.github.io/ehr_client/javadoc/).
+The latest Javadoc is available [here](https://amaxilat.github.io/ehr_client/javadoc/apidocs/).
 
 ## Maven Config
 
