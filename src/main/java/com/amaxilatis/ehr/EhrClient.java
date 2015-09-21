@@ -26,15 +26,16 @@ public class EhrClient {
      * a log4j logger to print messages.
      */
     protected static final Logger LOGGER = Logger.getLogger(EhrClient.class);
+    private static final String QUERY_ALL = "{}";
     private final ArrayList<Integer> successCodes;
     private final String connectionUrl;
     private final ObjectMapper objectMapper;
 
     /**
-     * <p>Prints an error message to {@link #LOGGER}.</p>
+     * Prints an error message to {@link #LOGGER}.
      *
      * @param message The error message to print.
-     * @param error The {@link Throwable} that cause the error.
+     * @param error   The {@link Throwable} that cause the error.
      */
     private static void error(final String message, final Throwable error) {
         String msg;
@@ -48,7 +49,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Prints an error message to {@link #LOGGER}.</p>
+     * Prints an error message to {@link #LOGGER}.
      *
      * @param message The error message to print.
      */
@@ -72,9 +73,9 @@ public class EhrClient {
     }
 
     /**
-     * Add the {@see Patient} to the EHR.
+     * Add the {@link Patient} to the EHR.
      *
-     * @param patient the {@see Patient} to add.
+     * @param patient the {@link Patient} to add.
      * @return
      */
     public String addPatient(final Patient patient) {
@@ -86,9 +87,9 @@ public class EhrClient {
     }
 
     /**
-     * Add the {@see AdmissionData} to the EHR.
+     * Add the {@link AdmissionData} to the EHR.
      *
-     * @param admissionData the {@see AdmissionData} to add.
+     * @param admissionData the {@link AdmissionData} to add.
      * @return
      */
     public String addAdmissionData(final AdmissionData admissionData) {
@@ -100,9 +101,9 @@ public class EhrClient {
     }
 
     /**
-     * Update the {@see Patient} to the EHR.
+     * Update the {@link Patient} to the EHR.
      *
-     * @param patient the {@see Patient} to update.
+     * @param patient the {@link Patient} to update.
      * @return
      */
     public String updatePatient(final Patient patient) {
@@ -115,10 +116,10 @@ public class EhrClient {
     }
 
     /**
-     * Retrieve a {@see Patient} from the EHR service.
+     * Returns the {@link Patient} from the EHR service with the given id.
      *
-     * @param patientId the id of the {@see Patient} to search for.
-     * @return the {@see Patient} requested.
+     * @param patientId the id of the {@link Patient} to search for.
+     * @return the {@link Patient} requested.
      */
     public Patient getPatientByPatientId(final String patientId) {
         final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
@@ -130,21 +131,20 @@ public class EhrClient {
             PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData().get(0);
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error(resp);
+            LOGGER.error(resp, e);
             return null;
         }
     }
 
     /**
-     * Retrieve all {@see Allergies} of the {@see Patient}.
+     * Returns all {@link Allergies} with the given {@link Patient} id.
      *
-     * @param patientId the id of the {@see Patient} to search for.
-     * @return a List of {@see Allergies} of the {@see Patient}.
+     * @param patientId the id of the {@link Patient} to search for.
+     * @return a List of {@link Allergies} of the {@link Patient}.
      */
     public List<Allergies> getAllergiesByPatientId(final String patientId) {
         final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.info(query);
+        LOGGER.debug(query);
         String resp = null;
         try {
             resp = postPath("SelectAllergies", query);
@@ -152,21 +152,20 @@ public class EhrClient {
             AllergiesDataList list = objectMapper.readValue(resp, AllergiesDataList.class);
             return list.getAllergy();
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error(resp);
+            LOGGER.error(resp, e);
             return null;
         }
     }
 
     /**
-     * Retrieve all {@see Admissions} of the {@see Patient}.
+     * Returns all {@link AdmissionData} with the given {@link Patient} id.
      *
-     * @param patientId the id of the {@see Patient} to search for.
-     * @return a List of {@see Admissions} of the {@see Patient}.
+     * @param patientId the id of the {@link Patient} to search for.
+     * @return a List of {@link AdmissionData} of the {@link Patient}.
      */
     public List<AdmissionData> getAdmissionsByPatientId(final String patientId) {
         final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.info(query);
+        LOGGER.debug(query);
         String resp = null;
         try {
             resp = postPath("SelectAdmissionData", query);
@@ -174,20 +173,20 @@ public class EhrClient {
             AdmissionDataList list = objectMapper.readValue(resp, AdmissionDataList.class);
             return list.getAdmissionData();
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error(resp);
+            LOGGER.error(resp, e);
             return null;
         }
     }
 
     /**
-     * <p>Gets an {@link AdmissionData} by its admissionId.</p>
+     * Returns the {@link AdmissionData} with this id.
      *
      * @param admissionId The id of the {@link AdmissionData} to fetch.
      * @return An {@link AdmissionData} or null in case of an error.
      */
     public AdmissionData getAdmissionByAdmissionId(final long admissionId) {
-        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        final String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        LOGGER.debug(query);
         AdmissionDataList admissionDataList = getAll("SelectAdmissionData", query, AdmissionDataList.class);
         if (admissionDataList != null) {
             List<AdmissionData> admissionList = admissionDataList.getAdmissionData();
@@ -199,7 +198,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Adds a new {@link AdmissionType} to EHR.</p>
+     * Adds a new {@link AdmissionType} to EHR.</p>
      *
      * @param admissionType The {@link AdmissionType} to insert.
      * @return A JSON String or null in case of an error.
@@ -214,13 +213,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets an {@link AdmissionType} by its id.</p>
+     * Returns the {@link AdmissionType} with the give type id.
      *
      * @param admissionTypeId The id of the {@link AdmissionType} to select.
      * @return An {@link AdmissionType} or null in case of an error.
      */
     public AdmissionType getAdmissionTypeByAdmissionTypeId(final int admissionTypeId) {
-        String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
+        final String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectAdmissionType", query);
             return objectMapper.readValue(response, AdmissionTypeList.class).getAdmissionType().get(0);
@@ -231,49 +231,43 @@ public class EhrClient {
     }
 
     /**
-     * List all registered {@see AdmissionType}s.
+     * Returns all {@link AdmissionType} entities.
      *
-     * @return a list of all registered {@see AdmissionType}s.
+     * @return all {@link AdmissionType}.
      */
     public List<AdmissionType> getAdmissionsTypes() {
-        final String query = "{}";
-        LOGGER.info(query);
         String resp = null;
         try {
-            resp = postPath("SelectAdmissionType", query);
+            resp = postPath("SelectAdmissionType", QUERY_ALL);
             LOGGER.info(resp);
             AdmissionTypeList list = objectMapper.readValue(resp, AdmissionTypeList.class);
             return list.getAdmissionType();
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error(resp);
+            LOGGER.error(resp, e);
             return null;
         }
     }
 
     /**
-     * List all registered {@see Patient}s.
+     * Returns all {@link Patient} entities.
      *
-     * @return a list of all registered {@see Patient}s.
+     * @return a list of all registered {@link Patient}s.
      */
     public List<Patient> getAllPatients() {
-        final String query = "{}";
-        LOGGER.info(query);
         String resp = null;
         try {
-            resp = postPath("SelectPatientData", query);
+            resp = postPath("SelectPatientData", QUERY_ALL);
             LOGGER.info(resp);
             PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
             return list.getPatientData();
         } catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error(resp);
+            LOGGER.error(resp, e);
             return null;
         }
     }
 
     /**
-     * <p>Adds a new {@link MedicalDevices} to EHR.</p>
+     * Adds a new {@link MedicalDevices} to EHR.
      *
      * @param medicalDevices The {@link MedicalDevices} to add.
      * @return A JSON string in case of success, null otherwise.
@@ -288,14 +282,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link MedicalDevices} saved in EHR.</p>
+     * Returns all {@link MedicalDevices} entities.
      *
      * @return A {@link List} of {@link MedicalDevices} or null in case of an error.
      */
     public List<MedicalDevices> getAllMedicalDevices() {
-        String query = "{}";
         try {
-            String response = postPath("SelectMedicalDevices", query);
+            String response = postPath("SelectMedicalDevices", QUERY_ALL);
             return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices();
 
         } catch (Exception error) {
@@ -305,13 +298,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link MedicalDevices} by its id.</p>
+     * Returns a {@link MedicalDevices} with the given id.
      *
      * @param medicalDevicesId The id of the {@link MedicalDevices} to select.
      * @return A {@link MedicalDevices} or null in case of an error.
      */
     public MedicalDevices getMedicalDevicesByMedicalDevicesId(final int medicalDevicesId) {
-        String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
+        final String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectMedicalDevices", query);
             return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices().get(0);
@@ -322,7 +316,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Inserts a new {@link Scheduling} to EHR.</p>
+     * Inserts a new {@link Scheduling} to EHR.
      *
      * @param scheduling The {@link Scheduling} to insert.
      * @return A JSON String in case of success, null otherwise.
@@ -337,14 +331,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link Scheduling} saved in EHR.</p>
+     * Returns all {@link Scheduling} entities.
      *
      * @return A {@link List} of {@link Scheduling} or null in case of an error.
      */
     public List<Scheduling> getAllScheduling() {
-        String query = "{}";
         try {
-            String response = postPath("SelectScheduling", query);
+            String response = postPath("SelectScheduling", QUERY_ALL);
             return objectMapper.readValue(response, SchedulingList.class).getScheduling();
         } catch (Exception error) {
             LOGGER.error("Error getting all Scheduling: " + error.getMessage(), error);
@@ -353,13 +346,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link Scheduling} by its schedulingId.</p>
+     * Returns the {@link Scheduling} entity with the given id.
      *
      * @param schedulingId The id of the {@link Scheduling} to get.
      * @return A {@link Scheduling} or null in case of an error.
      */
     public Scheduling getSchedulingBySchedulingId(final int schedulingId) {
-        String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId +"\"}}";
+        final String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectScheduling", query);
             return objectMapper.readValue(response, SchedulingList.class).getScheduling().get(0);
@@ -370,13 +364,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link Scheduling} by its patientId.</p>
+     * Returns all {@link Scheduling} entities with the given {@link Patient} id.
      *
      * @param patientId The id of the {@link Patient} whose {@link Scheduling} to get.
      * @return A {@link Scheduling} or null in case of an error.
      */
     public List<Scheduling> getSchedulingByPatientId(final String patientId) {
-        String query = "{ \"=\":{\"patientId\":\"" + patientId +"\"}}";
+        final String query = "{ \"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
         SchedulingList schedulingList = getAll("SelectScheduling", query, SchedulingList.class);
         if (schedulingList != null) {
             return schedulingList.getScheduling();
@@ -385,7 +380,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Saves a new {@link PregnancyHistory} to EHR.</p>
+     * Saves a new {@link PregnancyHistory} to EHR.
      *
      * @param pregnancyHistory The {@link PregnancyHistory} to save.
      * @return A JSON String or null in case of an error.
@@ -400,46 +395,45 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link PregnancyHistory} saved in EHR.</p>
+     * Returns all {@link PregnancyHistory} entities.
      *
      * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
      */
     public List<PregnancyHistory> getAllPregnancyHistory() {
-        String query = "{}";
-        try {
-            String response = postPath("SelectPregnancyHistory", query);
-            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting all PregnancyHistory: " + error.getMessage(), error);
-            return null;
-        }
+        return getPregnancyHistoryByQuery(QUERY_ALL);
     }
 
     /**
-     * <p>Gets all the {@link PregnancyHistory} for a given patient Id.</p>
+     * Returns all {@link PregnancyHistory} entities with the given {@link Patient} id.
      *
      * @param patientId The id of the {@link Patient} whose {@link PregnancyHistory} to get.
      * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
      */
     public List<PregnancyHistory> getPregnancyHistoryByPatientId(final String patientId) {
-        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
+        return getPregnancyHistoryByQuery(query);
+    }
+
+    private List<PregnancyHistory> getPregnancyHistoryByQuery(final String query) {
         try {
             String response = postPath("SelectPregnancyHistory", query);
             return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
         } catch (Exception error) {
-            LOGGER.error("Error while gettint PregnancyHistory for patient: " + error.getMessage(), error);
+            LOGGER.error("Error while getting PregnancyHistory for patient: " + error.getMessage(), error);
             return null;
         }
     }
 
     /**
-     * <p>Gets a {@link PregnancyHistory} by its id.</p>
+     * Returns the {@link PregnancyHistory} with the given id.
      *
      * @param pregnancyId The id of the {@link PregnancyHistory} to get.
      * @return A {@link PregnancyHistory} or null in case of an error.
      */
     public PregnancyHistory getPregnancyHistoryByPregnancyId(final int pregnancyId) {
-        String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
+        final String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectPregnancyHistory", query);
             return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory().get(0);
@@ -450,7 +444,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Inserts a new {@link Medication} to EHR.</p>
+     * Inserts a new {@link Medication} to EHR.
      *
      * @param medication The {@link Medication} to insert.
      * @return A JSON String or null in case of an error.
@@ -465,14 +459,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link Medication} saved in EHR.</p>
+     * Returns all {@link Medication} entities.
      *
      * @return A {@link List} of {@link Medication} or null in case of an error.
      */
     public List<Medication> getAllMedication() {
-        String query = "{}";
         try {
-            String response = postPath("SelectMedication", query);
+            String response = postPath("SelectMedication", QUERY_ALL);
             return objectMapper.readValue(response, MedicationList.class).getMedication();
         } catch (Exception error) {
             LOGGER.error("Error while getting all Medication: " + error.getMessage(), error);
@@ -481,13 +474,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link Medication} by its id.</p>
+     * Returns the {@link Medication} with the given id.
      *
      * @param medicationId The id of the {@link Medication} to get.
      * @return A {@link Medication} or null in case of an error.
      */
     public Medication getMedicationByMedicationId(final int medicationId) {
-        String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
+        final String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectMedication", query);
             return objectMapper.readValue(response, MedicationList.class).getMedication().get(0);
@@ -498,7 +492,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Saves a new {@link LabAnalysis} to EHR.</p>
+     * Saves a new {@link LabAnalysis} to EHR.
      *
      * @param labAnalysis The {@link LabAnalysis} to save.
      * @return A JSON String or null in case of an error.
@@ -513,12 +507,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link LabAnalysis} saved in EHR.</p>
+     * Returns all {@link LabAnalysis} entities.
+     *
      * @return A {@link List} of {@link LabAnalysis} or null in case of an error.
      */
     public List<LabAnalysis> getAllLabAnalysis() {
         try {
-            String response = postPath("SelectLabAnalysis", "{}");
+            String response = postPath("SelectLabAnalysis", QUERY_ALL);
             return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis();
         } catch (Exception error) {
             LOGGER.error("Error while getting all LabAnalysis: " + error.getMessage(), error);
@@ -527,13 +522,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link LabAnalysis} by its id.</p>
+     * Returns the {@link LabAnalysis} with the given id.
      *
      * @param labAnalysisId The id of the {@link LabAnalysis} to fetch.
      * @return A {@link LabAnalysis} or null in case of an error.
      */
     public LabAnalysis getLabAnalysisByLabAnalysisId(final int labAnalysisId) {
-        String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
+        final String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectLabAnalysis", query);
             return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis().get(0);
@@ -544,7 +540,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Insert a new {@link Coding} to EHR.</p>
+     * Insert a new {@link Coding} to EHR.
      *
      * @param coding The {@link Coding} to insert.
      * @return A JSON String or null in case of an error.
@@ -559,13 +555,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link Coding} saved in EHR.</p>
+     * Returns all {@link Coding} entities.
      *
      * @return A {@link List} of {@link Coding} or null in case of an error.
      */
     public List<Coding> getAllCoding() {
         try {
-            String response = postPath("SelectCoding", "{}");
+            String response = postPath("SelectCoding", QUERY_ALL);
             return objectMapper.readValue(response, CodingList.class).getCoding();
         } catch (Exception error) {
             LOGGER.error("Error while getting all Coding: " + error.getMessage(), error);
@@ -574,13 +570,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link Coding} with the given id.</p>
+     * Returns the {@link Coding} with the given id.
      *
      * @param codingId The id of the {@link Coding} to fetch.
      * @return A {@link Coding} or null in case of an error.
      */
     public Coding getCodingByCodingId(final int codingId) {
-        String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        final String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectCoding", query);
             return objectMapper.readValue(response, CodingList.class).getCoding().get(0);
@@ -591,7 +588,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Saves a new {@link InsuranceData} to EHR.</p>
+     * Saves a new {@link InsuranceData} to EHR.
      *
      * @param insuranceData The {@link InsuranceData} to save.
      * @return A JSON String or null in case of an error.
@@ -606,13 +603,13 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link InsuranceData} saved in EHR.</p>
+     * Returns all {@link InsuranceData} entities.
      *
      * @return A {@link List} of {@link InsuranceData} or null in case of an error.
      */
     public List<InsuranceData> getAllInsuranceData() {
         try {
-            String response = postPath("SelectInsuranceData", "{}");
+            String response = postPath("SelectInsuranceData", QUERY_ALL);
             return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
         } catch (Exception error) {
             LOGGER.error("Error while getting all InsuranceData: " + error.getMessage(), error);
@@ -621,13 +618,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets the {@link InsuranceData} with the given id.</p>
+     * Returns the {@link InsuranceData} with the given id.
      *
      * @param insuranceId The id of the {@link InsuranceData} to fetch.
      * @return An {@link InsuranceData} or null in case of an error.
      */
     public InsuranceData getInsuranceDataByInsuranceId(final int insuranceId) {
-        String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
+        final String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectInsuranceData", query);
             return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData().get(0);
@@ -638,13 +636,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets the {@link InsuranceData} for a patient using his id.</p>
+     * Returns the {@link InsuranceData} with the given {@link Patient} id.
      *
      * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
      * @return A {@link List} of {@link InsuranceData} or null in case of an error.
      */
     public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
-        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
         try {
             String response = postPath("SelectInsuranceData", query);
             return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
@@ -655,7 +654,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Add a new {@link PatientMedicalDevices} to EHR.</p>
+     * Add a new {@link PatientMedicalDevices} to EHR.
      *
      * @param patientMedicalDevices The {@link PatientMedicalDevices} to save.
      * @return A JSON String or null in case of an error.
@@ -665,7 +664,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link PatientMedicalDevices} saved in EHR.</p>
+     * Returns all {@link PatientMedicalDevices} entities.
      *
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
      */
@@ -679,13 +678,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link PatientMedicalDevices} by its S/N</p>
+     * Returns the {@link PatientMedicalDevices} with the given serial number.
      *
      * @param patientMedicalDeviceSn The S/N of the {@link PatientMedicalDevices} to fetch.
      * @return A {@link PatientMedicalDevices} or null in case of an error.
      */
     public PatientMedicalDevices getPatientMedicalDevicesByPatientMedicalDeviceSn(final String patientMedicalDeviceSn) {
-        String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
+        final String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
+        LOGGER.debug(query);
         PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
         if (patientMedicalDevicesList != null) {
             List<PatientMedicalDevices> patientMedicalDevices = patientMedicalDevicesList.getPatientMedicalDevices();
@@ -698,13 +698,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link PatientMedicalDevices} associated with a {@link Patient}.</p>
+     * Returns all {@link PatientMedicalDevices} with the given {@link Patient} id.
      *
      * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
      */
     public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final int patientId) {
-        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
         PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
         if (patientMedicalDevicesList != null) {
             return patientMedicalDevicesList.getPatientMedicalDevices();
@@ -714,7 +715,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Saves a new {@link Diagnosis} to EHR.</p>
+     * Saves a new {@link Diagnosis} to EHR.
      *
      * @param diagnosis The {@link Diagnosis} to save.
      * @return A JSON String or null in case of an error.
@@ -724,7 +725,7 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link Diagnosis} saved in EHR.</p>
+     * Returns all {@link Diagnosis} entities.
      *
      * @return A {@link List} of {@link Diagnosis} or null in case of an error.
      */
@@ -737,13 +738,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets a {@link Diagnosis} by its id.</p>
+     * Returns the {@link Diagnosis} with the given id.
      *
      * @param diagnosisId The id of the {@link Diagnosis} to fetch.
      * @return A {@link Diagnosis} or null in case of an error.
      */
     public Diagnosis getDiagnosisByDiagnosisId(final long diagnosisId) {
-        String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
+        final String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
+        LOGGER.debug(query);
         DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
         if (diagnosisList != null) {
             List<Diagnosis> diagnoses = diagnosisList.getDiagnosis();
@@ -755,13 +757,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets the {@link Diagnosis} associated with an {@link AdmissionData}.</p>
+     * Returns all {@link Diagnosis} with the given {@link AdmissionData} id.
      *
      * @param admissionId The id of the {@link AdmissionData} for which to fetch the {@link Diagnosis}.
      * @return A {@link List} of {@link Diagnosis} or null.
      */
     public List<Diagnosis> getDiagnosisByAdmissionId(final long admissionId) {
-        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        final String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        LOGGER.debug(query);
         DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
         if (diagnosisList != null) {
             return diagnosisList.getDiagnosis();
@@ -770,13 +773,14 @@ public class EhrClient {
     }
 
     /**
-     * <p>Gets all the {@link Diagnosis} associated with a {@link Patient}.</p>
+     * Returns all {@link Diagnosis} withe the given {@link Patient} id.
      *
      * @param patientId The id of the {@link Patient} whose {@link Diagnosis} to fetch.
      * @return A {@link List} of {@link Diagnosis} or null in case of an error.
      */
     public List<Diagnosis> getDiagnosisByPatientId(final String patientId) {
-        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
         DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
         if (diagnosisList != null) {
             return diagnosisList.getDiagnosis();
@@ -785,11 +789,11 @@ public class EhrClient {
     }
 
     /**
-     * <p>Generic metehod for saving entities to EHR.</p>
+     * Generic metehod for saving entities to EHR.
      *
-     * @param path The path where to save the entity.
+     * @param path   The path where to save the entity.
      * @param entity The entity to save.
-     * @param <A> The type of the entity to save.
+     * @param <A>    The type of the entity to save.
      * @return A JSON String or null in case of an error.
      */
     private <A> String save(final String path, final A entity) {
@@ -802,11 +806,12 @@ public class EhrClient {
     }
 
     /**
-     * <p>Generic methods to get all the entities in the given path that match the given query.</p>
-     * @param path The path to query.
-     * @param query The query to run.
+     * Generic methods to get all the entities in the given path that match the given query.
+     *
+     * @param path     The path to query.
+     * @param query    The query to run.
      * @param theClass The class to convert the reponse to.
-     * @param <A> The type of the response.
+     * @param <A>      The type of the response.
      * @return An instance of A or null in case of an error.
      */
     private <A> A getAll(final String path, final String query, final Class<A> theClass) {
@@ -820,14 +825,15 @@ public class EhrClient {
     }
 
     /**
-     * <p>Generic methods to get all the entities in the given path.</p>
-     * @param path The path to query.
+     * Generic methods to get all the entities in the given path.
+     *
+     * @param path     The path to query.
      * @param theClass The class to convert the reponse to.
-     * @param <A> The type of the response.
+     * @param <A>      The type of the response.
      * @return An instance of A or null in case of an error.
      */
     private <A> A getAll(final String path, final Class<A> theClass) {
-        return getAll(path, "{}", theClass);
+        return getAll(path, QUERY_ALL, theClass);
     }
 
     /**
