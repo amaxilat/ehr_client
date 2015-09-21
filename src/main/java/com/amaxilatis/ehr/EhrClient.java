@@ -13,7 +13,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +26,6 @@ public class EhrClient {
      */
     protected static final Logger LOGGER = Logger.getLogger(EhrClient.class);
     private static final String QUERY_ALL = "{}";
-    private final ArrayList<Integer> successCodes;
     private final String connectionUrl;
     private final ObjectMapper objectMapper;
 
@@ -63,11 +61,6 @@ public class EhrClient {
      * @param connectionUrl the url of the EHR Service.
      */
     public EhrClient(final String connectionUrl) {
-        successCodes = new ArrayList<Integer>();
-        successCodes.add(200);
-        successCodes.add(201);
-        successCodes.add(202);
-        successCodes.add(204);
         this.connectionUrl = connectionUrl;
         objectMapper = new ObjectMapper();
     }
@@ -609,13 +602,35 @@ public class EhrClient {
      */
     public List<InsuranceData> getAllInsuranceData() {
         try {
-            String response = postPath("SelectInsuranceData", QUERY_ALL);
-            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+            return getInsuranceDataByQuery(QUERY_ALL);
         } catch (Exception error) {
             LOGGER.error("Error while getting all InsuranceData: " + error.getMessage(), error);
             return null;
         }
     }
+
+    /**
+     * Returns the {@link InsuranceData} with the given {@link Patient} id.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
+     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
+     */
+    public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
+        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        LOGGER.debug(query);
+        try {
+            return getInsuranceDataByQuery(query);
+        } catch (Exception error) {
+            LOGGER.error("Error while getting InsuranceData with patientId " + patientId + ": " + error.getMessage(), error);
+            return null;
+        }
+    }
+
+    private List<InsuranceData> getInsuranceDataByQuery(final String query) throws IOException {
+        final String response = postPath("SelectInsuranceData", query);
+        return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
+    }
+
 
     /**
      * Returns the {@link InsuranceData} with the given id.
@@ -635,23 +650,6 @@ public class EhrClient {
         }
     }
 
-    /**
-     * Returns the {@link InsuranceData} with the given {@link Patient} id.
-     *
-     * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
-     * @return A {@link List} of {@link InsuranceData} or null in case of an error.
-     */
-    public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectInsuranceData", query);
-            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting InsuranceData with patientId " + patientId + ": " + error.getMessage(), error);
-            return null;
-        }
-    }
 
     /**
      * Add a new {@link PatientMedicalDevices} to EHR.
@@ -765,11 +763,7 @@ public class EhrClient {
     public List<Diagnosis> getDiagnosisByAdmissionId(final long admissionId) {
         final String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         LOGGER.debug(query);
-        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
-        if (diagnosisList != null) {
-            return diagnosisList.getDiagnosis();
-        }
-        return null;
+        return getDiagnosisByQuery(query);
     }
 
     /**
@@ -781,6 +775,10 @@ public class EhrClient {
     public List<Diagnosis> getDiagnosisByPatientId(final String patientId) {
         final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
         LOGGER.debug(query);
+        return getDiagnosisByQuery(query);
+    }
+
+    public List<Diagnosis> getDiagnosisByQuery(final String query) {
         DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
         if (diagnosisList != null) {
             return diagnosisList.getDiagnosis();
