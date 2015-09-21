@@ -3,7 +3,7 @@ language: java
 jdk:
   - oraclejdk8
 
-script: mvn clean install javadoc:javadoc
+script: mvn clean install javadoc:javadoc pmd:pmd
 
 after_success:
   - .utility/push-javadoc-to-gh-page.sh
