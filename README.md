@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/amaxilat/ehr_client.svg?branch=master)](https://travis-ci.org/amaxilat/ehr_client)
-[pmd](https://amaxilat.github.io/ehr_client/javadoc/pmd.html).
-[checkstyle](https://amaxilat.github.io/ehr_client/javadoc/checkstyle.html).
+[![Build Status](https://travis-ci.org/amaxilat/ehr_client.svg?branch=master)](https://travis-ci.org/amaxilat/ehr_client)|
+[pmd](https://amaxilat.github.io/ehr_client/javadoc/pmd.html)|
+[checkstyle](https://amaxilat.github.io/ehr_client/javadoc/checkstyle.html)
 
 
 # ehr_client
