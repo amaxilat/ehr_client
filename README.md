@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/amaxilat/ehr_client.svg?branch=master)](https://travis-ci.org/amaxilat/ehr_client)
 
+[pmd](https://amaxilat.github.io/ehr_client/javadoc/pmd.html)
+
+[checkstyle](https://amaxilat.github.io/ehr_client/javadoc/checkstyle.html)
+
+
 # ehr_client
 
 A Java Client for the FI-STAR [Electronic Health Record](http://fistarcatalogue.fiware.eng.it/enablers/ehr) (EHR) specific enabler.
@@ -13,7 +18,7 @@ A Java Client for the FI-STAR [Electronic Health Record](http://fistarcatalogue.
 
 ## Javadoc
 
-The latest Javadoc is available [here](https://amaxilat.github.io/ehr_client/javadoc/).
+The latest Javadoc is available [here](https://amaxilat.github.io/ehr_client/javadoc/apidocs/).
 
 ## Maven Config
 
