@@ -276,16 +276,7 @@ public class EhrClient {
      * @return a list of all registered {@link Patient}s.
      */
     public List<Patient> getAllPatients() {
-        String resp = null;
-        try {
-            resp = postPath("SelectPatientData", QUERY_ALL);
-            LOGGER.info(resp);
-            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
-            return list.getPatientData();
-        } catch (IOException e) {
-            LOGGER.error(resp, e);
-            return null;
-        }
+        return getList("SelectPatientData", PatientDataList.class);
     }
 
     /**
