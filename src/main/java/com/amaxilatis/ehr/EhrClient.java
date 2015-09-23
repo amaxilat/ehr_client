@@ -568,12 +568,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String addCoding(final Coding coding) {
-        try {
-            return postPath("InsertCoding", coding);
-        } catch (Exception error) {
-            LOGGER.error("Error while adding new coding: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertCoding", coding);
     }
 
     /**
@@ -582,13 +577,7 @@ public class EhrClient {
      * @return A {@link List} of {@link Coding} or null in case of an error.
      */
     public List<Coding> getAllCoding() {
-        try {
-            String response = postPath("SelectCoding", QUERY_ALL);
-            return objectMapper.readValue(response, CodingList.class).getCoding();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting all Coding: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectCoding", CodingList.class);
     }
 
     /**
@@ -598,15 +587,8 @@ public class EhrClient {
      * @return A {@link Coding} or null in case of an error.
      */
     public Coding getCodingByCodingId(final int codingId) {
-        final String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectCoding", query);
-            return objectMapper.readValue(response, CodingList.class).getCoding().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting Coding with id " + codingId + ": " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        return getSingle("SelectCoding", query, CodingList.class);
     }
 
     /**
