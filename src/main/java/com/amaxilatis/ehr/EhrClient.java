@@ -826,6 +826,17 @@ public class EhrClient {
     }
 
     /**
+     * Gets a {@link PatientMedication} by its id.
+     *
+     * @param patientMedicationId The id of the {@link PatientMedication} to fetch.
+     * @return A {@link PatientMedication} or null in case of an error.
+     */
+    public PatientMedication getPatientMedicationByPatientMedicationId(final long patientMedicationId) {
+        String query = "{\"=\":{\"patientMedicationId\":\"" + patientMedicationId + "\"}}";
+        return getSingle("SelectPatientMedications", query, PatientMedicationList.class);
+    }
+
+    /**
      * Gets all the {@link PatientMedication} saved in EHR.
      *
      * @return A {@link List} of {@link PatientMedication} or null in case of an error.
