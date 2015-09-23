@@ -9,7 +9,7 @@ import java.util.List;
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MedicalDevicesList {
+public class MedicalDevicesList implements Listable<MedicalDevices> {
 
     private List<MedicalDevices> medicalDevices;
 
@@ -19,6 +19,11 @@ public class MedicalDevicesList {
 
     public void setMedicalDevices(List<MedicalDevices> medicalDevices) {
         this.medicalDevices = medicalDevices;
+    }
+
+    @Override
+    public List<MedicalDevices> getList() {
+        return medicalDevices;
     }
 
     @Override

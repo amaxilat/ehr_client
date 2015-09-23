@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
-public class InsuranceDataList {
+public class InsuranceDataList implements Listable<InsuranceData> {
 
     private List<InsuranceData> insuranceData;
 
@@ -19,6 +19,11 @@ public class InsuranceDataList {
 
     public void setInsuranceData(List<InsuranceData> insuranceData) {
         this.insuranceData = insuranceData;
+    }
+
+    @Override
+    public List<InsuranceData> getList() {
+        return insuranceData;
     }
 
     @Override

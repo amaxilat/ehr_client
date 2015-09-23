@@ -9,7 +9,7 @@ import java.util.List;
  * @author Dimitrios Amaxilatis.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AdmissionTypeList {
+public class AdmissionTypeList implements Listable<AdmissionType> {
     List<AdmissionType> admissionType;
 
     public List<AdmissionType> getAdmissionType() {
@@ -18,6 +18,11 @@ public class AdmissionTypeList {
 
     public void setAdmissionType(List<AdmissionType> admissionType) {
         this.admissionType = admissionType;
+    }
+
+    @Override
+    public List<AdmissionType> getList() {
+        return admissionType;
     }
 
     @Override

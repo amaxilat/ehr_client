@@ -12,7 +12,7 @@ import java.util.List;
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PregnancyHistoryList {
+public class PregnancyHistoryList implements Listable<PregnancyHistory> {
 
     @JsonProperty("patientData")
     private List<PregnancyHistory> pregnancyHistory;
@@ -23,6 +23,11 @@ public class PregnancyHistoryList {
 
     public void setPregnancyHistory(List<PregnancyHistory> pregnancyHistory) {
         this.pregnancyHistory = pregnancyHistory;
+    }
+
+    @Override
+    public List<PregnancyHistory> getList() {
+        return pregnancyHistory;
     }
 
     @Override

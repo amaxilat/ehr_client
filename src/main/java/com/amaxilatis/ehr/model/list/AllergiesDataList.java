@@ -9,7 +9,7 @@ import java.util.List;
  * @author Dimitrios Amaxilatis.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AllergiesDataList {
+public class AllergiesDataList implements Listable<Allergies> {
     List<Allergies> allergy;
 
     public List<Allergies> getAllergy() {
@@ -18,6 +18,11 @@ public class AllergiesDataList {
 
     public void setAllergy(List<Allergies> allergy) {
         this.allergy = allergy;
+    }
+
+    @Override
+    public List<Allergies> getList() {
+        return allergy;
     }
 
     @Override
