@@ -136,18 +136,37 @@ public class EhrClient {
      * @return a List of {@link Allergies} of the {@link Patient}.
      */
     public List<Allergies> getAllergiesByPatientId(final String patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        String resp = null;
-        try {
-            resp = postPath("SelectAllergies", query);
-            LOGGER.info(resp);
-            AllergiesDataList list = objectMapper.readValue(resp, AllergiesDataList.class);
-            return list.getAllergy();
-        } catch (IOException e) {
-            LOGGER.error(resp, e);
-            return null;
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getAllAllertiesByQuery(query);
+    }
+
+    /**
+     * Gets all the {@link Allergies} for the given {@link Patient} and {@link AdmissionData} ids.
+     *
+     * @param patientId The id of the {@link Patient}.
+     * @param admissionId The id of the {@link AdmissionData}.
+     * @return The {@link Allergies} that match the query or null in case of an error.
+     */
+    public List<Allergies> getAllertiesByPatientAndAdmissionId(final String patientId,
+                                                               final long admissionId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\", \"admissionId\":\"" + admissionId + "\"}}";
+        return getAllAllertiesByQuery(query);
+    }
+
+    /**
+     * Gets all the {@link Allergies} that match the given query.
+     *
+     * @param query The query to match.
+     * @return The allerties that match the query or null in case of an error.
+     */
+    private List<Allergies> getAllAllertiesByQuery(final String query) {
+        LOGGER.debug("Allergies by query: " + query);
+        AllergiesDataList allergiesDataList = getAll("SelectAllergies", query, AllergiesDataList.class);
+        if (allergiesDataList != null) {
+            return allergiesDataList.getAllergy();
         }
+
+        return null;
     }
 
     /**
