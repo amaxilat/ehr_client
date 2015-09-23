@@ -295,12 +295,7 @@ public class EhrClient {
      * @return A JSON string in case of success, null otherwise.
      */
     public String addMedicalDevices(final MedicalDevices medicalDevices) {
-        try {
-            return postPath("InsertMedicalDevices", medicalDevices);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting new MedicalDevices: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertMedicalDevices", medicalDevices);
     }
 
     /**
@@ -309,14 +304,7 @@ public class EhrClient {
      * @return A {@link List} of {@link MedicalDevices} or null in case of an error.
      */
     public List<MedicalDevices> getAllMedicalDevices() {
-        try {
-            String response = postPath("SelectMedicalDevices", QUERY_ALL);
-            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices();
-
-        } catch (Exception error) {
-            LOGGER.error("Error while querying MedicalDevices: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectMedicalDevices", MedicalDevicesList.class);
     }
 
     /**
@@ -326,15 +314,8 @@ public class EhrClient {
      * @return A {@link MedicalDevices} or null in case of an error.
      */
     public MedicalDevices getMedicalDevicesByMedicalDevicesId(final int medicalDevicesId) {
-        final String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectMedicalDevices", query);
-            return objectMapper.readValue(response, MedicalDevicesList.class).getMedicalDevices().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while selecting MedicalDevices by id: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"medicalDevicesId\":\"" + medicalDevicesId + "\"}}";
+        return getSingle("SelectMedicalDevices", query, MedicalDevicesList.class);
     }
 
     /**
