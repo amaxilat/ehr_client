@@ -226,12 +226,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String insertAdmissionType(final AdmissionType admissionType) {
-        try {
-            return postPath("InsertAdmissionType", admissionType);
-        } catch (Exception error) {
-            LOGGER.error("Error while adding new AdmissionType: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertAdmissionType", admissionType);
     }
 
     /**
@@ -241,15 +236,8 @@ public class EhrClient {
      * @return An {@link AdmissionType} or null in case of an error.
      */
     public AdmissionType getAdmissionTypeByAdmissionTypeId(final int admissionTypeId) {
-        final String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectAdmissionType", query);
-            return objectMapper.readValue(response, AdmissionTypeList.class).getAdmissionType().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while selecting AdmissionType: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"admissionTypeId\":\"" + admissionTypeId + "\"}}";
+        return getSingle("SelectAdmissionType", query, AdmissionTypeList.class);
     }
 
     /**
@@ -258,16 +246,7 @@ public class EhrClient {
      * @return all {@link AdmissionType}.
      */
     public List<AdmissionType> getAdmissionsTypes() {
-        String resp = null;
-        try {
-            resp = postPath("SelectAdmissionType", QUERY_ALL);
-            LOGGER.info(resp);
-            AdmissionTypeList list = objectMapper.readValue(resp, AdmissionTypeList.class);
-            return list.getAdmissionType();
-        } catch (IOException e) {
-            LOGGER.error(resp, e);
-            return null;
-        }
+        return getList("SelectAdmissionType", AdmissionTypeList.class);
     }
 
     /**
