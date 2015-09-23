@@ -408,12 +408,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String addPregnancyHistory(final PregnancyHistory pregnancyHistory) {
-        try {
-            return postPath("InsertPregnancyHistory", pregnancyHistory);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting new PregnancyHistory: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertPregnancyHistory", pregnancyHistory);
     }
 
     /**
@@ -422,7 +417,7 @@ public class EhrClient {
      * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
      */
     public List<PregnancyHistory> getAllPregnancyHistory() {
-        return getPregnancyHistoryByQuery(QUERY_ALL);
+        return getList("SelectPregnancyHistory", PregnancyHistoryList.class);
     }
 
     /**
@@ -432,19 +427,8 @@ public class EhrClient {
      * @return A {@link List} of {@link PregnancyHistory} or null in case of an error.
      */
     public List<PregnancyHistory> getPregnancyHistoryByPatientId(final String patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        return getPregnancyHistoryByQuery(query);
-    }
-
-    private List<PregnancyHistory> getPregnancyHistoryByQuery(final String query) {
-        try {
-            String response = postPath("SelectPregnancyHistory", query);
-            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting PregnancyHistory for patient: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPregnancyHistory", query, PregnancyHistoryList.class);
     }
 
     /**
@@ -454,15 +438,8 @@ public class EhrClient {
      * @return A {@link PregnancyHistory} or null in case of an error.
      */
     public PregnancyHistory getPregnancyHistoryByPregnancyId(final int pregnancyId) {
-        final String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectPregnancyHistory", query);
-            return objectMapper.readValue(response, PregnancyHistoryList.class).getPregnancyHistory().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting PregnancyHistory by id: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"pregrancyId\":\"" + pregnancyId + "\"}}";
+        return getSingle("SelectPregnancyHistory", query, PregnancyHistoryList.class);
     }
 
     /**
