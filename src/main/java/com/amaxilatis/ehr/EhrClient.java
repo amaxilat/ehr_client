@@ -816,7 +816,52 @@ public class EhrClient {
     }
 
     /**
-     * Generic metehod for saving entities to EHR.
+     * Saves a new {@link PatientMedication} to EHR.
+     *
+     * @param patientMedication The {@link PatientMedication} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPatientMedication(final PatientMedication patientMedication) {
+        return save("InsertPatientMedication", patientMedication);
+    }
+
+    /**
+     * Gets all the {@link PatientMedication} saved in EHR.
+     *
+     * @return A {@link List} of {@link PatientMedication} or null in case of an error.
+     */
+    public List<PatientMedication> getPatientMedication() {
+        return getList("SelectPatientMedications", PatientMedicationList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientMedication} saved in EHR for the given {@link AdmissionData} id.
+     *
+     * @param admissionId The id of the {@link AdmissionData}.
+     * @return A {@link List} of {@link PatientMedication} associated with the given {@link AdmissionData} id,
+     *         or null in case of an error.
+     */
+    public List<PatientMedication> getPatientMedicationByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientMedications", query, PatientMedicationList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientMedication} saved in EHR for the given {@link AdmissionData} id and
+     * {@link Patient} id.
+     *
+     * @param admissionId The id of the {@link AdmissionData}.
+     * @param patientId The id of the {@link Patient}.
+     * @return A {@link List} of {@link PatientMedication} that match the query, or null in case of an error.
+     */
+    public List<PatientMedication> getPatientMedicationByAdmissionIdAndPatientId(final long admissionId,
+                                                                                 final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\", \"patientId\":\"" + patientId +"\"}}";
+        return getList("SelectPatientMedications", query, PatientMedicationList.class);
+    }
+
+    /**
+     * Generic method for saving entities to EHR.
      *
      * @param path   The path where to save the entity.
      * @param entity The entity to save.
@@ -861,6 +906,39 @@ public class EhrClient {
      */
     private <A> A getAll(final String path, final Class<A> theClass) {
         return getAll(path, QUERY_ALL, theClass);
+    }
+
+    /**
+     * Generic methods to get all the entities in the given path.
+     *
+     * @param path The path to query.
+     * @param query The query to match.
+     * @param theClass The type of the response that is {@link Listable}.
+     * @param <A> The type of entities that will be returned.
+     * @return A {@link List} of {@link A}s that match the query or null in case of an error.
+     */
+    private <A, B extends Listable<A>> List<A> getList(final String path,
+                                                       final String query,
+                                                       final Class<B> theClass) {
+        Listable<A> list = getAll(path, query, theClass);
+        if (list != null) {
+            return list.getList();
+        }
+
+        return null;
+    }
+
+    /**
+     * Generic methods to get all the entities in the given path.
+     *
+     * @param path The path to query.
+     * @param theClass The type of the response that is {@link Listable}.
+     * @param <A> The type of entities that will be returned.
+     * @return A {@link List} of {@link A}s or null in case of an error.
+     */
+    private <A, B extends Listable<A>> List<A> getList(final String path,
+                                                       final Class<B> theClass) {
+        return getList(path, QUERY_ALL, theClass);
     }
 
     /**
