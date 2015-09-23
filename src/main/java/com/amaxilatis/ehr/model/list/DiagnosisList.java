@@ -11,7 +11,7 @@ import java.util.List;
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DiagnosisList {
+public class DiagnosisList implements Listable<Diagnosis> {
 
     private List<Diagnosis> diagnosis;
 
@@ -21,6 +21,11 @@ public class DiagnosisList {
 
     public void setDiagnosis(List<Diagnosis> diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    @Override
+    public List<Diagnosis> getList() {
+        return diagnosis;
     }
 
     @Override

@@ -757,11 +757,7 @@ public class EhrClient {
      * @return A {@link List} of {@link Diagnosis} or null in case of an error.
      */
     public List<Diagnosis> getAllDiagnosis() {
-        DiagnosisList diagnosisList = getAll("SelectDiagnosis", DiagnosisList.class);
-        if (diagnosisList != null) {
-            return diagnosisList.getDiagnosis();
-        }
-        return null;
+        return getList("SelectDiagnosis", DiagnosisList.class);
     }
 
     /**
@@ -771,16 +767,8 @@ public class EhrClient {
      * @return A {@link Diagnosis} or null in case of an error.
      */
     public Diagnosis getDiagnosisByDiagnosisId(final long diagnosisId) {
-        final String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
-        LOGGER.debug(query);
-        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
-        if (diagnosisList != null) {
-            List<Diagnosis> diagnoses = diagnosisList.getDiagnosis();
-            if (diagnoses != null && diagnoses.size() > 0) {
-                return diagnoses.get(0);
-            }
-        }
-        return null;
+        String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
+        return getSingle("SelectDiagnosis", query, DiagnosisList.class);
     }
 
     /**
@@ -790,9 +778,8 @@ public class EhrClient {
      * @return A {@link List} of {@link Diagnosis} or null.
      */
     public List<Diagnosis> getDiagnosisByAdmissionId(final long admissionId) {
-        final String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
-        LOGGER.debug(query);
-        return getDiagnosisByQuery(query);
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectDiagnosis", query, DiagnosisList.class);
     }
 
     /**
@@ -802,17 +789,8 @@ public class EhrClient {
      * @return A {@link List} of {@link Diagnosis} or null in case of an error.
      */
     public List<Diagnosis> getDiagnosisByPatientId(final String patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        return getDiagnosisByQuery(query);
-    }
-
-    public List<Diagnosis> getDiagnosisByQuery(final String query) {
-        DiagnosisList diagnosisList = getAll("SelectDiagnosis", query, DiagnosisList.class);
-        if (diagnosisList != null) {
-            return diagnosisList.getDiagnosis();
-        }
-        return null;
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectDiagnosis", query, DiagnosisList.class);
     }
 
     /**
