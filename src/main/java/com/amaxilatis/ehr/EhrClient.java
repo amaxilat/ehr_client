@@ -942,6 +942,27 @@ public class EhrClient {
     }
 
     /**
+     * Gets the single entity of type {@link A} that matches the given query.
+     *
+     * @param path The path from which to select the entity.
+     * @param query The query to match.
+     * @param theClass The class of type {@link B} that the response will be converted to.
+     * @param <A> The type of the entity to return.
+     * @param <B> The type of the response EHR will return.
+     * @return An instance of {@link A} or null in case of an error.
+     */
+    private <A, B extends Listable<A>> A getSingle(final String path,
+                                                   final String query,
+                                                   final Class<B> theClass) {
+        List<A> listOfEntities = getList(path, query, theClass);
+        if (listOfEntities != null && listOfEntities.size() > 0) {
+            return listOfEntities.get(0);
+        }
+
+        return null;
+    }
+
+    /**
      * Execute a put request to the specified path.
      *
      * @param path   the path to request.
