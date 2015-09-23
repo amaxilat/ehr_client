@@ -520,12 +520,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String addLabAnalysis(final LabAnalysis labAnalysis) {
-        try {
-            return postPath("InsertLabAnalysis", labAnalysis);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting LabAnalysis: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertLabAnalysis", labAnalysis);
     }
 
     /**
@@ -534,13 +529,7 @@ public class EhrClient {
      * @return A {@link List} of {@link LabAnalysis} or null in case of an error.
      */
     public List<LabAnalysis> getAllLabAnalysis() {
-        try {
-            String response = postPath("SelectLabAnalysis", QUERY_ALL);
-            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting all LabAnalysis: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectLabAnalysis", LabAnalysisList.class);
     }
 
     /**
@@ -550,15 +539,8 @@ public class EhrClient {
      * @return A {@link LabAnalysis} or null in case of an error.
      */
     public LabAnalysis getLabAnalysisByLabAnalysisId(final int labAnalysisId) {
-        final String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectLabAnalysis", query);
-            return objectMapper.readValue(response, LabAnalysisList.class).getLabAnalysis().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting LabAnalysis with id " + labAnalysisId + ": " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"labAnalysisId\":\"" + labAnalysisId + "\"}}";
+        return getSingle("SelectLabAnalysis", query, LabAnalysisList.class);
     }
 
     /**
