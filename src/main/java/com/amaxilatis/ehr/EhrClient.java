@@ -344,12 +344,7 @@ public class EhrClient {
      * @return A JSON String in case of success, null otherwise.
      */
     public String addScheduling(final Scheduling scheduling) {
-        try {
-            return postPath("InsertScheduling", scheduling);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting new Scheduling: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertScheduling", scheduling);
     }
 
     /**
@@ -358,13 +353,7 @@ public class EhrClient {
      * @return A {@link List} of {@link Scheduling} or null in case of an error.
      */
     public List<Scheduling> getAllScheduling() {
-        try {
-            String response = postPath("SelectScheduling", QUERY_ALL);
-            return objectMapper.readValue(response, SchedulingList.class).getScheduling();
-        } catch (Exception error) {
-            LOGGER.error("Error getting all Scheduling: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectScheduling", SchedulingList.class);
     }
 
     /**
@@ -374,15 +363,8 @@ public class EhrClient {
      * @return A {@link Scheduling} or null in case of an error.
      */
     public Scheduling getSchedulingBySchedulingId(final int schedulingId) {
-        final String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectScheduling", query);
-            return objectMapper.readValue(response, SchedulingList.class).getScheduling().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting Scheduling by id: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{ \"=\":{\"schedulingId\":\"" + schedulingId + "\"}}";
+        return getSingle("SelectScheduling", query, SchedulingList.class);
     }
 
     /**
@@ -392,13 +374,8 @@ public class EhrClient {
      * @return A {@link Scheduling} or null in case of an error.
      */
     public List<Scheduling> getSchedulingByPatientId(final String patientId) {
-        final String query = "{ \"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        SchedulingList schedulingList = getAll("SelectScheduling", query, SchedulingList.class);
-        if (schedulingList != null) {
-            return schedulingList.getScheduling();
-        }
-        return null;
+        String query = "{ \"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectScheduling", query, SchedulingList.class);
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.List;
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SchedulingList {
+public class SchedulingList implements Listable<Scheduling> {
 
     private List<Scheduling> scheduling;
 
@@ -21,6 +21,11 @@ public class SchedulingList {
 
     public void setScheduling(List<Scheduling> scheduling) {
         this.scheduling = scheduling;
+    }
+
+    @Override
+    public List<Scheduling> getList() {
+        return scheduling;
     }
 
     @Override
