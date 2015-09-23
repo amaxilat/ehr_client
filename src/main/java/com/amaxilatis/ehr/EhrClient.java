@@ -147,7 +147,7 @@ public class EhrClient {
      */
     public List<Allergies> getAllergiesByPatientId(final String patientId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        return getAllAllertiesByQuery(query);
+        return getList("SelectAllergies", query, AllergiesDataList.class);
     }
 
     /**
@@ -160,23 +160,7 @@ public class EhrClient {
     public List<Allergies> getAllertiesByPatientAndAdmissionId(final String patientId,
                                                                final long admissionId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\", \"admissionId\":\"" + admissionId + "\"}}";
-        return getAllAllertiesByQuery(query);
-    }
-
-    /**
-     * Gets all the {@link Allergies} that match the given query.
-     *
-     * @param query The query to match.
-     * @return The allerties that match the query or null in case of an error.
-     */
-    private List<Allergies> getAllAllertiesByQuery(final String query) {
-        LOGGER.debug("Allergies by query: " + query);
-        AllergiesDataList allergiesDataList = getAll("SelectAllergies", query, AllergiesDataList.class);
-        if (allergiesDataList != null) {
-            return allergiesDataList.getAllergy();
-        }
-
-        return null;
+        return getList("SelectAllergies", query, AllergiesDataList.class);
     }
 
     /**
