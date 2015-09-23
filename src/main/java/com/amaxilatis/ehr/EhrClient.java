@@ -696,12 +696,7 @@ public class EhrClient {
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
      */
     public List<PatientMedicalDevices> getAllPatientMedicalDevices() {
-        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", PatientMedicalDevicesList.class);
-        if (patientMedicalDevicesList != null) {
-            return patientMedicalDevicesList.getPatientMedicalDevices();
-        }
-
-        return null;
+        return getList("SelectPatientMedicalDevices", PatientMedicalDevicesList.class);
     }
 
     /**
@@ -711,17 +706,8 @@ public class EhrClient {
      * @return A {@link PatientMedicalDevices} or null in case of an error.
      */
     public PatientMedicalDevices getPatientMedicalDevicesByPatientMedicalDeviceSn(final String patientMedicalDeviceSn) {
-        final String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
-        LOGGER.debug(query);
-        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
-        if (patientMedicalDevicesList != null) {
-            List<PatientMedicalDevices> patientMedicalDevices = patientMedicalDevicesList.getPatientMedicalDevices();
-            if (patientMedicalDevices != null && patientMedicalDevices.size() > 0) {
-                return patientMedicalDevices.get(0);
-            }
-        }
-
-        return null;
+        String query = "{\"=\":{\"patientMedicalDeviceSn\":\"" + patientMedicalDeviceSn + "\"}}";
+        return getSingle("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
     }
 
     /**
@@ -731,14 +717,8 @@ public class EhrClient {
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of an error.
      */
     public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final int patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        PatientMedicalDevicesList patientMedicalDevicesList = getAll("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
-        if (patientMedicalDevicesList != null) {
-            return patientMedicalDevicesList.getPatientMedicalDevices();
-        }
-
-        return null;
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
     }
 
     /**
