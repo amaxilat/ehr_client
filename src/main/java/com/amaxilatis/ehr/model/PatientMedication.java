@@ -1,32 +1,45 @@
 package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
+ * Model for {@link Medication} of a {@link Patient} during an {@link AdmissionData}.
+ *
  * @author Dimitrios Amaxilatis.
+ * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientMedication {
-    private int admissionId;
-    private String patientId;
-    private int prescribedMedicationId;
-    private int dispensedMedicationId;
-    private int doseFormCoding;
-    private double doseQuantityLow;
-    private double doseQuantityHigh;
-    private String doseQuantityUnit;
-    private int frequencyOfIntakes;
-    private String frequencyOfIntakesUnit;
-    private int durationOfTreatment;
-    private java.util.Date dateOfOnsetTreatment;
 
-    public int getAdmissionId() {
+    private Long patientMedicationId = null;
+    private String admissionId = "no_value";
+    private String patientId = "no_value";
+    private String prescribedMedicationId = "no_value";
+    private String dispensedMedicationId = "no_value";
+    private String doseFormCoding = "no_value";
+    private String doseQuantityLow = "no_value";
+    private String doseQuantityHigh = "no_value";
+    private String doseQuantityUnit = "no_value";
+    private String frequencyOfIntakes = "no_value";
+    private String frequencyOfIntakesUnit = "no_value";
+    private String durationOfTreatment = "no_value";
+    private String dateOfOnsetTreatment = "no_value";
+
+    public Long getPatientMedicationId() {
+        return patientMedicationId;
+    }
+
+    public void setPatientMedicationId(Long patientMedicationId) {
+        this.patientMedicationId = patientMedicationId;
+    }
+
+    public String getAdmissionId() {
         return admissionId;
     }
 
-    public void setAdmissionId(int admissionId) {
+    public void setAdmissionId(String admissionId) {
         this.admissionId = admissionId;
     }
 
@@ -38,43 +51,43 @@ public class PatientMedication {
         this.patientId = patientId;
     }
 
-    public int getPrescribedMedicationId() {
+    public String getPrescribedMedicationId() {
         return prescribedMedicationId;
     }
 
-    public void setPrescribedMedicationId(int prescribedMedicationId) {
+    public void setPrescribedMedicationId(String prescribedMedicationId) {
         this.prescribedMedicationId = prescribedMedicationId;
     }
 
-    public int getDispensedMedicationId() {
+    public String getDispensedMedicationId() {
         return dispensedMedicationId;
     }
 
-    public void setDispensedMedicationId(int dispensedMedicationId) {
+    public void setDispensedMedicationId(String dispensedMedicationId) {
         this.dispensedMedicationId = dispensedMedicationId;
     }
 
-    public int getDoseFormCoding() {
+    public String getDoseFormCoding() {
         return doseFormCoding;
     }
 
-    public void setDoseFormCoding(int doseFormCoding) {
+    public void setDoseFormCoding(String doseFormCoding) {
         this.doseFormCoding = doseFormCoding;
     }
 
-    public double getDoseQuantityLow() {
+    public String getDoseQuantityLow() {
         return doseQuantityLow;
     }
 
-    public void setDoseQuantityLow(double doseQuantityLow) {
+    public void setDoseQuantityLow(String doseQuantityLow) {
         this.doseQuantityLow = doseQuantityLow;
     }
 
-    public double getDoseQuantityHigh() {
+    public String getDoseQuantityHigh() {
         return doseQuantityHigh;
     }
 
-    public void setDoseQuantityHigh(double doseQuantityHigh) {
+    public void setDoseQuantityHigh(String doseQuantityHigh) {
         this.doseQuantityHigh = doseQuantityHigh;
     }
 
@@ -86,11 +99,11 @@ public class PatientMedication {
         this.doseQuantityUnit = doseQuantityUnit;
     }
 
-    public int getFrequencyOfIntakes() {
+    public String getFrequencyOfIntakes() {
         return frequencyOfIntakes;
     }
 
-    public void setFrequencyOfIntakes(int frequencyOfIntakes) {
+    public void setFrequencyOfIntakes(String frequencyOfIntakes) {
         this.frequencyOfIntakes = frequencyOfIntakes;
     }
 
@@ -102,19 +115,38 @@ public class PatientMedication {
         this.frequencyOfIntakesUnit = frequencyOfIntakesUnit;
     }
 
-    public int getDurationOfTreatment() {
+    public String getDurationOfTreatment() {
         return durationOfTreatment;
     }
 
-    public void setDurationOfTreatment(int durationOfTreatment) {
+    public void setDurationOfTreatment(String durationOfTreatment) {
         this.durationOfTreatment = durationOfTreatment;
     }
 
-    public Date getDateOfOnsetTreatment() {
+    public String getDateOfOnsetTreatment() {
         return dateOfOnsetTreatment;
     }
 
-    public void setDateOfOnsetTreatment(Date dateOfOnsetTreatment) {
+    public void setDateOfOnsetTreatment(String dateOfOnsetTreatment) {
         this.dateOfOnsetTreatment = dateOfOnsetTreatment;
+    }
+
+    @Override
+    public String toString() {
+        return "PatientMedication{" +
+                "patientMedicationId=" + patientMedicationId +
+                ", admissionId='" + admissionId + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", prescribedMedicationId='" + prescribedMedicationId + '\'' +
+                ", dispensedMedicationId='" + dispensedMedicationId + '\'' +
+                ", doseFormCoding='" + doseFormCoding + '\'' +
+                ", doseQuantityLow='" + doseQuantityLow + '\'' +
+                ", doseQuantityHigh='" + doseQuantityHigh + '\'' +
+                ", doseQuantityUnit='" + doseQuantityUnit + '\'' +
+                ", frequencyOfIntakes='" + frequencyOfIntakes + '\'' +
+                ", frequencyOfIntakesUnit='" + frequencyOfIntakesUnit + '\'' +
+                ", durationOfTreatment='" + durationOfTreatment + '\'' +
+                ", dateOfOnsetTreatment='" + dateOfOnsetTreatment + '\'' +
+                '}';
     }
 }
