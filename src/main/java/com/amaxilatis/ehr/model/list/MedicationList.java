@@ -13,7 +13,7 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MedicationList {
+public class MedicationList implements Listable<Medication> {
 
     private List<Medication> medication;
 
@@ -23,6 +23,11 @@ public class MedicationList {
 
     public void setMedication(List<Medication> medication) {
         this.medication = medication;
+    }
+
+    @Override
+    public List<Medication> getList() {
+        return medication;
     }
 
     @Override

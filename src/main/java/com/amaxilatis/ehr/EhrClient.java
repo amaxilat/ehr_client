@@ -472,12 +472,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String addMedication(final Medication medication) {
-        try {
-            return postPath("InsertMedication", medication);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting Medication: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertMedication", medication);
     }
 
     /**
@@ -486,13 +481,7 @@ public class EhrClient {
      * @return A {@link List} of {@link Medication} or null in case of an error.
      */
     public List<Medication> getAllMedication() {
-        try {
-            String response = postPath("SelectMedication", QUERY_ALL);
-            return objectMapper.readValue(response, MedicationList.class).getMedication();
-        } catch (Exception error) {
-            LOGGER.error("Error while getting all Medication: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectMedication", MedicationList.class);
     }
 
     /**
@@ -502,15 +491,8 @@ public class EhrClient {
      * @return A {@link Medication} or null in case of an error.
      */
     public Medication getMedicationByMedicationId(final int medicationId) {
-        final String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectMedication", query);
-            return objectMapper.readValue(response, MedicationList.class).getMedication().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting Medication by id: " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"medicationId\":\"" + medicationId + "\"}}";
+        return getSingle("SelectMedication", query, MedicationList.class);
     }
 
     /**
