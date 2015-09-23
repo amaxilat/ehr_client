@@ -12,13 +12,13 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.List;
 
 /**
  * A client class to interact with an EHR server.
  *
  * @author Dimitrios Amaxilatis.
+ * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 public class EhrClient {
     /**
@@ -72,11 +72,7 @@ public class EhrClient {
      * @return
      */
     public String addPatient(final Patient patient) {
-        try {
-            return postPath("InsertPatientData", patient);
-        } catch (PatientIdExistsException e) {
-            return null;
-        }
+        return save("InsertPatientData", patient);
     }
 
     /**
@@ -86,11 +82,7 @@ public class EhrClient {
      * @return
      */
     public String addAdmissionData(final AdmissionData admissionData) {
-        try {
-            return postPath("InsertAdmissionData", admissionData);
-        } catch (PatientIdExistsException e) {
-            return null;
-        }
+        return save("InsertAdmissionData", admissionData);
     }
 
     /**
@@ -115,18 +107,8 @@ public class EhrClient {
      * @return the {@link Patient} requested.
      */
     public Patient getPatientByPatientId(final String patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        String resp = null;
-        try {
-            resp = postPath("SelectPatientData", query);
-            LOGGER.info(resp);
-            PatientDataList list = objectMapper.readValue(resp, PatientDataList.class);
-            return list.getPatientData().get(0);
-        } catch (IOException e) {
-            LOGGER.error(resp, e);
-            return null;
-        }
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getSingle("SelectPatientData", query, PatientDataList.class);
     }
 
     /**
