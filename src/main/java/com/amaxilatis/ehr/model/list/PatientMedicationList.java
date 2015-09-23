@@ -11,7 +11,7 @@ import java.util.List;
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PatientMedicatonList {
+public class PatientMedicationList implements Listable<PatientMedication> {
 
     private List<PatientMedication> patientMedication;
 
@@ -24,8 +24,13 @@ public class PatientMedicatonList {
     }
 
     @Override
+    public List<PatientMedication> getList() {
+        return patientMedication;
+    }
+
+    @Override
     public String toString() {
-        return "PatientMedicatonList{" +
+        return "PatientMedicationList{" +
                 "patientMedication=" + patientMedication +
                 '}';
     }
