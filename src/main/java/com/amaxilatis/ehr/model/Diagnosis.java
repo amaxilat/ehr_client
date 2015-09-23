@@ -20,7 +20,7 @@ public class Diagnosis {
     private String codingId;
     private String onsetDate;
     private String illnessHistory;
-    private Boolean resolved;
+    private String resolved;
     @JsonProperty("treatmentRecomendation")
     private String treatmentRecommendation;
 
@@ -34,7 +34,7 @@ public class Diagnosis {
         codingId = "no_value";
         onsetDate = "no_value";
         illnessHistory = "no_value";
-        resolved = Boolean.FALSE;
+        resolved = "no_value";
         treatmentRecommendation = "no_value";
     }
 
@@ -116,11 +116,11 @@ public class Diagnosis {
         this.illnessHistory = illnessHistory;
     }
 
-    public Boolean getResolved() {
+    public String getResolved() {
         return resolved;
     }
 
-    public void setResolved(Boolean resolved) {
+    public void setResolved(String resolved) {
         this.resolved = resolved;
     }
 
