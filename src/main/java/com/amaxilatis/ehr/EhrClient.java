@@ -130,6 +130,16 @@ public class EhrClient {
     }
 
     /**
+     * Adds a new {@link Allergies} to EHR.
+     *
+     * @param allergies The {@link Allergies} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addAllergy(final Allergies allergies) {
+        return save("InsertAllergies", allergies);
+    }
+
+    /**
      * Returns all {@link Allergies} with the given {@link Patient} id.
      *
      * @param patientId the id of the {@link Patient} to search for.
