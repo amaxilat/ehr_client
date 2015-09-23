@@ -186,18 +186,8 @@ public class EhrClient {
      * @return a List of {@link AdmissionData} of the {@link Patient}.
      */
     public List<AdmissionData> getAdmissionsByPatientId(final String patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        String resp = null;
-        try {
-            resp = postPath("SelectAdmissionData", query);
-            LOGGER.info(resp);
-            AdmissionDataList list = objectMapper.readValue(resp, AdmissionDataList.class);
-            return list.getAdmissionData();
-        } catch (IOException e) {
-            LOGGER.error(resp, e);
-            return null;
-        }
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectAdmissionData", query, AdmissionDataList.class);
     }
 
     /**
@@ -207,16 +197,8 @@ public class EhrClient {
      * @return An {@link AdmissionData} or null in case of an error.
      */
     public AdmissionData getAdmissionByAdmissionId(final long admissionId) {
-        final String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
-        LOGGER.debug(query);
-        AdmissionDataList admissionDataList = getAll("SelectAdmissionData", query, AdmissionDataList.class);
-        if (admissionDataList != null) {
-            List<AdmissionData> admissionList = admissionDataList.getAdmissionData();
-            if (admissionList != null && admissionList.size() > 0) {
-                return admissionList.get(0);
-            }
-        }
-        return null;
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getSingle("SelectAdmissionData", query, AdmissionDataList.class);
     }
 
     /**
