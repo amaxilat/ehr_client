@@ -616,12 +616,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     public String addInsuranceData(final InsuranceData insuranceData) {
-        try {
-            return postPath("InsertInsuranceData", insuranceData);
-        } catch (Exception error) {
-            LOGGER.error("Error while inserting InsuranceData: " + error.getMessage(), error);
-            return null;
-        }
+        return save("InsertInsuranceData", insuranceData);
     }
 
     /**
@@ -630,12 +625,7 @@ public class EhrClient {
      * @return A {@link List} of {@link InsuranceData} or null in case of an error.
      */
     public List<InsuranceData> getAllInsuranceData() {
-        try {
-            return getInsuranceDataByQuery(QUERY_ALL);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting all InsuranceData: " + error.getMessage(), error);
-            return null;
-        }
+        return getList("SelectInsuranceData", InsuranceDataList.class);
     }
 
     /**
@@ -645,21 +635,9 @@ public class EhrClient {
      * @return A {@link List} of {@link InsuranceData} or null in case of an error.
      */
     public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
-        final String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            return getInsuranceDataByQuery(query);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting InsuranceData with patientId " + patientId + ": " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectInsuranceData", query, InsuranceDataList.class);
     }
-
-    private List<InsuranceData> getInsuranceDataByQuery(final String query) throws IOException {
-        final String response = postPath("SelectInsuranceData", query);
-        return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData();
-    }
-
 
     /**
      * Returns the {@link InsuranceData} with the given id.
@@ -668,15 +646,8 @@ public class EhrClient {
      * @return An {@link InsuranceData} or null in case of an error.
      */
     public InsuranceData getInsuranceDataByInsuranceId(final int insuranceId) {
-        final String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
-        LOGGER.debug(query);
-        try {
-            String response = postPath("SelectInsuranceData", query);
-            return objectMapper.readValue(response, InsuranceDataList.class).getInsuranceData().get(0);
-        } catch (Exception error) {
-            LOGGER.error("Error while getting InsuranceData with id " + insuranceId + ": " + error.getMessage(), error);
-            return null;
-        }
+        String query = "{\"=\":{\"insuranceId\":\"" + insuranceId + "\"}}";
+        return getSingle("SelectInsuranceData", query, InsuranceDataList.class);
     }
 
 
