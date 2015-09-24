@@ -92,12 +92,7 @@ public class EhrClient {
      * @return
      */
     public String updatePatient(final Patient patient) {
-        try {
-            LOGGER.warn("Patient " + patient.getPatientId() + " exists updating data...");
-            return postPath("UpdatePatientData", patient);
-        } catch (PatientIdExistsException e1) {
-            return null;
-        }
+        return postPath("UpdatePatientData", patient);
     }
 
     /**
@@ -702,46 +697,39 @@ public class EhrClient {
     }
 
     /**
-     * Execute a put request to the specified path.
+     * Posts the given entity to the given path.
      *
-     * @param path   the path to request.
-     * @param entity the text containing the entity to store.
-     * @return the response string from the server.
+     * @param path The path where to post.
+     * @param entity The entity to post.
+     * @param <A> The type of the entity to post.
+     * @return A JSON String or null in case of an error.
      */
-    private String postPath(final String path, final Object entity) throws PatientIdExistsException {
-
+    private <A> String postPath(final String path, final A entity) {
+        LOGGER.debug(String.format("Will try to post entity: \"%s\", to: \"%s\".", entity, path));
         try {
-            final Entity payload = Entity.json(objectMapper.writeValueAsString(entity));
-            LOGGER.debug(payload);
-            final Response response = getClientForPath(path).post(payload);
-            LOGGER.debug("getStatus: " + response.getStatus());
-            if (response.getStatus() == 400) {
-                throw new PatientIdExistsException();
+            Entity payload;
+            if (entity.getClass().equals(String.class)) {
+                LOGGER.debug(String.format("Payload to post to: \"%s\" is a String.", path));
+                payload = Entity.json(entity);
+            } else {
+                LOGGER.debug(String.format("Payload to post to: \"%s\" is a %s.", path, entity.getClass().getSimpleName()));
+                payload = Entity.json(objectMapper.writeValueAsString(entity));
             }
-            LOGGER.debug("getEntity: " + response.getEntity());
-            LOGGER.debug("getStatusInfo: " + response.getStatusInfo());
-            return response.readEntity(String.class);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e, e);
-        }
-        return null;
-    }
+            LOGGER.debug(String.format("Will try to post payload: \"%s\", to: \"%s\".", payload, path));
 
-    /**
-     * Execute a put request to the specified path.
-     *
-     * @param path   the path to request.
-     * @param entity the text containing the entity to store.
-     * @return the response string from the server.
-     */
-    private String postPath(final String path, final String entity) {
-        final Entity payload = Entity.json(entity);
-        LOGGER.debug(payload);
-        final Response response = getClientForPath(path).post(payload);
-        LOGGER.debug("status: " + response.getStatus());
-        LOGGER.debug("status: " + response.getEntity());
-        LOGGER.debug("status: " + response.getStatusInfo());
-        return response.readEntity(String.class);
+            Response response = getClientForPath(path).post(payload);
+            Response.Status.Family statusFamily = response.getStatusInfo().getFamily();
+            LOGGER.debug(String.format("Posting entity %s to %s returned a %s response.", entity, path, statusFamily));
+            if (statusFamily == Response.Status.Family.SUCCESSFUL) {
+                String responseString = response.readEntity(String.class);
+                LOGGER.debug(String.format("Returning \"%s\" for post to \"%s\"", responseString, path));
+                return responseString;
+            }
+            return null;
+        } catch (Exception error) {
+            error("Error while posting to path: " + path, error);
+            return null;
+        }
     }
 
     /**
@@ -758,6 +746,4 @@ public class EhrClient {
                 .request()
                 .header("Content-Type", "application/json");
     }
-
-
 }
