@@ -630,10 +630,13 @@ public class EhrClient {
     private <A> A getAll(final String path, final String query, final Class<A> theClass) {
         try {
             String response = postPath(path, query);
-            A responseEntity = objectMapper.readValue(response, theClass);
+            if (response != null && !response.isEmpty()) {
+                A responseEntity = objectMapper.readValue(response, theClass);
 
-            latestError.set(null);
-            return responseEntity;
+                latestError.set(null);
+                return responseEntity;
+            }
+            return null;
 
         } catch (Exception error) {
             error("Error while getting all entities from " + path, error);
