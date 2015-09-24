@@ -1,5 +1,6 @@
 package com.amaxilatis.ehr;
 
+import com.amaxilatis.ehr.exception.EhrClientException;
 import com.amaxilatis.ehr.model.*;
 import com.amaxilatis.ehr.model.list.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -736,9 +737,17 @@ public class EhrClient {
             if (statusFamily == Response.Status.Family.SUCCESSFUL) {
                 responseString = response.readEntity(String.class);
                 LOGGER.debug(String.format("Returning \"%s\" for post to \"%s\"", responseString, path));
+                latestError.set(null);
+
+            } else {
+                latestError.set(new EhrClientException(
+                        path,
+                        entity,
+                        response.getStatusInfo().getStatusCode(),
+                        response.getStatusInfo().getReasonPhrase()));
             }
 
-            latestError.set(null);
+
             return responseString;
 
         } catch (Exception error) {
