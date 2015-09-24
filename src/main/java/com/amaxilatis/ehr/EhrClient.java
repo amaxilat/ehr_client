@@ -1,9 +1,7 @@
 package com.amaxilatis.ehr;
 
-import com.amaxilatis.ehr.exception.PatientIdExistsException;
 import com.amaxilatis.ehr.model.*;
 import com.amaxilatis.ehr.model.list.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 
@@ -24,8 +22,9 @@ public class EhrClient {
     /**
      * a log4j logger to print messages.
      */
-    protected static final Logger LOGGER = Logger.getLogger(EhrClient.class);
+    private static final Logger LOGGER = Logger.getLogger(EhrClient.class);
     private static final String QUERY_ALL = "{}";
+    private final ThreadLocal<Exception> latestError;
     private final String connectionUrl;
     private final ObjectMapper objectMapper;
 
@@ -63,6 +62,18 @@ public class EhrClient {
     public EhrClient(final String connectionUrl) {
         this.connectionUrl = connectionUrl;
         objectMapper = new ObjectMapper();
+        latestError = new ThreadLocal<>();
+    }
+
+    /**
+     * Returns the {@link Exception} that was thrown during the latest method invocation. The latest {@link Exception}
+     * is stored in a {@link ThreadLocal} field and thus this method is safe to be used from multiple {@link Thread}s.
+     *
+     * @return The {@link Exception} that was thrown during the latest method invocation, or null in case no
+     *         {@link Exception} was thrown.
+     */
+    public Exception getLatestError() {
+        return latestError.get();
     }
 
     /**
@@ -603,12 +614,7 @@ public class EhrClient {
      * @return A JSON String or null in case of an error.
      */
     private <A> String save(final String path, final A entity) {
-        try {
-            return postPath(path, entity);
-        } catch (Exception error) {
-            error("Error while saving to " + path, error);
-            return null;
-        }
+        return postPath(path, entity);
     }
 
     /**
@@ -623,9 +629,14 @@ public class EhrClient {
     private <A> A getAll(final String path, final String query, final Class<A> theClass) {
         try {
             String response = postPath(path, query);
-            return objectMapper.readValue(response, theClass);
+            A responseEntity = objectMapper.readValue(response, theClass);
+
+            latestError.set(null);
+            return responseEntity;
+
         } catch (Exception error) {
             error("Error while getting all entities from " + path, error);
+            latestError.set(error);
             return null;
         }
     }
@@ -720,14 +731,19 @@ public class EhrClient {
             Response response = getClientForPath(path).post(payload);
             Response.Status.Family statusFamily = response.getStatusInfo().getFamily();
             LOGGER.debug(String.format("Posting entity %s to %s returned a %s response.", entity, path, statusFamily));
+
+            String responseString = null;
             if (statusFamily == Response.Status.Family.SUCCESSFUL) {
-                String responseString = response.readEntity(String.class);
+                responseString = response.readEntity(String.class);
                 LOGGER.debug(String.format("Returning \"%s\" for post to \"%s\"", responseString, path));
-                return responseString;
             }
-            return null;
+
+            latestError.set(null);
+            return responseString;
+
         } catch (Exception error) {
             error("Error while posting to path: " + path, error);
+            latestError.set(error);
             return null;
         }
     }
@@ -740,7 +756,6 @@ public class EhrClient {
      */
     private Invocation.Builder getClientForPath(final String path) {
         Client client = ClientBuilder.newClient();
-        LOGGER.debug("path: " + path);
         return client.target(connectionUrl)
                 .path(path)
                 .request()
