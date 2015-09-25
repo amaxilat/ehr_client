@@ -15,7 +15,7 @@ public class PatientLabAnalysis {
     private String admissionId = "no_value";
     private String labAnalysisDate = "no_value";
     private String labAnalysisId = "no_value";
-    private String labAnalysisValue = "no_value";
+    private String labAnalysisValue = "0";
     private String performed = "false";
 
     public Long getPatientLabAnalysisId() {
