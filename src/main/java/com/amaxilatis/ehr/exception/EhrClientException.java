@@ -1,5 +1,7 @@
 package com.amaxilatis.ehr.exception;
 
+import com.amaxilatis.ehr.EhrClient;
+
 /**
  * An {@link Exception} that occurred during an {@link com.amaxilatis.ehr.EhrClient}
  * method invocation. This {@link Exception} will always include the status code
@@ -38,6 +40,30 @@ public class EhrClientException extends RuntimeException {
         entity = theEntity.toString();
         statusCode = theStatusCode;
         statusMessage = theStatusMessage;
+    }
+
+    /**
+     * Constructs a new {@link EhrClientException} with the given parameters.
+     *
+     * @param thePath The path of the failed request.
+     * @param theEntity The entity that was sent as part of the failed request.
+     * @param cause The {@link Exception} that was thrown during the failed request.
+     * @param <A> The type of the entity that was sent as part of the failed request.
+     */
+    public <A> EhrClientException(final String thePath,
+                                  final A theEntity,
+                                  final Exception cause) {
+        super(String.format(
+                "Request to path \"%s\", with entity \"%s\" failed with status code \"%d\" and status message \"%s\"",
+                thePath,
+                theEntity,
+                500,
+                cause.getMessage()));
+
+        path = thePath;
+        entity = theEntity.toString();
+        statusCode = 500;
+        statusMessage = cause.getMessage();
     }
 
     /**
