@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Medication {
-    private String medicationId;
-    private String codingId;
-    private String coding;
-    private String strengthNumerator;
-    private String strengthNumeratorUnit;
-    private String strengthDenominator;
-    private String strengthDenominatorUnit;
-    private String brandName;
-    private String brand_name;
+    private String medicationId = "no_value";
+    private String codingId = "no_value";
+    private String coding = null;
+    private String strengthNumerator = "no_value";
+    private String strengthNumeratorUnit = "no_value";
+    private String strengthDenominator = "no_value";
+    private String strengthDenominatorUnit = "no_value";
+    private String brandName = "no_value";
+    private String brand_name = null;
 
     public String getMedicationId() {
         return medicationId;
@@ -41,6 +41,9 @@ public class Medication {
     }
 
     public void setCoding(String coding) {
+        if (coding != null) {
+            this.codingId = coding;
+        }
         this.coding = coding;
     }
 
@@ -89,6 +92,9 @@ public class Medication {
     }
 
     public void setBrand_name(String brand_name) {
+        if (brand_name != null) {
+            this.brandName = brand_name;
+        }
         this.brand_name = brand_name;
     }
 
