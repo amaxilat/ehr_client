@@ -607,6 +607,60 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link PatientLabAnalysis} to EHR.
+     *
+     * @param patientLabAnalysis The {@link PatientLabAnalysis} to save.
+     * @return A JSON String or null in case of an error.
+     */
+    public String addPatientLabAnalysis(final PatientLabAnalysis patientLabAnalysis) {
+        return save("InsertPatientLabAnalysis", patientLabAnalysis);
+    }
+
+    /**
+     * Gets a {@link PatientLabAnalysis} by its id.
+     *
+     * @param patientLabAnalysisId The id of the {@link PatientLabAnalysis} to fetch.
+     * @return A {@link PatientLabAnalysis} or null in case of an error.
+     */
+    public PatientLabAnalysis getPatientLabAnalysisByPatientLabAnalysisId(final long patientLabAnalysisId) {
+        String query = "{\"=\":{\"patientLabAnalysisId\":\"" + patientLabAnalysisId + "\"}}";
+        return getSingle("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientLabAnalysis} saved in EHR.
+     *
+     * @return A list of {@link PatientLabAnalysis} or null in case of an error.
+     */
+    public List<PatientLabAnalysis> getAllPatientLabAnalysis() {
+        return getList("SelectPatientLabAnalysis", PatientLabAnalysisList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientLabAnalysis} associated with an {@link AdmissionData}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientLabAnalysis} to fetch.
+     * @return A list of {@link PatientLabAnalysis} or null in case of an error.
+     */
+    public List<PatientLabAnalysis> getPatientLabAnalysisByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientLabAnalysis} associated with a {@link Patient} and {@link AdmissionData}.
+     *
+     * @param patientId The id of the {@link Patient}.
+     * @param admissionId The id of the {@link AdmissionData}.
+     * @return A list of {@link PatientLabAnalysis} or null in case of an error.
+     */
+    public List<PatientLabAnalysis> getPatientLabAnalysisByPatientIdAndAdmissionId(final String patientId,
+                                                                                   final long admissionId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\", \"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path   The path where to save the entity.
