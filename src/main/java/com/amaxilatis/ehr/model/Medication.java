@@ -2,6 +2,7 @@ package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Dimitrios Amaxilatis.
@@ -10,15 +11,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Medication {
-    private String medicationId;
-    private String codingId;
-    private String coding;
-    private String strengthNumerator;
-    private String strengthNumeratorUnit;
-    private String strengthDenominator;
-    private String strengthDenominatorUnit;
-    private String brandName;
-    private String brand_name;
+    private String medicationId = "no_value";
+    private String codingId = "no_value";
+    @JsonProperty("coding")
+    private String code = null;
+    private String strengthNumerator = "no_value";
+    private String strengthNumeratorUnit = "no_value";
+    private String strengthDenominator = "no_value";
+    private String strengthDenominatorUnit = "no_value";
+    private String brandName = "no_value";
+    private String brand_name = null;
 
     public String getMedicationId() {
         return medicationId;
@@ -36,12 +38,12 @@ public class Medication {
         this.codingId = codingId;
     }
 
-    public String getCoding() {
-        return coding;
+    public String getCode() {
+        return code;
     }
 
-    public void setCoding(String coding) {
-        this.coding = coding;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getStrengthNumerator() {
@@ -89,6 +91,9 @@ public class Medication {
     }
 
     public void setBrand_name(String brand_name) {
+        if (brand_name != null) {
+            this.brandName = brand_name;
+        }
         this.brand_name = brand_name;
     }
 
@@ -97,7 +102,7 @@ public class Medication {
         return "Medication{" +
                 "medicationId='" + medicationId + '\'' +
                 ", codingId='" + codingId + '\'' +
-                ", coding='" + coding + '\'' +
+                ", code='" + code + '\'' +
                 ", strengthNumerator='" + strengthNumerator + '\'' +
                 ", strengthNumeratorUnit='" + strengthNumeratorUnit + '\'' +
                 ", strengthDenominator='" + strengthDenominator + '\'' +
