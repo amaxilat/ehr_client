@@ -7,7 +7,7 @@ package com.amaxilatis.ehr.exception;
  *
  * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
  */
-public class EhrClientException extends Exception {
+public class EhrClientException extends RuntimeException {
 
     private final String path;
     private final String entity;
