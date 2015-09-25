@@ -2,6 +2,7 @@ package com.amaxilatis.ehr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Dimitrios Amaxilatis.
@@ -12,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Medication {
     private String medicationId = "no_value";
     private String codingId = "no_value";
-    private String coding = null;
+    @JsonProperty("coding")
+    private String code = null;
     private String strengthNumerator = "no_value";
     private String strengthNumeratorUnit = "no_value";
     private String strengthDenominator = "no_value";
@@ -36,15 +38,12 @@ public class Medication {
         this.codingId = codingId;
     }
 
-    public String getCoding() {
-        return coding;
+    public String getCode() {
+        return code;
     }
 
-    public void setCoding(String coding) {
-        if (coding != null) {
-            this.codingId = coding;
-        }
-        this.coding = coding;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getStrengthNumerator() {
@@ -103,7 +102,7 @@ public class Medication {
         return "Medication{" +
                 "medicationId='" + medicationId + '\'' +
                 ", codingId='" + codingId + '\'' +
-                ", coding='" + coding + '\'' +
+                ", code='" + code + '\'' +
                 ", strengthNumerator='" + strengthNumerator + '\'' +
                 ", strengthNumeratorUnit='" + strengthNumeratorUnit + '\'' +
                 ", strengthDenominator='" + strengthDenominator + '\'' +
