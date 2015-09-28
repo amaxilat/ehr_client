@@ -884,6 +884,83 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link PatientVitalSigns} to EHR.
+     *
+     * @param patientVitalSigns The {@link PatientVitalSigns} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addPatientVitalSigns(final PatientVitalSigns patientVitalSigns) {
+        return save("InsertPatientVitalSigns", patientVitalSigns);
+    }
+
+    /**
+     * Gets all the {@link PatientVitalSigns} saved in EHR.
+     *
+     * @return A list of {@link PatientVitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVitalSigns> getAllPatientVitalSigns() {
+        return getList("SelectPatientVitalSigns", PatientVitalSignsList.class);
+    }
+
+    /**
+     * Gets a {@link PatientVitalSigns} by its id.
+     *
+     * @param patientVitalSignsId The id of the {@link PatientVitalSigns} to fetch.
+     * @return A {@link PatientVitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public PatientVitalSigns getPatientVitalSignsByPatientVitalSignsId(final long patientVitalSignsId) {
+        String query = "{\"=\":{\"patientVitalSignsId\":\"" + patientVitalSignsId + "\"}}";
+        return getSingle("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVitalSigns} associated with an {@link AdmissionData}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVitalSigns} to fetch.
+     * @return A list of {@link PatientVitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVitalSigns} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PatientVitalSigns} to fetch.
+     * @return A list of {@link PatientVitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVitalSigns> getPatientVitalSignsByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVitalSigns} associated with an {@link AdmissionData} and {@link Patient}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVitalSigns} to fetch.
+     * @param patientId The id of the {@link Patient} whose {@link PatientVitalSigns} to fetch.
+     * @return A list of {@link PatientVitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionIdAndPatientId(final long admissionId,
+                                                                                 final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
