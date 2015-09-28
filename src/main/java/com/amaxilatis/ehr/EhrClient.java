@@ -1025,6 +1025,42 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link Vaccinations} to EHR.
+     *
+     * @param vaccinations The {@link Vaccinations} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addVaccination(final Vaccinations vaccinations) {
+        return save("InsertVaccinations", vaccinations);
+    }
+
+    /**
+     * Gets all the {@link Vaccinations} saved in EHR.
+     *
+     * @return A list of {@link Vaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<Vaccinations> getAllVaccinations() {
+        return getList("SelectVaccinations", VaccinationsList.class);
+    }
+
+    /**
+     * Gets a {@link Vaccinations} by its id.
+     *
+     * @param vaccinationId The id of the {@link Vaccinations} to fetch.
+     * @return A {@link Vaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public Vaccinations getVaccinationByVaccinationId(final long vaccinationId) {
+        String query = "{\"=\":{\"vaccinationId\":\"" + vaccinationId + "\"}}";
+        return getSingle("SelectVaccinations", query, VaccinationsList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
