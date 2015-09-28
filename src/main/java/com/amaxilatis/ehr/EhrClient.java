@@ -758,6 +758,83 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link SurgicalProcedures} to EHR.
+     *
+     * @param surgicalProcedures The {@link SurgicalProcedures} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addSurgicalProcedure(final SurgicalProcedures surgicalProcedures) {
+        return save("InsertSurgicalProcedures", surgicalProcedures);
+    }
+
+    /**
+     * Gets all the {@link SurgicalProcedures} saved in EHR.
+     *
+     * @return A list of {@link SurgicalProcedures} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SurgicalProcedures> getAllSurgicalProcedures() {
+        return getList("SelectSurgicalProcedures", SurgicalProceduresList.class);
+    }
+
+    /**
+     * Gets a {@link SurgicalProcedures} by its id.
+     *
+     * @param surgicalProcedureId The id of the {@link SurgicalProcedures} to fetch.
+     * @return A {@link SurgicalProcedures} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public SurgicalProcedures getSurgicalProcedureBySurgicalProcedureId(final long surgicalProcedureId) {
+        String query = "{\"=\":{\"surgicalProcedureId\":\"" + surgicalProcedureId + "\"}}";
+        return getSingle("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
+    }
+
+    /**
+     * Gets all the {@link SurgicalProcedures} associated with an {@link AdmissionData}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link SurgicalProcedures} to fetch.
+     * @return A list of {@link SurgicalProcedures} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
+    }
+
+    /**
+     * Gets all the {@link SurgicalProcedures} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link SurgicalProcedures} to fetch.
+     * @return A list of {@link SurgicalProcedures} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SurgicalProcedures> getSurgicalProceduresByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
+    }
+
+    /**
+     * Gets all the {@link SurgicalProcedures} associated with an {@link AdmissionData} and a {@link Patient}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link SurgicalProcedures} to fetch.
+     * @param patientId The id fo the {@link Patient} whose {@link SurgicalProcedures} to fetch.
+     * @return A list of {@link SurgicalProcedures} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionIdAndPatientId(final long admissionId,
+                                                                                   final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
