@@ -1061,6 +1061,82 @@ public class EhrClient {
     }
 
     /**
+     * Adds a new {@link PatientVaccinations} to EHR.
+     *
+     * @param patientVaccinations The {@link PatientVaccinations} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addPatientVaccination(final PatientVaccinations patientVaccinations) {
+        return save("InsertPatientVaccinations", patientVaccinations);
+    }
+
+    /**
+     * Gets all the {@link PatientVaccinations} saved in EHR.
+     *
+     * @return A list of {@link PatientVaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVaccinations> getAllPatientVaccinations() {
+        return getList("SelectPatientVaccinations", PatientVaccinationsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVaccinations} associated with an {@link AdmissionData}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVaccinations} to fetch.
+     * @return A list of {@link PatientVaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVaccinations> getPatientVaccinationsByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVaccinations} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PatientVaccinations} to fetch.
+     * @return A list of {@link PatientVaccinations} or null in case of no match.
+     */
+    public List<PatientVaccinations> getPatientVaccinationsByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
+    }
+
+
+    /**
+     * Gets all the {@link PatientVaccinations} associated with an {@link AdmissionData} and a {@link Patient}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVaccinations} to fetch.
+     * @param patientId The id of the {@link Patient} whose {@link PatientVaccinations} to fetch.
+     * @return A list of {@link PatientVaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVaccinations> getPatientVaccinationsByAdmissionIdAndPatientId(final long admissionId,
+                                                                                     final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
+    }
+
+    /**
+     * Gets all the {@link PatientVaccinations} associated with a {@link Vaccinations}.
+     *
+     * @param vaccinationId The id of the {@link Vaccinations} whose {@link PatientVaccinations} to fetch.
+     * @return A list of {@link PatientVaccinations} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientVaccinations> getPatientVaccinationsByVaccinationId(final long vaccinationId) {
+        String query = "{\"=\":{\"vaccinationId\":\"" + vaccinationId + "\"}}";
+        return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
