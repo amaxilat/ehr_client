@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class PatientVaccinations {
     private Long patientVaccinationId = null;
     private String admissionId = "no_value";
+    private String patientId = "no_value";
     private String vaccinationId = "no_value";
     private String vaccinationDate = "no_value";
     private String doseLow = "no_value";
@@ -32,6 +33,14 @@ public class PatientVaccinations {
 
     public void setAdmissionId(final String admissionId) {
         this.admissionId = admissionId;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(final String patientId) {
+        this.patientId = patientId;
     }
 
     public String getVaccinationId() {
@@ -79,6 +88,7 @@ public class PatientVaccinations {
         return "PatientVaccinations{" +
                 "patientVaccinationId=" + patientVaccinationId +
                 ", admissionId='" + admissionId + '\'' +
+                ", patientId='" + patientId + '\'' +
                 ", vaccinationId='" + vaccinationId + '\'' +
                 ", vaccinationDate='" + vaccinationDate + '\'' +
                 ", doseLow='" + doseLow + '\'' +
