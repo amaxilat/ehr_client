@@ -835,6 +835,55 @@ public class EhrClient {
     }
 
     /**
+     * Adds a new {@link VitalSigns} to EHR.
+     *
+     * @param vitalSigns The {@link VitalSigns} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addVitalSigns(final VitalSigns vitalSigns) {
+        return save("InsertVitalSigns", vitalSigns);
+    }
+
+    /**
+     * Gets all the {@link VitalSigns} saved in EHR.
+     *
+     * @return A list of {@link VitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<VitalSigns> getAllVitalSigns() {
+        return getList("SelectVitalSigns", VitalSignsList.class);
+    }
+
+    /**
+     * Gets a {@link VitalSigns} saved in EHR by its id.
+     *
+     * @param vitalSignsId The id of the {@link VitalSigns} to fetch.
+     * @return A {@link VitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public VitalSigns getVitalSignsByVitalSignsId(final long vitalSignsId) {
+        String query = "{\"=\":{\"vitalSignsId\":\"" + vitalSignsId + "\"}}";
+        return getSingle("SelectVitalSigns", query, VitalSignsList.class);
+    }
+
+    /**
+     * Gets all the {@link VitalSigns} associated with a {@link Coding}.
+     *
+     * @param codingId The id of the {@link Coding} whose {@link VitalSigns} to fetch.
+     * @return A list of {@link VitalSigns} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<VitalSigns> getVitalSignsByCodingId(final long codingId) {
+        String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
+        return getList("SelectVitalSigns", query, VitalSignsList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
