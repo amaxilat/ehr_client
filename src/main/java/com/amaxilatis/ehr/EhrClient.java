@@ -961,6 +961,70 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link PatientBloodPressure} to EHR.
+     *
+     * @param patientBloodPressure The {@link PatientBloodPressure} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addPatientBloodPressure(final PatientBloodPressure patientBloodPressure) {
+        return save("InsertPatientBloodPressure", patientBloodPressure);
+    }
+
+    /**
+     * Gets all the {@link PatientBloodPressure} saved in EHR.
+     *
+     * @return A list of {@link PatientBloodPressure} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientBloodPressure> getAllPatientBloodPressure() {
+        return getList("SelectPatientBloodPressure", PatientBloodPressureList.class);
+    }
+
+    /**
+     * Get all the {@link PatientBloodPressure} associated with an {@link AdmissionData}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientBloodPressure} to fetch.
+     * @return A list of {@link PatientBloodPressure} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientBloodPressure", query, PatientBloodPressureList.class);
+    }
+
+    /**
+     * Get all the {@link PatientBloodPressure} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link PatientBloodPressure} to fetch.
+     * @return A list of {@link PatientBloodPressure} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientBloodPressure> getAllPatientBloodPressureByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientBloodPressure", query, PatientBloodPressureList.class);
+    }
+
+    /**
+     * Get all the {@link PatientBloodPressure} associated with an {@link AdmissionData} and a {@link Patient}.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientBloodPressure} to fetch.
+     * @param patientId The id of the {@link Patient} whose {@link PatientBloodPressure} to fetch.
+     * @return A list of {@link PatientBloodPressure} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionIdAndPatientId(final long admissionId,
+                                                                                          final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientBloodPressure", query, PatientBloodPressureList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
