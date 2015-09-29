@@ -960,6 +960,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link PatientVitalSigns} in EHR.
+     *
+     * @param patientVitalSigns The {@link PatientVitalSigns} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePatientVitalSigns(final PatientVitalSigns patientVitalSigns) {
+        return save("UpdatePatientVitalSigns", patientVitalSigns);
+    }
+
+    /**
      * Gets all the {@link PatientVitalSigns} saved in EHR.
      *
      * @return A list of {@link PatientVitalSigns} or null in case of no match.
