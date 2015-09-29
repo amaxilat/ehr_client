@@ -566,6 +566,34 @@ public class EhrClient {
     }
 
     /**
+     * Returns all {@link PatientMedicalDevices} with the given {@link AdmissionData} id.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientMedicalDevices} to fetch.
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientMedicalDevices> getPatientMedicalDeviceByAdmissionId(final long admissionId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
+        return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+    }
+
+    /**
+     * Returns all {@link PatientMedicalDevices} with the given {@link AdmissionData} and {@link Patient} ids.
+     *
+     * @param admissionId The id of the {@link AdmissionData} whose {@link PatientMedicalDevices} to fetch.
+     * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
+     * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<PatientMedicalDevices> getPatientMedicalDevicesByAdmissionIdAndPatientId(final long admissionId,
+                                                                                         final String patientId) {
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
+    }
+
+    /**
      * Saves a new {@link Diagnosis} to EHR.
      *
      * @param diagnosis The {@link Diagnosis} to save.
