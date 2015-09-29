@@ -1214,6 +1214,42 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link FunctionalStatus} to EHR.
+     *
+     * @param functionalStatus The {@link FunctionalStatus} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addFunctionalStatus(final FunctionalStatus functionalStatus) {
+        return save("InsertFunctionalStatus", functionalStatus);
+    }
+
+    /**
+     * Gets all the {@link FunctionalStatus} saved in EHR.
+     *
+     * @return A list of {@link FunctionalStatus} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<FunctionalStatus> getAllFunctionalStatus() {
+        return getList("SelectFunctionalStatus", FunctionalStatusList.class);
+    }
+
+    /**
+     * Gets all the {@link FunctionalStatus} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link FunctionalStatus} to fetch.
+     * @return A list of {@link FunctionalStatus} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<FunctionalStatus> getFunctionalStatusByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectFunctionalStatus", query, FunctionalStatusList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
