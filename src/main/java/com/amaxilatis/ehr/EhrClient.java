@@ -899,6 +899,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link VitalSigns} in EHR.
+     *
+     * @param vitalSigns The {@link VitalSigns} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateVitalSigns(final VitalSigns vitalSigns) {
+        return save("UpdateVitalSigns", vitalSigns);
+    }
+
+    /**
      * Gets all the {@link VitalSigns} saved in EHR.
      *
      * @return A list of {@link VitalSigns} or null in case of no match.
