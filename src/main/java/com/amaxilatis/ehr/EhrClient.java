@@ -618,6 +618,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link Diagnosis} saved in EHR.
+     *
+     * @param diagnosis The {@link Diagnosis} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateDiagnosis(final Diagnosis diagnosis) {
+        return save("UpdateDiagnosis", diagnosis);
+    }
+
+    /**
      * Returns all {@link Diagnosis} entities.
      *
      * @return A {@link List} of {@link Diagnosis} or null in case of no match.
