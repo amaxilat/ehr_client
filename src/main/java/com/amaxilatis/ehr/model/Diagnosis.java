@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Diagnosis {
-    private Long diagnosisId;
+    private String diagnosisId;
     private String admissionId;
     private String admissionData;
     private String patientId;
@@ -38,11 +38,11 @@ public class Diagnosis {
         treatmentRecommendation = "no_value";
     }
 
-    public Long getDiagnosisId() {
+    public String getDiagnosisId() {
         return diagnosisId;
     }
 
-    public void setDiagnosisId(Long diagnosisId) {
+    public void setDiagnosisId(String diagnosisId) {
         this.diagnosisId = diagnosisId;
     }
 
