@@ -1137,6 +1137,55 @@ public class EhrClient {
     }
 
     /**
+     * Saves a new {@link SocialHistory} to EHR.
+     *
+     * @param socialHistory The {@link SocialHistory} to save.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String addSocialHistory(final SocialHistory socialHistory) {
+        return save("InsertSocialHistory", socialHistory);
+    }
+
+    /**
+     * Gets all the {@link SocialHistory} saved in EHR.
+     *
+     * @return A list of {@link SocialHistory} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SocialHistory> getAllSocialHistory() {
+        return getList("SelectSocialHistory", SocialHistoryList.class);
+    }
+
+    /**
+     * Gets a {@link SocialHistory} saved in EHR by its id.
+     *
+     * @param socialHistoryId The id of the {@link SocialHistory} to fetch.
+     * @return A {@link SocialHistory} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public SocialHistory getSocialHistoryBySocialHistoryId(final long socialHistoryId) {
+        String query = "{\"=\":{\"socialHistoryId\":\"" + socialHistoryId + "\"}}";
+        return getSingle("SelectSocialHistory", query, SocialHistoryList.class);
+    }
+
+    /**
+     * Gets the {@link SocialHistory} associated with a {@link Patient}.
+     *
+     * @param patientId The id of the {@link Patient} whose {@link SocialHistory} to fetch.
+     * @return A list of {@link SocialHistory} or null in case of no match.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public List<SocialHistory> getSocialHistoryByPatientId(final String patientId) {
+        String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
+        return getList("SelectSocialHistory", query, SocialHistoryList.class);
+    }
+
+    /**
      * Generic method for saving entities to EHR.
      *
      * @param path The path where to save the entity.
