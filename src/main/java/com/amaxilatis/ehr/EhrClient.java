@@ -443,6 +443,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an already saved {@link Coding} in EHR.
+     *
+     * @param coding The {@link Coding} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateCoding(final Coding coding) {
+        return save("UpdateCoding", coding);
+    }
+
+    /**
      * Returns all {@link Coding} entities.
      *
      * @return A {@link List} of {@link Coding} or null in case of no match.
@@ -461,7 +473,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public Coding getCodingByCodingId(final int codingId) {
+    public Coding getCodingByCodingId(final String codingId) {
         String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
         return getSingle("SelectCoding", query, CodingList.class);
     }
