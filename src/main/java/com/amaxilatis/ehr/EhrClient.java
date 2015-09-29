@@ -560,7 +560,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final int patientId) {
+    public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final String patientId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
     }
