@@ -18,6 +18,26 @@ public class PatientMedicalDevices {
     private String medicalDevicesId;
     private String date;
 
+    public static PatientMedicalDevices empty() {
+        PatientMedicalDevices instance = new PatientMedicalDevices();
+        instance.setPatientMedicalDeviceSn(null);
+        instance.setAdmissionId(null);
+        instance.setPatientId(null);
+        instance.setDeviceDescription(null);
+        instance.setDeviceCodeSystem(null);
+        instance.setMedicalDevicesId(null);
+        instance.setDate(null);
+        return instance;
+    }
+
+    public static PatientMedicalDevices forAdmissionIdAndPatientId(final String admissionId,
+                                                                   final String patientId) {
+        PatientMedicalDevices instance = empty();
+        instance.setAdmissionId(admissionId);
+        instance.setPatientId(patientId);
+        return instance;
+    }
+
     public PatientMedicalDevices() {
         patientMedicalDeviceSn = "no_value";
         admissionId = "no_value";
