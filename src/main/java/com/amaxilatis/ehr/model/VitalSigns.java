@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VitalSigns {
-    private Long vitalSignsId = null;
+    private String vitalSignsId = null;
     private String codingId = "no_value";
     private String unit = "no_value";
 
-    public Long getVitalSignsId() {
+    public String getVitalSignsId() {
         return vitalSignsId;
     }
 
-    public void setVitalSignsId(final Long vitalSignsId) {
+    public void setVitalSignsId(final String vitalSignsId) {
         this.vitalSignsId = vitalSignsId;
     }
 
