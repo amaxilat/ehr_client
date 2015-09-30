@@ -124,6 +124,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an {@link Allergies} in EHR.
+     *
+     * @param allergy The {@link Allergies} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateAllergy(final Allergies allergy) {
+        return save("UpdateAllergies", allergy);
+    }
+
+    /**
      * Returns all {@link Allergies} with the given {@link Patient} id.
      *
      * @param patientId the id of the {@link Patient} to search for.
