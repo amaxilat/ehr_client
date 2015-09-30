@@ -1185,6 +1185,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link PatientVaccinations} in EHR.
+     *
+     * @param patientVaccination The {@link PatientVaccinations} to upadte.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePatientVaccination(final PatientVaccinations patientVaccination) {
+        return save("UpdatePatientVaccinations", patientVaccination);
+    }
+
+    /**
      * Gets all the {@link PatientVaccinations} saved in EHR.
      *
      * @return A list of {@link PatientVaccinations} or null in case of no match.
