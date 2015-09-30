@@ -249,6 +249,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link MedicalDevices} saved in EHR.
+     *
+     * @param medicalDevice The {@link MedicalDevices} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateMedicalDevices(final MedicalDevices medicalDevice) {
+        return save("UpdateMedicalDevices", medicalDevice);
+    }
+
+    /**
      * Returns all {@link MedicalDevices} entities.
      *
      * @return A {@link List} of {@link MedicalDevices} or null in case of no match.
