@@ -431,6 +431,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link LabAnalysis} saved in EHR.
+     *
+     * @param labAnalysis The {@link LabAnalysis} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateLabAnalysis(final LabAnalysis labAnalysis) {
+        return save("UpdateLabAnalysis", labAnalysis);
+    }
+
+    /**
      * Returns all {@link LabAnalysis} entities.
      *
      * @return A {@link List} of {@link LabAnalysis} or null in case of no match.
