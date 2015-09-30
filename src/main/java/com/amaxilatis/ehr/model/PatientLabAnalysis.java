@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientLabAnalysis {
-    private Long patientLabAnalysisId = null;
+    private String patientLabAnalysisId = null;
     private String patientId = "no_value";
     private String admissionId = "no_value";
     private String labAnalysisDate = "no_value";
@@ -18,11 +18,11 @@ public class PatientLabAnalysis {
     private String labAnalysisValue = "0";
     private String performed = "false";
 
-    public Long getPatientLabAnalysisId() {
+    public String getPatientLabAnalysisId() {
         return patientLabAnalysisId;
     }
 
-    public void setPatientLabAnalysisId(final Long patientLabAnalysisId) {
+    public void setPatientLabAnalysisId(final String patientLabAnalysisId) {
         this.patientLabAnalysisId = patientLabAnalysisId;
     }
 
