@@ -692,6 +692,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link PatientMedication} in EHR.
+     *
+     * @param patientMedication The {@link PatientMedication} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePatientMedication(final PatientMedication patientMedication) {
+        return save("UpdatePatientMedication", patientMedication);
+    }
+
+    /**
      * Gets a {@link PatientMedication} by its id.
      *
      * @param patientMedicationId The id of the {@link PatientMedication} to fetch.
