@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MedicalDevices {
-    private Integer medicalDevicesId;
+    private String medicalDevicesId;
     private String codingId;
     private String brandName;
     private String code;
@@ -30,11 +30,11 @@ public class MedicalDevices {
         description = "no_value";
     }
 
-    public Integer getMedicalDevicesId() {
+    public String getMedicalDevicesId() {
         return medicalDevicesId;
     }
 
-    public void setMedicalDevicesId(Integer medicalDevicesId) {
+    public void setMedicalDevicesId(String medicalDevicesId) {
         this.medicalDevicesId = medicalDevicesId;
     }
 
