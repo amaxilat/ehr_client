@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientMedication {
 
-    private Long patientMedicationId = null;
+    private String patientMedicationId = null;
     private String admissionId = "no_value";
     private String patientId = "no_value";
     private String prescribedMedicationId = "no_value";
@@ -27,11 +27,11 @@ public class PatientMedication {
     private String durationOfTreatment = "no_value";
     private String dateOfOnsetTreatment = "no_value";
 
-    public Long getPatientMedicationId() {
+    public String getPatientMedicationId() {
         return patientMedicationId;
     }
 
-    public void setPatientMedicationId(Long patientMedicationId) {
+    public void setPatientMedicationId(String patientMedicationId) {
         this.patientMedicationId = patientMedicationId;
     }
 
