@@ -760,13 +760,13 @@ public class EhrClient {
     /**
      * Updates an existing {@link PatientLabAnalysis} in EHR.
      *
-     * @param patientBloodAnalysis The {@link PatientLabAnalysis} to update.
+     * @param patientLabAnalysis The {@link PatientLabAnalysis} to update.
      * @return A JSON String.
      *
      * @throws EhrClientException in case of an error.
      */
-    public String updatePatientBloodAnalysis(final PatientLabAnalysis patientBloodAnalysis) {
-        return save("UpdatePatientBloodAnalysis", patientBloodAnalysis);
+    public String updatePatientLabAnalysis(final PatientLabAnalysis patientLabAnalysis) {
+        return save("UpdatePatientBloodAnalysis", patientLabAnalysis);
     }
 
     /**
