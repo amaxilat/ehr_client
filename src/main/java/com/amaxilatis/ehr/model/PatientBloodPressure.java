@@ -10,18 +10,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientBloodPressure {
-    private Long patientBloodPressureId = null;
+    private String patientBloodPressureId = null;
     private String admissionId = "no_value";
     private String patientId = "no_value";
     private String systolicValue = "no_value";
     private String diastolicValue = "no_value";
     private String retrievalDate = "no_value";
 
-    public Long getPatientBloodPressureId() {
+    public String getPatientBloodPressureId() {
         return patientBloodPressureId;
     }
 
-    public void setPatientBloodPressureId(final Long patientBloodPressureId) {
+    public void setPatientBloodPressureId(final String patientBloodPressureId) {
         this.patientBloodPressureId = patientBloodPressureId;
     }
 
