@@ -870,6 +870,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link SurgicalProcedures} saved in EHR.
+     *
+     * @param surgicalProcedure The {@link SurgicalProcedures} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateSurgicalProcedure(final SurgicalProcedures surgicalProcedure) {
+        return save("UpdateSurgicalProcedures", surgicalProcedure);
+    }
+
+    /**
      * Gets all the {@link SurgicalProcedures} saved in EHR.
      *
      * @return A list of {@link SurgicalProcedures} or null in case of no match.
