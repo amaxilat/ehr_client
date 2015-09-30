@@ -146,7 +146,7 @@ public class EhrClient {
      * @throws EhrClientException in case of an error.
      */
     public List<Allergies> getAllertiesByPatientAndAdmissionId(final String patientId,
-                                                               final long admissionId) {
+                                                               final String admissionId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\", \"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectAllergies", query, AllergiesDataList.class);
     }
@@ -172,7 +172,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public AdmissionData getAdmissionByAdmissionId(final long admissionId) {
+    public AdmissionData getAdmissionByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getSingle("SelectAdmissionData", query, AdmissionDataList.class);
     }
@@ -585,7 +585,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientMedicalDevices> getPatientMedicalDeviceByAdmissionId(final long admissionId) {
+    public List<PatientMedicalDevices> getPatientMedicalDeviceByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
     }
@@ -599,7 +599,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientMedicalDevices> getPatientMedicalDevicesByAdmissionIdAndPatientId(final long admissionId,
+    public List<PatientMedicalDevices> getPatientMedicalDevicesByAdmissionIdAndPatientId(final String admissionId,
                                                                                          final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientMedicalDevices", query, PatientMedicalDevicesList.class);
@@ -648,7 +648,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public Diagnosis getDiagnosisByDiagnosisId(final long diagnosisId) {
+    public Diagnosis getDiagnosisByDiagnosisId(final String diagnosisId) {
         String query = "{\"=\":{\"diagnosisId\":\"" + diagnosisId + "\"}}";
         return getSingle("SelectDiagnosis", query, DiagnosisList.class);
     }
@@ -661,7 +661,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<Diagnosis> getDiagnosisByAdmissionId(final long admissionId) {
+    public List<Diagnosis> getDiagnosisByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectDiagnosis", query, DiagnosisList.class);
     }
@@ -711,7 +711,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public PatientMedication getPatientMedicationByPatientMedicationId(final long patientMedicationId) {
+    public PatientMedication getPatientMedicationByPatientMedicationId(final String patientMedicationId) {
         String query = "{\"=\":{\"patientMedicationId\":\"" + patientMedicationId + "\"}}";
         return getSingle("SelectPatientMedications", query, PatientMedicationList.class);
     }
@@ -736,7 +736,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientMedication> getPatientMedicationByAdmissionId(final long admissionId) {
+    public List<PatientMedication> getPatientMedicationByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientMedications", query, PatientMedicationList.class);
     }
@@ -751,7 +751,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientMedication> getPatientMedicationByAdmissionIdAndPatientId(final long admissionId,
+    public List<PatientMedication> getPatientMedicationByAdmissionIdAndPatientId(final String admissionId,
                                                                                  final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\", \"patientId\":\"" + patientId +"\"}}";
         return getList("SelectPatientMedications", query, PatientMedicationList.class);
@@ -789,7 +789,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public PatientLabAnalysis getPatientLabAnalysisByPatientLabAnalysisId(final long patientLabAnalysisId) {
+    public PatientLabAnalysis getPatientLabAnalysisByPatientLabAnalysisId(final String patientLabAnalysisId) {
         String query = "{\"=\":{\"patientLabAnalysisId\":\"" + patientLabAnalysisId + "\"}}";
         return getSingle("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
     }
@@ -813,7 +813,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientLabAnalysis> getPatientLabAnalysisByAdmissionId(final long admissionId) {
+    public List<PatientLabAnalysis> getPatientLabAnalysisByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
     }
@@ -828,7 +828,7 @@ public class EhrClient {
      * @throws EhrClientException in case of an error.
      */
     public List<PatientLabAnalysis> getPatientLabAnalysisByPatientIdAndAdmissionId(final String patientId,
-                                                                                   final long admissionId) {
+                                                                                   final String admissionId) {
         String query = "{\"=\":{\"patientId\":\"" + patientId + "\", \"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientLabAnalysis", query, PatientLabAnalysisList.class);
     }
@@ -864,7 +864,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public SurgicalProcedures getSurgicalProcedureBySurgicalProcedureId(final long surgicalProcedureId) {
+    public SurgicalProcedures getSurgicalProcedureBySurgicalProcedureId(final String surgicalProcedureId) {
         String query = "{\"=\":{\"surgicalProcedureId\":\"" + surgicalProcedureId + "\"}}";
         return getSingle("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
     }
@@ -877,7 +877,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionId(final long admissionId) {
+    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
     }
@@ -904,7 +904,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionIdAndPatientId(final long admissionId,
+    public List<SurgicalProcedures> getSurgicalProceduresByAdmissionIdAndPatientId(final String admissionId,
                                                                                    final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectSurgicalProcedures", query, SurgicalProceduresList.class);
@@ -953,7 +953,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public VitalSigns getVitalSignsByVitalSignsId(final long vitalSignsId) {
+    public VitalSigns getVitalSignsByVitalSignsId(final String vitalSignsId) {
         String query = "{\"=\":{\"vitalSignsId\":\"" + vitalSignsId + "\"}}";
         return getSingle("SelectVitalSigns", query, VitalSignsList.class);
     }
@@ -966,7 +966,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<VitalSigns> getVitalSignsByCodingId(final long codingId) {
+    public List<VitalSigns> getVitalSignsByCodingId(final String codingId) {
         String query = "{\"=\":{\"codingId\":\"" + codingId + "\"}}";
         return getList("SelectVitalSigns", query, VitalSignsList.class);
     }
@@ -1014,7 +1014,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public PatientVitalSigns getPatientVitalSignsByPatientVitalSignsId(final long patientVitalSignsId) {
+    public PatientVitalSigns getPatientVitalSignsByPatientVitalSignsId(final String patientVitalSignsId) {
         String query = "{\"=\":{\"patientVitalSignsId\":\"" + patientVitalSignsId + "\"}}";
         return getSingle("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
     }
@@ -1027,7 +1027,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionId(final long admissionId) {
+    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
     }
@@ -1054,7 +1054,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionIdAndPatientId(final long admissionId,
+    public List<PatientVitalSigns> getPatientVitalSignsByAdmissionIdAndPatientId(final String admissionId,
                                                                                  final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientVitalSigns", query, PatientVitalSignsList.class);
@@ -1103,7 +1103,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionId(final long admissionId) {
+    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientBloodPressure", query, PatientBloodPressureList.class);
     }
@@ -1130,7 +1130,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionIdAndPatientId(final long admissionId,
+    public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionIdAndPatientId(final String admissionId,
                                                                                           final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientBloodPressure", query, PatientBloodPressureList.class);
@@ -1167,7 +1167,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public Vaccinations getVaccinationByVaccinationId(final long vaccinationId) {
+    public Vaccinations getVaccinationByVaccinationId(final String vaccinationId) {
         String query = "{\"=\":{\"vaccinationId\":\"" + vaccinationId + "\"}}";
         return getSingle("SelectVaccinations", query, VaccinationsList.class);
     }
@@ -1203,7 +1203,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientVaccinations> getPatientVaccinationsByAdmissionId(final long admissionId) {
+    public List<PatientVaccinations> getPatientVaccinationsByAdmissionId(final String admissionId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\"}}";
         return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
     }
@@ -1229,7 +1229,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientVaccinations> getPatientVaccinationsByAdmissionIdAndPatientId(final long admissionId,
+    public List<PatientVaccinations> getPatientVaccinationsByAdmissionIdAndPatientId(final String admissionId,
                                                                                      final String patientId) {
         String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\",\"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
@@ -1243,7 +1243,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public List<PatientVaccinations> getPatientVaccinationsByVaccinationId(final long vaccinationId) {
+    public List<PatientVaccinations> getPatientVaccinationsByVaccinationId(final String vaccinationId) {
         String query = "{\"=\":{\"vaccinationId\":\"" + vaccinationId + "\"}}";
         return getList("SelectPatientVaccinations", query, PatientVaccinationsList.class);
     }
@@ -1279,7 +1279,7 @@ public class EhrClient {
      *
      * @throws EhrClientException in case of an error.
      */
-    public SocialHistory getSocialHistoryBySocialHistoryId(final long socialHistoryId) {
+    public SocialHistory getSocialHistoryBySocialHistoryId(final String socialHistoryId) {
         String query = "{\"=\":{\"socialHistoryId\":\"" + socialHistoryId + "\"}}";
         return getSingle("SelectSocialHistory", query, SocialHistoryList.class);
     }
