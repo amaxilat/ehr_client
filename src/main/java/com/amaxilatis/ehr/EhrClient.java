@@ -758,6 +758,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link PatientLabAnalysis} in EHR.
+     *
+     * @param patientBloodAnalysis The {@link PatientLabAnalysis} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePatientBloodAnalysis(final PatientLabAnalysis patientBloodAnalysis) {
+        return save("UpdatePatientBloodAnalysis", patientBloodAnalysis);
+    }
+
+    /**
      * Gets a {@link PatientLabAnalysis} by its id.
      *
      * @param patientLabAnalysisId The id of the {@link PatientLabAnalysis} to fetch.
