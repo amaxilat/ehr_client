@@ -1049,6 +1049,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link PatientBloodPressure} saved in EHR.
+     *
+     * @param patientBloodPressure The {@link PatientBloodPressure} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePatientBloodPressure(final PatientBloodPressure patientBloodPressure) {
+        return save("UpdatePatientBloodPressure", patientBloodPressure);
+    }
+
+    /**
      * Gets all the {@link PatientBloodPressure} saved in EHR.
      *
      * @return A list of {@link PatientBloodPressure} or null in case of no match.
