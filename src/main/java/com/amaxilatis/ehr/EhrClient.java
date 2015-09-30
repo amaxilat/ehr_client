@@ -766,7 +766,7 @@ public class EhrClient {
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientLabAnalysis(final PatientLabAnalysis patientLabAnalysis) {
-        return save("UpdatePatientBloodAnalysis", patientLabAnalysis);
+        return save("UpdatePatientLabAnalysis", patientLabAnalysis);
     }
 
     /**
