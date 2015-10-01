@@ -1381,6 +1381,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link SocialHistory} saved in EHR.
+     *
+     * @param socialHistory The {@link SocialHistory} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateSocialHistory(final SocialHistory socialHistory) {
+        return save("UpdateSocialHistory", socialHistory);
+    }
+
+    /**
      * Gets all the {@link SocialHistory} saved in EHR.
      *
      * @return A list of {@link SocialHistory} or null in case of no match.
