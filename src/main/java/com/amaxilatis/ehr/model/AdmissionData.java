@@ -10,6 +10,25 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AdmissionData {
+
+    /**
+     * Class used to parse the id of a newly created {@link AdmissionData}.
+     *
+     * @author <href="mailto:dzarras@cti.gr">Dimitris Zarras</a>
+     */
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class AdmissionDataId {
+        private String admissionId;
+
+        public String getAdmissionId() {
+            return admissionId;
+        }
+
+        public void setAdmissionId(final String admissionId) {
+            this.admissionId = admissionId;
+        }
+    }
+
     private String admissionId;
     private String patientId;
     private String admissionTypeId;
