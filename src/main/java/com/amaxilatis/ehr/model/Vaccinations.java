@@ -10,15 +10,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Vaccinations {
-    private Long vaccinationId = null;
+    private String vaccinationId = null;
     private String codingId = "no_value";
     private String brandName = "no_value";
 
-    public Long getVaccinationId() {
+    public String getVaccinationId() {
         return vaccinationId;
     }
 
-    public void setVaccinationId(final Long vaccinationId) {
+    public void setVaccinationId(final String vaccinationId) {
         this.vaccinationId = vaccinationId;
     }
 
