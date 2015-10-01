@@ -87,6 +87,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an existing {@link AdmissionData} in EHR.
+     *
+     * @param admissionData The {@link AdmissionData} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateAdmissionData(final AdmissionData admissionData) {
+        return save("UpdateAdmissionData", admissionData);
+    }
+
+    /**
      * Update the {@link Patient} to the EHR.
      *
      * @param patient the {@link Patient} to update.
