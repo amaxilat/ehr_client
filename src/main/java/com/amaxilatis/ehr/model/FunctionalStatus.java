@@ -28,7 +28,7 @@ public class FunctionalStatus {
         return functionalStatus;
     }
 
-    private Long functionalStatusId = null;
+    private String functionalStatusId = null;
     private String patientId = "no_value";
     private String status = "no_value";
     private String description = "no_value";
@@ -36,11 +36,11 @@ public class FunctionalStatus {
     private String code = null;
     private String codeSystem = null;
 
-    public Long getFunctionalStatusId() {
+    public String getFunctionalStatusId() {
         return functionalStatusId;
     }
 
-    public void setFunctionalStatusId(final Long functionalStatusId) {
+    public void setFunctionalStatusId(final String functionalStatusId) {
         this.functionalStatusId = functionalStatusId;
     }
 
