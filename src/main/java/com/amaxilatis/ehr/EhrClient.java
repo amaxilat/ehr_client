@@ -309,6 +309,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link Scheduling} saved in EHR.
+     *
+     * @param scheduling The {@link Scheduling} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateScheduling(final Scheduling scheduling) {
+        return save("UpdateScheduling", scheduling);
+    }
+
+    /**
      * Returns all {@link Scheduling} entities.
      *
      * @return A {@link List} of {@link Scheduling} or null in case no match.
