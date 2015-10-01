@@ -1442,6 +1442,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link FunctionalStatus} saved in EHR.
+     *
+     * @param functionalStatus The {@link FunctionalStatus} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateFunctionalStatus(final FunctionalStatus functionalStatus) {
+        return save("UpdateFunctionalStatus", functionalStatus);
+    }
+
+    /**
      * Gets all the {@link FunctionalStatus} saved in EHR.
      *
      * @return A list of {@link FunctionalStatus} or null in case of no match.
