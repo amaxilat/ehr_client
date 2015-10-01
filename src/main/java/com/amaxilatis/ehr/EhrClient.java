@@ -202,6 +202,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates an {@link AdmissionType} saved in EHR.
+     *
+     * @param admissionType The {@link AdmissionType} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updateAdmissionType(final AdmissionType admissionType) {
+        return save("UpdateAdmissionType", admissionType);
+    }
+
+    /**
      * Returns the {@link AdmissionType} with the give type id.
      *
      * @param admissionTypeId The id of the {@link AdmissionType} to select.
