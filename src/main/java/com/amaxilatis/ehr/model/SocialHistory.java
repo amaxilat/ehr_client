@@ -36,7 +36,7 @@ public class SocialHistory {
         return instance;
     }
 
-    private Long socialHistoryId = null;
+    private String socialHistoryId = null;
     private String patientId = "no_value";
     private String socialCoding = "no_value";
     private String valueCoding = "no_value";
@@ -46,11 +46,11 @@ public class SocialHistory {
     private String startDate = "no_value";
     private String endDate = "no_value";
 
-    public Long getSocialHistoryId() {
+    public String getSocialHistoryId() {
         return socialHistoryId;
     }
 
-    public void setSocialHistoryId(final Long socialHistoryId) {
+    public void setSocialHistoryId(final String socialHistoryId) {
         this.socialHistoryId = socialHistoryId;
     }
 
