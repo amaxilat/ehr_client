@@ -78,12 +78,18 @@ public class EhrClient {
      * Add the {@link AdmissionData} to the EHR.
      *
      * @param admissionData the {@link AdmissionData} to add.
-     * @return A JSON String.
+     * @return The id of the newly created {@link AdmissionData}.
      *
      * @throws EhrClientException in case of an error.
      */
     public String addAdmissionData(final AdmissionData admissionData) {
-        return save("InsertAdmissionData", admissionData);
+        try {
+            AdmissionData.AdmissionDataId admissionDataId =
+                    objectMapper.readValue(save("InsertAdmissionData", admissionData), AdmissionData.AdmissionDataId.class);
+            return admissionDataId.getAdmissionId();
+        } catch (Exception error) {
+            throw new EhrClientException("InsertAdmissionData", admissionData, error);
+        }
     }
 
     /**
