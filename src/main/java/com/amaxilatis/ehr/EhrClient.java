@@ -358,6 +358,18 @@ public class EhrClient {
     }
 
     /**
+     * Updates a {@link PregnancyHistory} saved in EHR.
+     *
+     * @param pregnancyHistory The {@link PregnancyHistory} to update.
+     * @return A JSON String.
+     *
+     * @throws EhrClientException in case of an error.
+     */
+    public String updatePregnancyHistory(final PregnancyHistory pregnancyHistory) {
+        return save("UpdatePregnancyHistory", pregnancyHistory);
+    }
+
+    /**
      * Returns all {@link PregnancyHistory} entities.
      *
      * @return A {@link List} of {@link PregnancyHistory} or null in case of no match.
