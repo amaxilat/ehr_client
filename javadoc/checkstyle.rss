@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015</copyright>
     <item>
-      <title>File: 43,
-             Errors: 1661,
+      <title>File: 51,
+             Errors: 2102,
              Warnings: 0,
              Infos: 0
       </title>
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientVitalSigns.java">com/amaxilatis/ehr/model/PatientVitalSigns.java</a>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.SocialHistoryList.java">com/amaxilatis/ehr/model/list/SocialHistoryList.java</a>
                 </td>
                 <td>
                   0
@@ -69,49 +69,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  29
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.LabAnalysis.java">com/amaxilatis/ehr/model/LabAnalysis.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  45
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.FunctionalStatus.java">com/amaxilatis/ehr/model/FunctionalStatus.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  22
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PregnancyHistoryList.java">com/amaxilatis/ehr/model/list/PregnancyHistoryList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
+                  11
                 </td>
               </tr>
                           <tr>
@@ -125,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  158
+                  338
                 </td>
               </tr>
                           <tr>
@@ -144,76 +102,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Allergies.java">com/amaxilatis/ehr/model/Allergies.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  109
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Vaccinations.java">com/amaxilatis/ehr/model/Vaccinations.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientLabAnalysisList.java">com/amaxilatis/ehr/model/list/PatientLabAnalysisList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.InsuranceData.java">com/amaxilatis/ehr/model/InsuranceData.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  21
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientBloodPressure.java">com/amaxilatis/ehr/model/PatientBloodPressure.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  29
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.DiagnosisList.java">com/amaxilatis/ehr/model/list/DiagnosisList.java</a>
                 </td>
                 <td>
@@ -228,20 +116,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.VitalSigns.java">com/amaxilatis/ehr/model/VitalSigns.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  15
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientVaccinations.java">com/amaxilatis/ehr/model/PatientVaccinations.java</a>
                 </td>
                 <td>
@@ -251,35 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  43
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Diagnosis.java">com/amaxilatis/ehr/model/Diagnosis.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  93
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.CodingList.java">com/amaxilatis/ehr/model/list/CodingList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
+                  60
                 </td>
               </tr>
                           <tr>
@@ -294,34 +140,6 @@ under the License.
                 </td>
                 <td>
                   12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientMedicationList.java">com/amaxilatis/ehr/model/list/PatientMedicationList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  14
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.SurgicalProcedures.java">com/amaxilatis/ehr/model/SurgicalProcedures.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  29
                 </td>
               </tr>
                           <tr>
@@ -349,21 +167,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  61
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.AdmissionData.java">com/amaxilatis/ehr/model/AdmissionData.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  53
+                  72
                 </td>
               </tr>
                           <tr>
@@ -410,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.SocialHistory.java">com/amaxilatis/ehr/model/SocialHistory.java</a>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.VitalSignsList.java">com/amaxilatis/ehr/model/list/VitalSignsList.java</a>
                 </td>
                 <td>
                   0
@@ -419,7 +223,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  50
+                  11
                 </td>
               </tr>
                           <tr>
@@ -434,6 +238,398 @@ under the License.
                 </td>
                 <td>
                   52
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.exception.PatientIdExistsException.java">com/amaxilatis/ehr/exception/PatientIdExistsException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Medication.java">com/amaxilatis/ehr/model/Medication.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  80
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.FunctionalStatusList.java">com/amaxilatis/ehr/model/list/FunctionalStatusList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.InsuranceDataList.java">com/amaxilatis/ehr/model/list/InsuranceDataList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.AdmissionDataList.java">com/amaxilatis/ehr/model/list/AdmissionDataList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.Listable.java">com/amaxilatis/ehr/model/list/Listable.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.LabAnalysisList.java">com/amaxilatis/ehr/model/list/LabAnalysisList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientMedication.java">com/amaxilatis/ehr/model/PatientMedication.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  109
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientVitalSigns.java">com/amaxilatis/ehr/model/PatientVitalSigns.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  46
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientBloodPressureList.java">com/amaxilatis/ehr/model/list/PatientBloodPressureList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.LabAnalysis.java">com/amaxilatis/ehr/model/LabAnalysis.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.FunctionalStatus.java">com/amaxilatis/ehr/model/FunctionalStatus.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  55
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PregnancyHistoryList.java">com/amaxilatis/ehr/model/list/PregnancyHistoryList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientVaccinationsList.java">com/amaxilatis/ehr/model/list/PatientVaccinationsList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Allergies.java">com/amaxilatis/ehr/model/Allergies.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  109
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Vaccinations.java">com/amaxilatis/ehr/model/Vaccinations.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientLabAnalysisList.java">com/amaxilatis/ehr/model/list/PatientLabAnalysisList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.InsuranceData.java">com/amaxilatis/ehr/model/InsuranceData.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientBloodPressure.java">com/amaxilatis/ehr/model/PatientBloodPressure.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  46
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.VitalSigns.java">com/amaxilatis/ehr/model/VitalSigns.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  25
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientVitalSignsList.java">com/amaxilatis/ehr/model/list/PatientVitalSignsList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Diagnosis.java">com/amaxilatis/ehr/model/Diagnosis.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  93
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.CodingList.java">com/amaxilatis/ehr/model/list/CodingList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientMedicationList.java">com/amaxilatis/ehr/model/list/PatientMedicationList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.SurgicalProcedures.java">com/amaxilatis/ehr/model/SurgicalProcedures.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  53
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.AdmissionData.java">com/amaxilatis/ehr/model/AdmissionData.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  60
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.VaccinationsList.java">com/amaxilatis/ehr/model/list/VaccinationsList.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.SocialHistory.java">com/amaxilatis/ehr/model/SocialHistory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  71
                 </td>
               </tr>
                           <tr>
@@ -466,20 +662,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.exception.PatientIdExistsException.java">com/amaxilatis/ehr/exception/PatientIdExistsException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.PatientDataList.java">com/amaxilatis/ehr/model/list/PatientDataList.java</a>
                 </td>
                 <td>
@@ -490,20 +672,6 @@ under the License.
                 </td>
                 <td>
                   12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.Medication.java">com/amaxilatis/ehr/model/Medication.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  80
                 </td>
               </tr>
                           <tr>
@@ -522,20 +690,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.InsuranceDataList.java">com/amaxilatis/ehr/model/list/InsuranceDataList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.TextUtils.java">com/amaxilatis/ehr/TextUtils.java</a>
                 </td>
                 <td>
@@ -550,7 +704,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.AdmissionDataList.java">com/amaxilatis/ehr/model/list/AdmissionDataList.java</a>
+                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.SurgicalProceduresList.java">com/amaxilatis/ehr/model/list/SurgicalProceduresList.java</a>
                 </td>
                 <td>
                   0
@@ -559,21 +713,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.Listable.java">com/amaxilatis/ehr/model/list/Listable.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
+                  12
                 </td>
               </tr>
                           <tr>
@@ -616,34 +756,6 @@ under the License.
                 </td>
                 <td>
                   45
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.list.LabAnalysisList.java">com/amaxilatis/ehr/model/list/LabAnalysisList.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.amaxilatis.ehr.model.PatientMedication.java">com/amaxilatis/ehr/model/PatientMedication.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  109
                 </td>
               </tr>
                       </tbody>
