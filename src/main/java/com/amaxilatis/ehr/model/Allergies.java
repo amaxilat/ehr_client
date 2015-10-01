@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Allergies {
-    private Long allergyId;
+    private String allergyId;
     private String patientId;
     private String patientData;
     private String admissionId;
@@ -42,11 +42,11 @@ public class Allergies {
         severity = "no_value";
     }
 
-    public Long getAllergyId() {
+    public String getAllergyId() {
         return allergyId;
     }
 
-    public void setAllergyId(Long allergyId) {
+    public void setAllergyId(String allergyId) {
         this.allergyId = allergyId;
     }
 

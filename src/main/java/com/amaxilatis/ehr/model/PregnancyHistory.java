@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PregnancyHistory {
     @JsonProperty("pregrancyId")
-    private Integer pregnancyId;
+    private String pregnancyId;
     private String patientId;
     private String expectedDateOfDelivery;
     private String pregnancyInformation;
@@ -25,11 +25,11 @@ public class PregnancyHistory {
         codingId = "6";
     }
 
-    public Integer getPregnancyId() {
+    public String getPregnancyId() {
         return pregnancyId;
     }
 
-    public void setPregnancyId(Integer pregnancyId) {
+    public void setPregnancyId(String pregnancyId) {
         this.pregnancyId = pregnancyId;
     }
 

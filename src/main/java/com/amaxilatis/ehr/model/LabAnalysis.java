@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LabAnalysis {
-    private Integer labAnalysisId;
+    private String labAnalysisId;
     private String codingId;
     private String code;
     private String codeSystem;
@@ -24,11 +24,11 @@ public class LabAnalysis {
         unit = "no_value";
     }
 
-    public Integer getLabAnalysisId() {
+    public String getLabAnalysisId() {
         return labAnalysisId;
     }
 
-    public void setLabAnalysisId(Integer labAnalysisId) {
+    public void setLabAnalysisId(String labAnalysisId) {
         this.labAnalysisId = labAnalysisId;
     }
 

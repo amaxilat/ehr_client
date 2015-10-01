@@ -14,15 +14,38 @@ public class PatientMedicalDevices {
     private String admissionId;
     private String patientId;
     private String deviceDescription;
+    private String deviceCode;
     private String deviceCodeSystem;
     private String medicalDevicesId;
     private String date;
+
+    public static PatientMedicalDevices empty() {
+        PatientMedicalDevices instance = new PatientMedicalDevices();
+        instance.setPatientMedicalDeviceSn(null);
+        instance.setAdmissionId(null);
+        instance.setPatientId(null);
+        instance.setDeviceDescription(null);
+        instance.setDeviceCode(null);
+        instance.setDeviceCodeSystem(null);
+        instance.setMedicalDevicesId(null);
+        instance.setDate(null);
+        return instance;
+    }
+
+    public static PatientMedicalDevices forAdmissionIdAndPatientId(final String admissionId,
+                                                                   final String patientId) {
+        PatientMedicalDevices instance = empty();
+        instance.setAdmissionId(admissionId);
+        instance.setPatientId(patientId);
+        return instance;
+    }
 
     public PatientMedicalDevices() {
         patientMedicalDeviceSn = "no_value";
         admissionId = "no_value";
         patientId = "no_value";
         deviceDescription = "no_value";
+        deviceCode = null;
         deviceCodeSystem = null;
         medicalDevicesId = "no_value";
         date = "no_value";
@@ -60,6 +83,14 @@ public class PatientMedicalDevices {
         this.deviceDescription = deviceDescription;
     }
 
+    public String getDeviceCode() {
+        return deviceCode;
+    }
+
+    public void setDeviceCode(final String deviceCode) {
+        this.deviceCode = deviceCode;
+    }
+
     public String getDeviceCodeSystem() {
         return deviceCodeSystem;
     }
@@ -91,6 +122,7 @@ public class PatientMedicalDevices {
                 ", admissionId='" + admissionId + '\'' +
                 ", patientId='" + patientId + '\'' +
                 ", deviceDescription='" + deviceDescription + '\'' +
+                ", deviceCode='" + deviceCode + '\'' +
                 ", deviceCodeSystem='" + deviceCodeSystem + '\'' +
                 ", medicalDevicesId='" + medicalDevicesId + '\'' +
                 ", date='" + date + '\'' +

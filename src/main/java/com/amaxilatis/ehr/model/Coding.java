@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Coding {
-    private Integer codingId;
+    private String codingId;
     private String code;
     private String codeSystem;
     private String codeSystemName;
@@ -24,11 +24,11 @@ public class Coding {
         description = "no_value";
     }
 
-    public Integer getCodingId() {
+    public String getCodingId() {
         return codingId;
     }
 
-    public void setCodingId(Integer codingId) {
+    public void setCodingId(String codingId) {
         this.codingId = codingId;
     }
 

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Scheduling {
-    private Integer schedulingId;
+    private String schedulingId;
     private String patientId;
     private String physicianId;
     private String appointmentDate;
@@ -30,11 +30,11 @@ public class Scheduling {
         durationMinutes = "no_value";
     }
 
-    public Integer getSchedulingId() {
+    public String getSchedulingId() {
         return schedulingId;
     }
 
-    public void setSchedulingId(Integer schedulingId) {
+    public void setSchedulingId(String schedulingId) {
         this.schedulingId = schedulingId;
     }
 
