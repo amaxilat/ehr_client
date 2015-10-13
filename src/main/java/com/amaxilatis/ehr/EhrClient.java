@@ -4,6 +4,7 @@ import com.amaxilatis.ehr.exception.EhrClientException;
 import com.amaxilatis.ehr.model.*;
 import com.amaxilatis.ehr.model.list.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.client.Client;
@@ -67,7 +68,6 @@ public class EhrClient {
      *
      * @param patient the {@link Patient} to add.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatient(final Patient patient) {
@@ -79,7 +79,6 @@ public class EhrClient {
      *
      * @param admissionData the {@link AdmissionData} to add.
      * @return The id of the newly created {@link AdmissionData}.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addAdmissionData(final AdmissionData admissionData) {
@@ -97,7 +96,6 @@ public class EhrClient {
      *
      * @param admissionData The {@link AdmissionData} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateAdmissionData(final AdmissionData admissionData) {
@@ -109,7 +107,6 @@ public class EhrClient {
      *
      * @param patient the {@link Patient} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatient(final Patient patient) {
@@ -121,7 +118,6 @@ public class EhrClient {
      *
      * @param patientId the id of the {@link Patient} to search for.
      * @return the {@link Patient} requested or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Patient getPatientByPatientId(final String patientId) {
@@ -134,7 +130,6 @@ public class EhrClient {
      *
      * @param allergies The {@link Allergies} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addAllergy(final Allergies allergies) {
@@ -146,7 +141,6 @@ public class EhrClient {
      *
      * @param allergy The {@link Allergies} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateAllergy(final Allergies allergy) {
@@ -158,7 +152,6 @@ public class EhrClient {
      *
      * @param patientId the id of the {@link Patient} to search for.
      * @return a List of {@link Allergies} of the {@link Patient} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Allergies> getAllergiesByPatientId(final String patientId) {
@@ -169,10 +162,9 @@ public class EhrClient {
     /**
      * Gets all the {@link Allergies} for the given {@link Patient} and {@link AdmissionData} ids.
      *
-     * @param patientId The id of the {@link Patient}.
+     * @param patientId   The id of the {@link Patient}.
      * @param admissionId The id of the {@link AdmissionData}.
      * @return The {@link Allergies} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Allergies> getAllertiesByPatientAndAdmissionId(final String patientId,
@@ -186,7 +178,6 @@ public class EhrClient {
      *
      * @param patientId the id of the {@link Patient} to search for.
      * @return a List of {@link AdmissionData} of the {@link Patient} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<AdmissionData> getAdmissionsByPatientId(final String patientId) {
@@ -199,7 +190,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} to fetch.
      * @return An {@link AdmissionData} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public AdmissionData getAdmissionByAdmissionId(final String admissionId) {
@@ -212,7 +202,6 @@ public class EhrClient {
      *
      * @param admissionType The {@link AdmissionType} to insert.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String insertAdmissionType(final AdmissionType admissionType) {
@@ -224,7 +213,6 @@ public class EhrClient {
      *
      * @param admissionType The {@link AdmissionType} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateAdmissionType(final AdmissionType admissionType) {
@@ -236,7 +224,6 @@ public class EhrClient {
      *
      * @param admissionTypeId The id of the {@link AdmissionType} to select.
      * @return An {@link AdmissionType} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public AdmissionType getAdmissionTypeByAdmissionTypeId(final int admissionTypeId) {
@@ -248,7 +235,6 @@ public class EhrClient {
      * Returns all {@link AdmissionType} entities.
      *
      * @return all {@link AdmissionType} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<AdmissionType> getAdmissionsTypes() {
@@ -259,7 +245,6 @@ public class EhrClient {
      * Returns all {@link Patient} entities.
      *
      * @return a list of all registered {@link Patient}s or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Patient> getAllPatients() {
@@ -271,7 +256,6 @@ public class EhrClient {
      *
      * @param medicalDevices The {@link MedicalDevices} to add.
      * @return A JSON string.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addMedicalDevices(final MedicalDevices medicalDevices) {
@@ -283,7 +267,6 @@ public class EhrClient {
      *
      * @param medicalDevice The {@link MedicalDevices} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateMedicalDevices(final MedicalDevices medicalDevice) {
@@ -294,7 +277,6 @@ public class EhrClient {
      * Returns all {@link MedicalDevices} entities.
      *
      * @return A {@link List} of {@link MedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<MedicalDevices> getAllMedicalDevices() {
@@ -306,7 +288,6 @@ public class EhrClient {
      *
      * @param medicalDevicesId The id of the {@link MedicalDevices} to select.
      * @return A {@link MedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public MedicalDevices getMedicalDevicesByMedicalDevicesId(final int medicalDevicesId) {
@@ -319,7 +300,6 @@ public class EhrClient {
      *
      * @param scheduling The {@link Scheduling} to insert.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addScheduling(final Scheduling scheduling) {
@@ -331,7 +311,6 @@ public class EhrClient {
      *
      * @param scheduling The {@link Scheduling} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateScheduling(final Scheduling scheduling) {
@@ -342,7 +321,6 @@ public class EhrClient {
      * Returns all {@link Scheduling} entities.
      *
      * @return A {@link List} of {@link Scheduling} or null in case no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Scheduling> getAllScheduling() {
@@ -354,7 +332,6 @@ public class EhrClient {
      *
      * @param schedulingId The id of the {@link Scheduling} to get.
      * @return A {@link Scheduling} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Scheduling getSchedulingBySchedulingId(final int schedulingId) {
@@ -367,7 +344,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link Scheduling} to get.
      * @return A {@link Scheduling} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Scheduling> getSchedulingByPatientId(final String patientId) {
@@ -380,7 +356,6 @@ public class EhrClient {
      *
      * @param pregnancyHistory The {@link PregnancyHistory} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPregnancyHistory(final PregnancyHistory pregnancyHistory) {
@@ -392,7 +367,6 @@ public class EhrClient {
      *
      * @param pregnancyHistory The {@link PregnancyHistory} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePregnancyHistory(final PregnancyHistory pregnancyHistory) {
@@ -403,7 +377,6 @@ public class EhrClient {
      * Returns all {@link PregnancyHistory} entities.
      *
      * @return A {@link List} of {@link PregnancyHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PregnancyHistory> getAllPregnancyHistory() {
@@ -415,7 +388,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link PregnancyHistory} to get.
      * @return A {@link List} of {@link PregnancyHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PregnancyHistory> getPregnancyHistoryByPatientId(final String patientId) {
@@ -428,7 +400,6 @@ public class EhrClient {
      *
      * @param pregnancyId The id of the {@link PregnancyHistory} to get.
      * @return A {@link PregnancyHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public PregnancyHistory getPregnancyHistoryByPregnancyId(final int pregnancyId) {
@@ -441,7 +412,6 @@ public class EhrClient {
      *
      * @param medication The {@link Medication} to insert.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addMedication(final Medication medication) {
@@ -453,7 +423,6 @@ public class EhrClient {
      *
      * @param medication The {@link Medication} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateMedication(final Medication medication) {
@@ -464,7 +433,6 @@ public class EhrClient {
      * Returns all {@link Medication} entities.
      *
      * @return A {@link List} of {@link Medication} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Medication> getAllMedication() {
@@ -476,7 +444,6 @@ public class EhrClient {
      *
      * @param medicationId The id of the {@link Medication} to get.
      * @return A {@link Medication} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Medication getMedicationByMedicationId(final int medicationId) {
@@ -489,7 +456,6 @@ public class EhrClient {
      *
      * @param labAnalysis The {@link LabAnalysis} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addLabAnalysis(final LabAnalysis labAnalysis) {
@@ -501,7 +467,6 @@ public class EhrClient {
      *
      * @param labAnalysis The {@link LabAnalysis} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateLabAnalysis(final LabAnalysis labAnalysis) {
@@ -512,7 +477,6 @@ public class EhrClient {
      * Returns all {@link LabAnalysis} entities.
      *
      * @return A {@link List} of {@link LabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<LabAnalysis> getAllLabAnalysis() {
@@ -524,7 +488,6 @@ public class EhrClient {
      *
      * @param labAnalysisId The id of the {@link LabAnalysis} to fetch.
      * @return A {@link LabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public LabAnalysis getLabAnalysisByLabAnalysisId(final int labAnalysisId) {
@@ -537,7 +500,6 @@ public class EhrClient {
      *
      * @param coding The {@link Coding} to insert.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addCoding(final Coding coding) {
@@ -549,7 +511,6 @@ public class EhrClient {
      *
      * @param coding The {@link Coding} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateCoding(final Coding coding) {
@@ -560,7 +521,6 @@ public class EhrClient {
      * Returns all {@link Coding} entities.
      *
      * @return A {@link List} of {@link Coding} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Coding> getAllCoding() {
@@ -572,7 +532,6 @@ public class EhrClient {
      *
      * @param codingId The id of the {@link Coding} to fetch.
      * @return A {@link Coding} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Coding getCodingByCodingId(final String codingId) {
@@ -585,7 +544,6 @@ public class EhrClient {
      *
      * @param insuranceData The {@link InsuranceData} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addInsuranceData(final InsuranceData insuranceData) {
@@ -596,7 +554,6 @@ public class EhrClient {
      * Returns all {@link InsuranceData} entities.
      *
      * @return A {@link List} of {@link InsuranceData} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<InsuranceData> getAllInsuranceData() {
@@ -608,7 +565,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link InsuranceData} to fetch.
      * @return A {@link List} of {@link InsuranceData} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<InsuranceData> getInsuranceDataByPatientId(final int patientId) {
@@ -621,7 +577,6 @@ public class EhrClient {
      *
      * @param insuranceId The id of the {@link InsuranceData} to fetch.
      * @return An {@link InsuranceData} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public InsuranceData getInsuranceDataByInsuranceId(final int insuranceId) {
@@ -635,7 +590,6 @@ public class EhrClient {
      *
      * @param patientMedicalDevices The {@link PatientMedicalDevices} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientMedicalDevices(final PatientMedicalDevices patientMedicalDevices) {
@@ -647,7 +601,6 @@ public class EhrClient {
      *
      * @param patientMedicalDevices The {@link PatientMedicalDevices} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientMedicalDevices(final PatientMedicalDevices patientMedicalDevices) {
@@ -658,7 +611,6 @@ public class EhrClient {
      * Returns all {@link PatientMedicalDevices} entities.
      *
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedicalDevices> getAllPatientMedicalDevices() {
@@ -670,7 +622,6 @@ public class EhrClient {
      *
      * @param patientMedicalDeviceSn The S/N of the {@link PatientMedicalDevices} to fetch.
      * @return A {@link PatientMedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public PatientMedicalDevices getPatientMedicalDevicesByPatientMedicalDeviceSn(final String patientMedicalDeviceSn) {
@@ -683,7 +634,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedicalDevices> getPatientMedicalDevicesByPatientId(final String patientId) {
@@ -696,7 +646,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientMedicalDevices} to fetch.
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedicalDevices> getPatientMedicalDeviceByAdmissionId(final String admissionId) {
@@ -708,9 +657,8 @@ public class EhrClient {
      * Returns all {@link PatientMedicalDevices} with the given {@link AdmissionData} and {@link Patient} ids.
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientMedicalDevices} to fetch.
-     * @param patientId The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
+     * @param patientId   The id of the {@link Patient} whose {@link PatientMedicalDevices} to fetch.
      * @return A {@link List} of {@link PatientMedicalDevices} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedicalDevices> getPatientMedicalDevicesByAdmissionIdAndPatientId(final String admissionId,
@@ -724,7 +672,6 @@ public class EhrClient {
      *
      * @param diagnosis The {@link Diagnosis} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addDiagnosis(final Diagnosis diagnosis) {
@@ -736,7 +683,6 @@ public class EhrClient {
      *
      * @param diagnosis The {@link Diagnosis} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateDiagnosis(final Diagnosis diagnosis) {
@@ -747,7 +693,6 @@ public class EhrClient {
      * Returns all {@link Diagnosis} entities.
      *
      * @return A {@link List} of {@link Diagnosis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Diagnosis> getAllDiagnosis() {
@@ -759,7 +704,6 @@ public class EhrClient {
      *
      * @param diagnosisId The id of the {@link Diagnosis} to fetch.
      * @return A {@link Diagnosis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Diagnosis getDiagnosisByDiagnosisId(final String diagnosisId) {
@@ -772,7 +716,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} for which to fetch the {@link Diagnosis}.
      * @return A {@link List} of {@link Diagnosis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Diagnosis> getDiagnosisByAdmissionId(final String admissionId) {
@@ -785,7 +728,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link Diagnosis} to fetch.
      * @return A {@link List} of {@link Diagnosis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Diagnosis> getDiagnosisByPatientId(final String patientId) {
@@ -798,7 +740,6 @@ public class EhrClient {
      *
      * @param patientMedication The {@link PatientMedication} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientMedication(final PatientMedication patientMedication) {
@@ -810,7 +751,6 @@ public class EhrClient {
      *
      * @param patientMedication The {@link PatientMedication} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientMedication(final PatientMedication patientMedication) {
@@ -822,7 +762,6 @@ public class EhrClient {
      *
      * @param patientMedicationId The id of the {@link PatientMedication} to fetch.
      * @return A {@link PatientMedication} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public PatientMedication getPatientMedicationByPatientMedicationId(final String patientMedicationId) {
@@ -834,7 +773,6 @@ public class EhrClient {
      * Gets all the {@link PatientMedication} saved in EHR.
      *
      * @return A {@link List} of {@link PatientMedication} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedication> getPatientMedication() {
@@ -846,8 +784,7 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData}.
      * @return A {@link List} of {@link PatientMedication} associated with the given {@link AdmissionData} id,
-     *         or null in case of no match.
-     *
+     * or null in case of no match.
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedication> getPatientMedicationByAdmissionId(final String admissionId) {
@@ -860,14 +797,13 @@ public class EhrClient {
      * {@link Patient} id.
      *
      * @param admissionId The id of the {@link AdmissionData}.
-     * @param patientId The id of the {@link Patient}.
+     * @param patientId   The id of the {@link Patient}.
      * @return A list of {@link PatientMedication} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientMedication> getPatientMedicationByAdmissionIdAndPatientId(final String admissionId,
                                                                                  final String patientId) {
-        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\", \"patientId\":\"" + patientId +"\"}}";
+        String query = "{\"=\":{\"admissionId\":\"" + admissionId + "\", \"patientId\":\"" + patientId + "\"}}";
         return getList("SelectPatientMedications", query, PatientMedicationList.class);
     }
 
@@ -876,7 +812,6 @@ public class EhrClient {
      *
      * @param patientLabAnalysis The {@link PatientLabAnalysis} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientLabAnalysis(final PatientLabAnalysis patientLabAnalysis) {
@@ -888,7 +823,6 @@ public class EhrClient {
      *
      * @param patientLabAnalysis The {@link PatientLabAnalysis} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientLabAnalysis(final PatientLabAnalysis patientLabAnalysis) {
@@ -900,7 +834,6 @@ public class EhrClient {
      *
      * @param patientLabAnalysisId The id of the {@link PatientLabAnalysis} to fetch.
      * @return A {@link PatientLabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public PatientLabAnalysis getPatientLabAnalysisByPatientLabAnalysisId(final String patientLabAnalysisId) {
@@ -912,7 +845,6 @@ public class EhrClient {
      * Gets all the {@link PatientLabAnalysis} saved in EHR.
      *
      * @return A list of {@link PatientLabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientLabAnalysis> getAllPatientLabAnalysis() {
@@ -924,7 +856,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientLabAnalysis} to fetch.
      * @return A list of {@link PatientLabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientLabAnalysis> getPatientLabAnalysisByAdmissionId(final String admissionId) {
@@ -935,10 +866,9 @@ public class EhrClient {
     /**
      * Gets all the {@link PatientLabAnalysis} associated with a {@link Patient} and {@link AdmissionData}.
      *
-     * @param patientId The id of the {@link Patient}.
+     * @param patientId   The id of the {@link Patient}.
      * @param admissionId The id of the {@link AdmissionData}.
      * @return A list of {@link PatientLabAnalysis} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientLabAnalysis> getPatientLabAnalysisByPatientIdAndAdmissionId(final String patientId,
@@ -952,7 +882,6 @@ public class EhrClient {
      *
      * @param surgicalProcedures The {@link SurgicalProcedures} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addSurgicalProcedure(final SurgicalProcedures surgicalProcedures) {
@@ -964,7 +893,6 @@ public class EhrClient {
      *
      * @param surgicalProcedure The {@link SurgicalProcedures} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateSurgicalProcedure(final SurgicalProcedures surgicalProcedure) {
@@ -975,7 +903,6 @@ public class EhrClient {
      * Gets all the {@link SurgicalProcedures} saved in EHR.
      *
      * @return A list of {@link SurgicalProcedures} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SurgicalProcedures> getAllSurgicalProcedures() {
@@ -987,7 +914,6 @@ public class EhrClient {
      *
      * @param surgicalProcedureId The id of the {@link SurgicalProcedures} to fetch.
      * @return A {@link SurgicalProcedures} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public SurgicalProcedures getSurgicalProcedureBySurgicalProcedureId(final String surgicalProcedureId) {
@@ -1000,7 +926,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link SurgicalProcedures} to fetch.
      * @return A list of {@link SurgicalProcedures} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SurgicalProcedures> getSurgicalProceduresByAdmissionId(final String admissionId) {
@@ -1013,7 +938,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link SurgicalProcedures} to fetch.
      * @return A list of {@link SurgicalProcedures} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SurgicalProcedures> getSurgicalProceduresByPatientId(final String patientId) {
@@ -1025,9 +949,8 @@ public class EhrClient {
      * Gets all the {@link SurgicalProcedures} associated with an {@link AdmissionData} and a {@link Patient}.
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link SurgicalProcedures} to fetch.
-     * @param patientId The id fo the {@link Patient} whose {@link SurgicalProcedures} to fetch.
+     * @param patientId   The id fo the {@link Patient} whose {@link SurgicalProcedures} to fetch.
      * @return A list of {@link SurgicalProcedures} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SurgicalProcedures> getSurgicalProceduresByAdmissionIdAndPatientId(final String admissionId,
@@ -1041,7 +964,6 @@ public class EhrClient {
      *
      * @param vitalSigns The {@link VitalSigns} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addVitalSigns(final VitalSigns vitalSigns) {
@@ -1053,7 +975,6 @@ public class EhrClient {
      *
      * @param vitalSigns The {@link VitalSigns} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateVitalSigns(final VitalSigns vitalSigns) {
@@ -1064,7 +985,6 @@ public class EhrClient {
      * Gets all the {@link VitalSigns} saved in EHR.
      *
      * @return A list of {@link VitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<VitalSigns> getAllVitalSigns() {
@@ -1076,7 +996,6 @@ public class EhrClient {
      *
      * @param vitalSignsId The id of the {@link VitalSigns} to fetch.
      * @return A {@link VitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public VitalSigns getVitalSignsByVitalSignsId(final String vitalSignsId) {
@@ -1089,7 +1008,6 @@ public class EhrClient {
      *
      * @param codingId The id of the {@link Coding} whose {@link VitalSigns} to fetch.
      * @return A list of {@link VitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<VitalSigns> getVitalSignsByCodingId(final String codingId) {
@@ -1102,7 +1020,6 @@ public class EhrClient {
      *
      * @param patientVitalSigns The {@link PatientVitalSigns} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientVitalSigns(final PatientVitalSigns patientVitalSigns) {
@@ -1114,7 +1031,6 @@ public class EhrClient {
      *
      * @param patientVitalSigns The {@link PatientVitalSigns} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientVitalSigns(final PatientVitalSigns patientVitalSigns) {
@@ -1125,7 +1041,6 @@ public class EhrClient {
      * Gets all the {@link PatientVitalSigns} saved in EHR.
      *
      * @return A list of {@link PatientVitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVitalSigns> getAllPatientVitalSigns() {
@@ -1137,7 +1052,6 @@ public class EhrClient {
      *
      * @param patientVitalSignsId The id of the {@link PatientVitalSigns} to fetch.
      * @return A {@link PatientVitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public PatientVitalSigns getPatientVitalSignsByPatientVitalSignsId(final String patientVitalSignsId) {
@@ -1150,7 +1064,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVitalSigns} to fetch.
      * @return A list of {@link PatientVitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVitalSigns> getPatientVitalSignsByAdmissionId(final String admissionId) {
@@ -1163,7 +1076,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link PatientVitalSigns} to fetch.
      * @return A list of {@link PatientVitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVitalSigns> getPatientVitalSignsByPatientId(final String patientId) {
@@ -1175,9 +1087,8 @@ public class EhrClient {
      * Gets all the {@link PatientVitalSigns} associated with an {@link AdmissionData} and {@link Patient}.
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVitalSigns} to fetch.
-     * @param patientId The id of the {@link Patient} whose {@link PatientVitalSigns} to fetch.
+     * @param patientId   The id of the {@link Patient} whose {@link PatientVitalSigns} to fetch.
      * @return A list of {@link PatientVitalSigns} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVitalSigns> getPatientVitalSignsByAdmissionIdAndPatientId(final String admissionId,
@@ -1191,7 +1102,6 @@ public class EhrClient {
      *
      * @param patientBloodPressure The {@link PatientBloodPressure} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientBloodPressure(final PatientBloodPressure patientBloodPressure) {
@@ -1203,7 +1113,6 @@ public class EhrClient {
      *
      * @param patientBloodPressure The {@link PatientBloodPressure} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientBloodPressure(final PatientBloodPressure patientBloodPressure) {
@@ -1214,7 +1123,6 @@ public class EhrClient {
      * Gets all the {@link PatientBloodPressure} saved in EHR.
      *
      * @return A list of {@link PatientBloodPressure} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientBloodPressure> getAllPatientBloodPressure() {
@@ -1226,7 +1134,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientBloodPressure} to fetch.
      * @return A list of {@link PatientBloodPressure} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionId(final String admissionId) {
@@ -1239,7 +1146,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link PatientBloodPressure} to fetch.
      * @return A list of {@link PatientBloodPressure} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientBloodPressure> getAllPatientBloodPressureByPatientId(final String patientId) {
@@ -1251,9 +1157,8 @@ public class EhrClient {
      * Get all the {@link PatientBloodPressure} associated with an {@link AdmissionData} and a {@link Patient}.
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientBloodPressure} to fetch.
-     * @param patientId The id of the {@link Patient} whose {@link PatientBloodPressure} to fetch.
+     * @param patientId   The id of the {@link Patient} whose {@link PatientBloodPressure} to fetch.
      * @return A list of {@link PatientBloodPressure} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientBloodPressure> getAllPatientBloodPressureByAdmissionIdAndPatientId(final String admissionId,
@@ -1267,7 +1172,6 @@ public class EhrClient {
      *
      * @param vaccinations The {@link Vaccinations} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addVaccination(final Vaccinations vaccinations) {
@@ -1279,7 +1183,6 @@ public class EhrClient {
      *
      * @param vaccination The {@link Vaccinations} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateVaccination(final Vaccinations vaccination) {
@@ -1290,7 +1193,6 @@ public class EhrClient {
      * Gets all the {@link Vaccinations} saved in EHR.
      *
      * @return A list of {@link Vaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<Vaccinations> getAllVaccinations() {
@@ -1302,7 +1204,6 @@ public class EhrClient {
      *
      * @param vaccinationId The id of the {@link Vaccinations} to fetch.
      * @return A {@link Vaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public Vaccinations getVaccinationByVaccinationId(final String vaccinationId) {
@@ -1315,7 +1216,6 @@ public class EhrClient {
      *
      * @param patientVaccinations The {@link PatientVaccinations} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addPatientVaccination(final PatientVaccinations patientVaccinations) {
@@ -1327,7 +1227,6 @@ public class EhrClient {
      *
      * @param patientVaccination The {@link PatientVaccinations} to upadte.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updatePatientVaccination(final PatientVaccinations patientVaccination) {
@@ -1338,7 +1237,6 @@ public class EhrClient {
      * Gets all the {@link PatientVaccinations} saved in EHR.
      *
      * @return A list of {@link PatientVaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVaccinations> getAllPatientVaccinations() {
@@ -1350,7 +1248,6 @@ public class EhrClient {
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVaccinations} to fetch.
      * @return A list of {@link PatientVaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVaccinations> getPatientVaccinationsByAdmissionId(final String admissionId) {
@@ -1374,9 +1271,8 @@ public class EhrClient {
      * Gets all the {@link PatientVaccinations} associated with an {@link AdmissionData} and a {@link Patient}.
      *
      * @param admissionId The id of the {@link AdmissionData} whose {@link PatientVaccinations} to fetch.
-     * @param patientId The id of the {@link Patient} whose {@link PatientVaccinations} to fetch.
+     * @param patientId   The id of the {@link Patient} whose {@link PatientVaccinations} to fetch.
      * @return A list of {@link PatientVaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVaccinations> getPatientVaccinationsByAdmissionIdAndPatientId(final String admissionId,
@@ -1390,7 +1286,6 @@ public class EhrClient {
      *
      * @param vaccinationId The id of the {@link Vaccinations} whose {@link PatientVaccinations} to fetch.
      * @return A list of {@link PatientVaccinations} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<PatientVaccinations> getPatientVaccinationsByVaccinationId(final String vaccinationId) {
@@ -1403,7 +1298,6 @@ public class EhrClient {
      *
      * @param socialHistory The {@link SocialHistory} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addSocialHistory(final SocialHistory socialHistory) {
@@ -1415,7 +1309,6 @@ public class EhrClient {
      *
      * @param socialHistory The {@link SocialHistory} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateSocialHistory(final SocialHistory socialHistory) {
@@ -1426,7 +1319,6 @@ public class EhrClient {
      * Gets all the {@link SocialHistory} saved in EHR.
      *
      * @return A list of {@link SocialHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SocialHistory> getAllSocialHistory() {
@@ -1438,7 +1330,6 @@ public class EhrClient {
      *
      * @param socialHistoryId The id of the {@link SocialHistory} to fetch.
      * @return A {@link SocialHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public SocialHistory getSocialHistoryBySocialHistoryId(final String socialHistoryId) {
@@ -1451,7 +1342,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link SocialHistory} to fetch.
      * @return A list of {@link SocialHistory} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<SocialHistory> getSocialHistoryByPatientId(final String patientId) {
@@ -1464,7 +1354,6 @@ public class EhrClient {
      *
      * @param functionalStatus The {@link FunctionalStatus} to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String addFunctionalStatus(final FunctionalStatus functionalStatus) {
@@ -1476,7 +1365,6 @@ public class EhrClient {
      *
      * @param functionalStatus The {@link FunctionalStatus} to update.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     public String updateFunctionalStatus(final FunctionalStatus functionalStatus) {
@@ -1487,7 +1375,6 @@ public class EhrClient {
      * Gets all the {@link FunctionalStatus} saved in EHR.
      *
      * @return A list of {@link FunctionalStatus} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<FunctionalStatus> getAllFunctionalStatus() {
@@ -1499,7 +1386,6 @@ public class EhrClient {
      *
      * @param patientId The id of the {@link Patient} whose {@link FunctionalStatus} to fetch.
      * @return A list of {@link FunctionalStatus} or null in case of no match.
-     *
      * @throws EhrClientException in case of an error.
      */
     public List<FunctionalStatus> getFunctionalStatusByPatientId(final String patientId) {
@@ -1510,11 +1396,10 @@ public class EhrClient {
     /**
      * Generic method for saving entities to EHR.
      *
-     * @param path The path where to save the entity.
+     * @param path   The path where to save the entity.
      * @param entity The entity to save.
-     * @param <A> The type of the entity to save.
+     * @param <A>    The type of the entity to save.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A> String save(final String path, final A entity) {
@@ -1524,12 +1409,11 @@ public class EhrClient {
     /**
      * Generic methods to get all the entities in the given path that match the given query.
      *
-     * @param path The path to query.
-     * @param query The query to run.
+     * @param path     The path to query.
+     * @param query    The query to run.
      * @param theClass The class to convert the response to.
-     * @param <A> The type of the response.
+     * @param <A>      The type of the response.
      * @return An instance of {@link A} or null in case none matches the query.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A> A getAll(final String path, final String query, final Class<A> theClass) {
@@ -1558,11 +1442,10 @@ public class EhrClient {
     /**
      * Generic methods to get all the entities in the given path.
      *
-     * @param path  The path to query.
+     * @param path     The path to query.
      * @param theClass The class to convert the response to.
-     * @param <A> The type of the response.
+     * @param <A>      The type of the response.
      * @return An instance of A or null in case none matches the query.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A> A getAll(final String path, final Class<A> theClass) {
@@ -1572,12 +1455,11 @@ public class EhrClient {
     /**
      * Generic methods to get all the entities in the given path.
      *
-     * @param path The path to query.
-     * @param query The query to match.
+     * @param path     The path to query.
+     * @param query    The query to match.
      * @param theClass The type of the response that is {@link Listable}.
-     * @param <A> The type of entities that will be returned.
+     * @param <A>      The type of entities that will be returned.
      * @return A {@link List} of {@link A}s or null in case none matches the query.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A, B extends Listable<A>> List<A> getList(final String path,
@@ -1594,11 +1476,10 @@ public class EhrClient {
     /**
      * Generic methods to get all the entities in the given path.
      *
-     * @param path The path to query.
+     * @param path     The path to query.
      * @param theClass The type of the response that is {@link Listable}.
-     * @param <A> The type of entities that will be returned.
+     * @param <A>      The type of entities that will be returned.
      * @return A {@link List} of {@link A}s or null in case none matches the query.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A, B extends Listable<A>> List<A> getList(final String path,
@@ -1609,13 +1490,12 @@ public class EhrClient {
     /**
      * Gets the single entity of type {@link A} that matches the given query.
      *
-     * @param path The path from which to select the entity.
-     * @param query The query to match.
+     * @param path     The path from which to select the entity.
+     * @param query    The query to match.
      * @param theClass The class of type {@link B} that the response will be converted to.
-     * @param <A> The type of the entity to return.
-     * @param <B> The type of the response EHR will return.
+     * @param <A>      The type of the entity to return.
+     * @param <B>      The type of the response EHR will return.
      * @return An instance of {@link A} or null in case none matches the query.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A, B extends Listable<A>> A getSingle(final String path,
@@ -1632,11 +1512,10 @@ public class EhrClient {
     /**
      * Posts the given entity to the given path.
      *
-     * @param path The path where to post.
+     * @param path   The path where to post.
      * @param entity The entity to post.
-     * @param <A> The type of the entity to post.
+     * @param <A>    The type of the entity to post.
      * @return A JSON String.
-     *
      * @throws EhrClientException in case of an error.
      */
     private <A> String postPath(final String path, final A entity) {
@@ -1648,7 +1527,11 @@ public class EhrClient {
                 payload = Entity.json(entity);
             } else {
                 LOGGER.debug(String.format("Payload to post to: \"%s\" is a %s.", path, entity.getClass().getSimpleName()));
-                payload = Entity.json(objectMapper.writeValueAsString(entity));
+                final byte[] data = objectMapper.writeValueAsBytes(entity);
+                String json = new String(data, "UTF-8");
+                json = StringEscapeUtils.unescapeHtml4(json);
+                LOGGER.info(json);
+                payload = Entity.json(json);
             }
             LOGGER.debug(String.format("Will try to post payload: \"%s\", to: \"%s\".", payload, path));
 
@@ -1657,9 +1540,12 @@ public class EhrClient {
             LOGGER.debug(String.format("Posting entity %s to %s returned a %s response.", entity, path, statusFamily));
 
             if (statusFamily == Response.Status.Family.SUCCESSFUL) {
+                for (String key : response.getHeaders().keySet()) {
+                    LOGGER.info(key + " : " + response.getHeaders().get(key));
+                }
                 String responseString = response.readEntity(String.class);
                 LOGGER.debug(String.format("Returning \"%s\" for post to \"%s\"", responseString, path));
-                return responseString;
+                return StringEscapeUtils.unescapeHtml4(responseString);
 
             } else {
                 throw new EhrClientException(
@@ -1689,6 +1575,8 @@ public class EhrClient {
         return client.target(connectionUrl)
                 .path(path)
                 .request()
-                .header("Content-Type", "application/json");
+                .acceptEncoding("UTF-8")
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .header("Accept", "application/json; charset=UTF-8");
     }
 }
